@@ -1,1 +1,80 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>נדירות שמות רחובות בישראל</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0f1419;--card:#1a2332;--text:#e7ecf3;--muted:#8b9bb4;--accent:#3b82f6;--border:#2d3a4f}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding-bottom:3rem}
+header{background:linear-gradient(135deg,#1e3a5f,#0f1419);padding:2rem 1rem;text-align:center;border-bottom:1px solid var(--border)}
+header h1{font-size:1.8rem;margin-bottom:.4rem}header p{color:var(--muted);max-width:700px;margin:0 auto;font-size:.95rem}
+.container{max-width:1100px;margin:0 auto;padding:1.2rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1.2rem 0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.card .num{font-size:1.6rem;font-weight:700;color:var(--accent)}.card .label{font-size:.8rem;color:var(--muted)}
+section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem;margin-bottom:1.2rem}
+section h2{font-size:1.15rem;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+.chart-wrap{position:relative;height:400px;margin:1rem 0}
+.insight{background:var(--bg);border-radius:10px;padding:.8rem 1rem;border-right:3px solid var(--accent);margin:.5rem 0;font-size:.92rem}
+.badge{display:inline-block;padding:.15rem .5rem;border-radius:999px;font-size:.75rem;font-weight:600}
+.badge.arab{background:rgba(16,185,129,.2);color:#34d399}.badge.jew{background:rgba(99,102,241,.2);color:#a5b4fc}
+table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{padding:.4rem .55rem;text-align:right;border-bottom:1px solid var(--border)}
+th{color:var(--muted);cursor:pointer}tr:hover td{background:rgba(59,130,246,.08)}
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem;align-items:center}
+.filters select,.filters input{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.3rem .5rem}
+.table-wrap{max-height:420px;overflow:auto}footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:1.5rem}
+a{color:#60a5fa}
+</style>
+</head>
+<body>
+<header>
+<h1>נדירות שמות רחובות בישראל</h1>
+<p>ניתוח שמות רחובות ייחודיים בכל עיר — מדדי נדירות, השוואות ערבי/יהודי, גודל וותק. מקור: רשות האוכלוסין 2026 + הלמ״ס.</p>
+</header>
+<div class="container">
+<div class="cards" id="cards"></div>
+<section><h2>מה המדד?</h2>
+<div class="insight"><strong>משקל נדירות לוגריתמי:</strong> רחוב ייחודי=1.0, רחוב ב־10 מקומות≈0.29. ממוצע הנדירות = איכות; סכום = כמות ייחודיות אפקטיבית.</div>
+<div class="insight">הוסרו רחובות מספריים. בוצע נרמול (קידומות, ה׳ הידיעה, שמות אישים).</div>
+</section>
+<section><h2>ממוצע נדירות — 25 הגבוהות</h2><div class="chart-wrap"><canvas id="cMean"></canvas></div></section>
+<section><h2>סכום נדירות — 20 הגבוהות</h2><div class="chart-wrap"><canvas id="cSum"></canvas></div></section>
+<section><h2>ערביות מול יהודיות</h2><div class="chart-wrap" style="height:260px"><canvas id="cGrp"></canvas></div>
+<div class="insight"><strong>המשתנה החזק ביותר:</strong> ערים ערביות ~74.5% מול יהודיות ~50% (p<10⁻¹⁰).</div></section>
+<section><h2>טבלת כל הערים</h2>
+<div class="filters">
+<select id="fg"><option value="all">הכל</option><option value="arab">ערביות</option><option value="jewish">יהודיות</option></select>
+<select id="sb"><option value="rarity_mean_log">ממוצע נדירות</option><option value="rarity_sum_log">סכום נדירות</option><option value="streets">רחובות</option><option value="population">אוכלוסייה</option><option value="name">שם</option></select>
+<input type="search" id="q" placeholder="חיפוש...">
+</div>
+<div class="table-wrap"><table><thead><tr><th>עיר</th><th>מחוז</th><th>רחובות</th><th>ממוצע %</th><th>סכום</th><th>אוכלוסייה</th><th>סוג</th></tr></thead><tbody id="tb"></tbody></table></div>
+</section>
+<section><h2>מסקנות</h2>
+<div class="insight">נדירות שמות הרחובות היא בעיקר תופעה <strong>תרבותית-לשונית</strong>.</div>
+<div class="insight">ערים ערביות (וגם חרדיות חדשות) מייצרות מאגר שמות מקומי וייחודי בהרבה.</div>
+<div class="insight">ערי פיתוח וקריות משנות ה־50–70 בולטות בנדירות נמוכה (קרית ים, כפר יונה, חריש…).</div>
+<div class="insight">ירושלים מובילה בכמות הייחודיות האפקטיבית בזכות גודל + שמות מקומיים.</div>
+</section>
+<footer>מקורות: רשות האוכלוסין · הלמ״ס · <a href="https://github.com/baobabprince/israel-street-rarity">GitHub</a></footer>
+</div>
+<script>
+const DATA=[];
+/* DATA_PLACEHOLDER */
+function fmt(n){return n==null||isNaN(n)?'—':Number(n).toLocaleString('he-IL')}
+const arab=DATA.filter(d=>d.is_arab),jew=DATA.filter(d=>!d.is_arab);
+const mA=arab.reduce((s,d)=>s+d.rarity_mean_log,0)/arab.length,mJ=jew.reduce((s,d)=>s+d.rarity_mean_log,0)/jew.length;
+document.getElementById('cards').innerHTML=`<div class="card"><div class="num">${DATA.length}</div><div class="label">ערים</div></div><div class="card"><div class="num">${mA.toFixed(0)}%</div><div class="label">ממוצע · ערביות</div></div><div class="card"><div class="num">${mJ.toFixed(0)}%</div><div class="label">ממוצע · יהודיות</div></div><div class="card"><div class="num">3646</div><div class="label">ציון ירושלים</div></div>`;
+const topM=[...DATA].sort((a,b)=>b.rarity_mean_log-a.rarity_mean_log).slice(0,25);
+new Chart(document.getElementById('cMean'),{type:'bar',data:{labels:topM.map(d=>d.name),datasets:[{data:topM.map(d=>d.rarity_mean_log),backgroundColor:topM.map(d=>d.is_arab?'rgba(16,185,129,.85)':'rgba(99,102,241,.75)'),borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{max:100,ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}}}});
+const topS=[...DATA].sort((a,b)=>b.rarity_sum_log-a.rarity_sum_log).slice(0,20);
+new Chart(document.getElementById('cSum'),{type:'bar',data:{labels:topS.map(d=>d.name),datasets:[{data:topS.map(d=>d.rarity_sum_log),backgroundColor:topS.map(d=>d.is_arab?'rgba(16,185,129,.85)':'rgba(59,130,246,.75)'),borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}}}});
+new Chart(document.getElementById('cGrp'),{type:'bar',data:{labels:['ממוצע נדירות %','ממוצע רחובות ÷10'],datasets:[{label:'ערביות',data:[mA,arab.reduce((s,d)=>s+d.streets,0)/arab.length/10],backgroundColor:'rgba(16,185,129,.8)'},{label:'יהודיות',data:[mJ,jew.reduce((s,d)=>s+d.streets,0)/jew.length/10],backgroundColor:'rgba(99,102,241,.8)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e7ecf3'}}},scales:{x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},y:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}}}}});
+let sortCol='rarity_mean_log',sortDir=-1;
+function render(){const g=document.getElementById('fg').value,q=document.getElementById('q').value.trim();let rows=[...DATA];if(g==='arab')rows=rows.filter(d=>d.is_arab);if(g==='jewish')rows=rows.filter(d=>!d.is_arab);if(q)rows=rows.filter(d=>d.name.includes(q));rows.sort((a,b)=>{const va=a[sortCol],vb=b[sortCol];return typeof va==='string'?sortDir*va.localeCompare(vb,'he'):sortDir*((va||0)-(vb||0))});document.getElementById('tb').innerHTML=rows.map(d=>`<tr><td><strong>${d.name}</strong></td><td>${d.district||'—'}</td><td>${fmt(d.streets)}</td><td>${d.rarity_mean_log?.toFixed(1)??'—'}</td><td>${d.rarity_sum_log?.toFixed(0)??'—'}</td><td>${fmt(d.population)}</td><td><span class="badge ${d.is_arab?'arab':'jew'}">${d.is_arab?'ערבית':'יהודית'}</span></td></tr>`).join('')}
+document.getElementById('fg').onchange=render;document.getElementById('q').oninput=render;document.getElementById('sb').onchange=function(){sortCol=this.value;sortDir=-1;render()};
+render();
+</script>
+</body>
+</html>
