@@ -17,8 +17,6 @@ if not (OUT / "index.html").exists():
 STREETS_ID = "9ad3862c-8391-4b2f-84a4-2d4c68625f4b"
 CBS_ID = "d47a54ff-87f0-44b3-b33a-f284c0c38e5a"
 API = "https://data.gov.il/api/3/action/datastore_search"
-
-# Cities + local councils in main ranking; other statuses labeled יישוב when present
 INCLUDED_STATUS = {"עירייה", "מועצה מקומית"}
 
 def fetch_all(rid, limit=32000):
@@ -84,13 +82,12 @@ def normalize(name):
         s = s[1:]
     return s
 
-def status_category(status):
-    if status == "עירייה":
+def kind_from_status(status):
+    s = "" if status is None or (isinstance(status, float) and np.isnan(status)) else str(status).strip()
+    if s == "עירייה":
         return "עיר"
-    if status == "מועצה מקומית":
+    if s == "מועצה מקומית":
         return "מועצה מקומית"
-    if pd.isna(status) or status is None or str(status).strip() == "":
-        return "יישוב"
     return "יישוב"
 
 ARAB = {
@@ -112,27 +109,25 @@ def main():
     df["n"] = df["norm"].map(nloc)
     df["w"] = 1.0 / np.log2(1 + df["n"])
 
-    # Examples pool: unique + mid + common (for client-side random picks)
     name_places = (
         df.groupby("norm")
         .agg(n=("סמל_ישוב", "nunique"), place=("שם_ישוב", "first"), raw=("שם_רחוב", "first"))
         .reset_index()
     )
-    unique_pool = name_places[name_places["n"] == 1].sample(n=min(80, (name_places["n"] == 1).sum()), random_state=42)
-    mid_pool = name_places[(name_places["n"] >= 2) & (name_places["n"] <= 15)].sample(
-        n=min(60, ((name_places["n"] >= 2) & (name_places["n"] <= 15)).sum()), random_state=42
-    )
-    common_pool = name_places[name_places["n"] >= 50].sample(
-        n=min(40, (name_places["n"] >= 50).sum()), random_state=42
-    )
+    n_unique = int((name_places["n"] == 1).sum())
+    n_mid = int(((name_places["n"] >= 2) & (name_places["n"] <= 15)).sum())
+    n_common = int((name_places["n"] >= 50).sum())
+    unique_pool = name_places[name_places["n"] == 1].sample(n=min(80, n_unique), random_state=42)
+    mid_pool = name_places[(name_places["n"] >= 2) & (name_places["n"] <= 15)].sample(n=min(60, n_mid), random_state=42)
+    common_pool = name_places[name_places["n"] >= 50].sample(n=min(40, n_common), random_state=42)
     examples = []
     for _, row in pd.concat([unique_pool, mid_pool, common_pool]).iterrows():
         w = float(1.0 / np.log2(1 + row["n"]))
         examples.append({
-            "name": row["norm"],
-            "raw": row["raw"],
+            "name": str(row["norm"]),
+            "raw": str(row["raw"]),
             "n_places": int(row["n"]),
-            "example_place": row["place"],
+            "example_place": str(row["place"]),
             "weight": round(w, 3),
             "unique": int(row["n"]) == 1,
         })
@@ -165,7 +160,6 @@ def main():
         how="left",
     )
     places = m[m["status"].isin(INCLUDED_STATUS)].copy()
-    places["kind"] = places["status"].map(status_category)
     places["is_arab"] = places["שם_ישוב"].isin(ARAB) | places["שם_ישוב"].str.contains(
         r"אל-|אום |טמרה|טירה|נצרת|שפרעם|רהט|טייבה|מגאר|סח|עראבה|קלנסווה|באקה", na=False
     )
@@ -173,11 +167,12 @@ def main():
 
     out = []
     for _, r in places.iterrows():
+        st = r["status"] if pd.notna(r["status"]) else None
         out.append({
             "name": r["שם_ישוב"],
             "district": r["district"] if pd.notna(r["district"]) else None,
-            "status": r["status"] if pd.notna(r["status"]) else None,
-            "kind": r["kind"],
+            "status": st,
+            "kind": kind_from_status(st),
             "streets": int(r["streets"]) if pd.notna(r["streets"]) else 0,
             "pure_exclusive": int(r["pure_exclusive"]) if pd.notna(r["pure_exclusive"]) else 0,
             "rarity_mean_log": float(r["rarity_mean_log"]) if pd.notna(r["rarity_mean_log"]) else None,
@@ -189,7 +184,8 @@ def main():
     out.sort(key=lambda x: -(x["rarity_mean_log"] or 0))
     (OUT / "data.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     (OUT / "data.min.json").write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    print(f"Wrote {len(out)} places")
+    from collections import Counter
+    print(f"Wrote {len(out)} places", Counter(x["kind"] for x in out))
 
 if __name__ == "__main__":
     main()
