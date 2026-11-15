@@ -42,11 +42,13 @@ th{color:var(--muted)}
 .table-wrap{max-height:440px;overflow:auto}
 .filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem;align-items:center}
 .filters select,.filters input{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.35rem .55rem}
+.metric-bar{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:1rem 0;padding:.85rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.metric-bar label{color:var(--muted);font-size:.9rem}
+.metric-bar select{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.4rem .7rem;font-size:.95rem}
 footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.8rem}
 footer a{color:#60a5fa}
 .loading{text-align:center;padding:3rem;color:var(--muted)}
 .error{color:#f87171;padding:1rem}
-.formula{background:#0b1220;border-radius:8px;padding:.7rem 1rem;margin:.5rem 0;border:1px solid var(--border)}
 .ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-top:.8rem}
 .ex-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem}
 .ex-card .en{font-weight:700;font-size:1.05rem;margin-bottom:.25rem}
@@ -73,27 +75,40 @@ footer a{color:#60a5fa}
   <p class="muted">מקור: רשות האוכלוסין (data.gov.il) + הלמ״ס. מעודכן ב-GitHub Actions.</p>
 </section>
 
-<section id="examples-section">
-  <h2>דוגמאות להמחשה <span class="muted" style="font-weight:400;font-size:.9rem">(מתחלפות בכל טעינה)</span></h2>
-  <p class="muted">חמש דוגמאות אקראיות משמות רחובות אמיתיים — לפחות אחת ייחודית ליישוב אחד בלבד.</p>
-  <div class="ex-grid" id="examples">טוען דוגמאות…</div>
-</section>
-
 <section>
   <h2>איך מחשבים</h2>
   <ol style="margin:.4rem 1.2rem">
     <li>מורידים את כל שמות הרחובות ומנרמלים אותם.</li>
     <li>סופרים בכמה יישובים מופיע כל שם מנורמל (<code>n</code>).</li>
-    <li>משקל: <code dir="ltr">1 / log₂(1+n)</code> — ייחודי=1.0, נפוץ=נמוך.</li>
+    <li>משקל לפי נוסחה (לוג או שורש) — ייחודי=1.0, נפוץ=נמוך.</li>
     <li>לכל יישוב: ממוצע נדירות (איכות) וסכום נדירות (כמות).</li>
   </ol>
+  <h3>שתי נוסחאות</h3>
+  <p><strong>לוג (ברירת מחדל):</strong> <code dir="ltr">1 / log₂(1+n)</code> — מתון יותר לשמות נפוצים.</p>
+  <p><strong>שורש:</strong> <code dir="ltr">1 / √n</code> — מעניש חזק יותר שמות שמופיעים בעשרות/מאות יישובים.</p>
+  <p class="muted">אפשר להחליף בין הנוסחאות בסרגל למטה — הגרפים והטבלה מתעדכנים מיד.</p>
   <h3>נרמול</h3>
   <p>הסרת מספריים בלבד; קידומות (רחוב/שדרות/דרך…); ה׳ הידיעה; איחוד וריאנטים (ז׳בוטינסקי, הרצל, בן גוריון…).</p>
   <h3>סוגי יישובים</h3>
-  <p>הטבלה מפרידה בין <strong>עיר</strong> (עירייה), <strong>מועצה מקומית</strong>, ו־<strong>יישוב</strong> (שאר המעמדות, אם ייכללו). העמודה «מעמד» מאפשרת סינון.</p>
+  <p>הטבלה מפרידה בין <strong>עיר</strong>, <strong>מועצה מקומית</strong> ו־<strong>יישוב</strong>.</p>
 </section>
 
+<div class="metric-bar">
+  <label for="metric">נוסחת משקל:</label>
+  <select id="metric">
+    <option value="log">לוג — 1/log₂(1+n)</option>
+    <option value="sqrt">שורש — 1/√n</option>
+  </select>
+  <span class="muted" id="metric-hint">מתון יותר לשמות נפוצים</span>
+</div>
+
 <div id="app" class="loading">טוען נתונים…</div>
+
+<section id="examples-section">
+  <h2>דוגמאות להמחשה <span class="muted" style="font-weight:400;font-size:.9rem">(מתחלפות בכל טעינה)</span></h2>
+  <p class="muted">חמש דוגמאות אקראיות — לפחות אחת ייחודית ליישוב אחד בלבד. המשקל מתעדכן לפי הנוסחה שנבחרה.</p>
+  <div class="ex-grid" id="examples">טוען דוגמאות…</div>
+</section>
 
 <section>
   <h2>קוד מקור</h2>
@@ -114,6 +129,9 @@ function kindBadge(d){
   const cls=k==='עיר'?'city':k==='מועצה מקומית'?'council':'settle';
   return `<span class="badge ${cls}">${k}</span>`;
 }
+function kindOf(d){
+  return d.kind||(d.status==='עירייה'?'עיר':d.status==='מועצה מקומית'?'מועצה מקומית':'יישוב');
+}
 function pickExamples(pool){
   if(!pool||!pool.length) return [];
   const uniq=pool.filter(e=>e.unique);
@@ -125,15 +143,131 @@ function pickExamples(pool){
     const i=Math.floor(Math.random()*bag.length);
     out.push(bag.splice(i,1)[0]);
   }
-  while(out.length<5 && uniq.length>out.filter(e=>e.unique).length){
-    const u=uniq[Math.floor(Math.random()*uniq.length)];
-    if(!out.find(x=>x.name===u.name)) out.push(u); else break;
-  }
   return out.slice(0,5);
 }
+
+let DATA=[], EXAMPLES=[], PICKED=[];
+let metric='log';
+let charts={};
+let sortCol='rarity_mean_log', sortDir=-1;
+
+function meanKey(){return metric==='sqrt'?'rarity_mean_sqrt':'rarity_mean_log'}
+function sumKey(){return metric==='sqrt'?'rarity_sum_sqrt':'rarity_sum_log'}
+function meanOf(d){const v=d[meanKey()]; return v!=null?v:(d.rarity_mean_log||0)}
+function sumOf(d){const v=d[sumKey()]; return v!=null?v:(d.rarity_sum_log||0)}
+
+function renderExamples(){
+  const el=document.getElementById('examples');
+  if(!PICKED.length){
+    el.innerHTML='<p class="muted">אין examples.json — הריצו את ה-Action.</p>';
+    return;
+  }
+  el.innerHTML=PICKED.map(e=>{
+    const w=metric==='sqrt'?(e.weight_sqrt??e.weight):(e.weight_log??e.weight);
+    return `<div class="ex-card">
+      <div class="en">${e.name}</div>
+      <div class="meta">${e.unique
+        ? `<span class="badge uniq">ייחודי לגמרי</span> · רק ב${e.example_place||'יישוב אחד'}`
+        : `<span class="badge common">ב־${e.n_places} יישובים</span> · משקל ${w}`}
+      </div></div>`;
+  }).join('');
+}
+
+function rebuildCharts(){
+  const arab=DATA.filter(d=>d.is_arab), jew=DATA.filter(d=>!d.is_arab);
+  const mA=arab.length?arab.reduce((s,d)=>s+meanOf(d),0)/arab.length:0;
+  const mJ=jew.length?jew.reduce((s,d)=>s+meanOf(d),0)/jew.length:0;
+
+  const topM=[...DATA].sort((a,b)=>meanOf(b)-meanOf(a)).slice(0,25);
+  const topS=[...DATA].sort((a,b)=>sumOf(b)-sumOf(a)).slice(0,20);
+
+  if(charts.mean) charts.mean.destroy();
+  charts.mean=new Chart(document.getElementById('cMean'),{
+    type:'bar',
+    data:{labels:topM.map(d=>d.name),datasets:[{data:topM.map(d=>meanOf(d)),
+      backgroundColor:topM.map(d=>d.is_arab?'rgba(16,185,129,.85)':'rgba(99,102,241,.75)'),borderRadius:4}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{max:100,ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
+              y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}}}
+  });
+
+  if(charts.sum) charts.sum.destroy();
+  charts.sum=new Chart(document.getElementById('cSum'),{
+    type:'bar',
+    data:{labels:topS.map(d=>d.name),datasets:[{data:topS.map(d=>sumOf(d)),
+      backgroundColor:topS.map(d=>d.is_arab?'rgba(16,185,129,.85)':'rgba(59,130,246,.75)'),borderRadius:4}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
+              y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}}}
+  });
+
+  if(charts.grp) charts.grp.destroy();
+  charts.grp=new Chart(document.getElementById('cGrp'),{
+    type:'bar',
+    data:{labels:['ממוצע נדירות %','ממוצע רחובות÷10'],
+      datasets:[
+        {label:'ערביות',data:[mA,arab.reduce((s,d)=>s+(d.streets||0),0)/(arab.length||1)/10],backgroundColor:'rgba(16,185,129,.8)'},
+        {label:'יהודיות',data:[mJ,jew.reduce((s,d)=>s+(d.streets||0),0)/(jew.length||1)/10],backgroundColor:'rgba(99,102,241,.8)'}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e7ecf3'}}},
+      scales:{x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},y:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}}}}
+  });
+
+  const cards=document.getElementById('summary-cards');
+  if(cards){
+    const jer=DATA.find(d=>d.name&&d.name.includes('ירושלים'));
+    const cities=DATA.filter(d=>kindOf(d)==='עיר');
+    const councils=DATA.filter(d=>kindOf(d)==='מועצה מקומית');
+    cards.innerHTML=`
+      <div class="card"><div class="num">${DATA.length}</div><div class="label">סה״כ ברשימה</div></div>
+      <div class="card"><div class="num">${cities.length}</div><div class="label">ערים</div></div>
+      <div class="card"><div class="num">${councils.length}</div><div class="label">מועצות מקומיות</div></div>
+      <div class="card"><div class="num">${mA.toFixed(0)}% / ${mJ.toFixed(0)}%</div><div class="label">ממוצע ערבי / יהודי</div></div>
+      <div class="card"><div class="num">${jer?Math.round(sumOf(jer)):'—'}</div><div class="label">סכום ירושלים</div></div>`;
+  }
+}
+
+function renderTable(){
+  const k=document.getElementById('fk').value;
+  const g=document.getElementById('fg').value;
+  const q=document.getElementById('q').value.trim();
+  let rows=[...DATA];
+  if(k!=='all') rows=rows.filter(d=>kindOf(d)===k);
+  if(g==='arab') rows=rows.filter(d=>d.is_arab);
+  if(g==='jewish') rows=rows.filter(d=>!d.is_arab);
+  if(q) rows=rows.filter(d=>d.name&&d.name.includes(q));
+  const col=sortCol==='rarity_mean_log'?meanKey():sortCol==='rarity_sum_log'?sumKey():sortCol;
+  rows.sort((a,b)=>{
+    let va=col==='name'?a.name:(a[col]??(col.includes('mean')?meanOf(a):col.includes('sum')?sumOf(a):0));
+    let vb=col==='name'?b.name:(b[col]??(col.includes('mean')?meanOf(b):col.includes('sum')?sumOf(b):0));
+    if(sortCol==='rarity_mean_log'){va=meanOf(a);vb=meanOf(b)}
+    if(sortCol==='rarity_sum_log'){va=sumOf(a);vb=sumOf(b)}
+    return typeof va==='string'?sortDir*String(va).localeCompare(String(vb),'he'):sortDir*((va||0)-(vb||0));
+  });
+  document.getElementById('tb').innerHTML=rows.map(d=>`<tr>
+    <td><strong>${d.name}</strong></td>
+    <td>${kindBadge(d)}</td>
+    <td>${d.district||'—'}</td>
+    <td>${fmt(d.streets)}</td>
+    <td>${fmt(d.pure_exclusive)}</td>
+    <td>${meanOf(d).toFixed(1)}</td>
+    <td>${sumOf(d).toFixed(0)}</td>
+    <td>${fmt(d.population)}</td>
+    <td><span class="badge ${d.is_arab?'arab':'jew'}">${d.is_arab?'ערבית':'יהודית'}</span></td>
+  </tr>`).join('');
+}
+
+function onMetricChange(){
+  metric=document.getElementById('metric').value;
+  document.getElementById('metric-hint').textContent=
+    metric==='sqrt'?'מעניש חזק יותר שמות נפוצים':'מתון יותר לשמות נפוצים';
+  rebuildCharts();
+  renderTable();
+  renderExamples();
+}
+
 async function main(){
   const app=document.getElementById('app');
-  let DATA=[], EXAMPLES=[];
   try{
     const [rd,re]=await Promise.all([
       fetch('data.json?t='+Date.now()),
@@ -146,41 +280,13 @@ async function main(){
     app.innerHTML='<p class="error">שגיאה בטעינת נתונים. הריצו את ה-Action לעדכון.</p>';
     return;
   }
-
-  // Examples
-  const picked=pickExamples(EXAMPLES);
-  const exEl=document.getElementById('examples');
-  if(!picked.length){
-    exEl.innerHTML='<p class="muted">אין עדיין examples.json — הריצו את ה-Action.</p>';
-  }else{
-    exEl.innerHTML=picked.map(e=>`
-      <div class="ex-card">
-        <div class="en">${e.name}</div>
-        <div class="meta">${e.unique
-          ? `<span class="badge uniq">ייחודי לגמרי</span> · רק ב${e.example_place||'יישוב אחד'}`
-          : `<span class="badge common">ב־${e.n_places} יישובים</span> · משקל ${e.weight}`}
-        </div>
-      </div>`).join('');
-  }
-
-  const arab=DATA.filter(d=>d.is_arab), jew=DATA.filter(d=>!d.is_arab);
-  const cities=DATA.filter(d=>(d.kind||d.status)==='עיר'||d.status==='עירייה');
-  const councils=DATA.filter(d=>(d.kind||'')==='מועצה מקומית'||d.status==='מועצה מקומית');
-  const mA=arab.length?arab.reduce((s,d)=>s+(d.rarity_mean_log||0),0)/arab.length:0;
-  const mJ=jew.length?jew.reduce((s,d)=>s+(d.rarity_mean_log||0),0)/jew.length:0;
-  const jer=DATA.find(d=>d.name&&d.name.includes('ירושלים'));
+  PICKED=pickExamples(EXAMPLES);
 
   app.innerHTML=`
-  <div class="cards">
-    <div class="card"><div class="num">${DATA.length}</div><div class="label">סה״כ ברשימה</div></div>
-    <div class="card"><div class="num">${cities.length}</div><div class="label">ערים</div></div>
-    <div class="card"><div class="num">${councils.length}</div><div class="label">מועצות מקומיות</div></div>
-    <div class="card"><div class="num">${mA.toFixed(0)}% / ${mJ.toFixed(0)}%</div><div class="label">ממוצע ערבי / יהודי</div></div>
-    <div class="card"><div class="num">${jer?Math.round(jer.rarity_sum_log):'—'}</div><div class="label">סכום ירושלים</div></div>
-  </div>
+  <div class="cards" id="summary-cards"></div>
   <section>
     <h2>גודל יישוב × שמות ייחודיים</h2>
-    <p class="muted">ציר X: אוכלוסייה (לוג). ציר Y: מספר שמות שמופיעים רק ביישוב הזה. צבע לפי מעמד.</p>
+    <p class="muted">ציר X: אוכלוסייה (לוג). ציר Y: שמות שמופיעים רק ביישוב הזה. לא תלוי בנוסחת המשקל.</p>
     <div class="chart-wrap"><canvas id="cScatter"></canvas></div>
   </section>
   <section>
@@ -223,98 +329,33 @@ async function main(){
     </table></div>
   </section>`;
 
-  // Scatter: pop vs pure_exclusive
   const sc=DATA.filter(d=>d.population>0);
-  const byKind=k=>sc.filter(d=>{
-    const kk=d.kind||(d.status==='עירייה'?'עיר':d.status==='מועצה מקומית'?'מועצה מקומית':'יישוב');
-    return kk===k;
-  });
-  new Chart(document.getElementById('cScatter'),{
+  const byKind=k=>sc.filter(d=>kindOf(d)===k);
+  charts.scatter=new Chart(document.getElementById('cScatter'),{
     type:'scatter',
     data:{datasets:[
-      {label:'עיר',data:byKind('עיר').map(d=>({x:d.population,y:d.pure_exclusive,name:d.name})),
-        backgroundColor:'rgba(59,130,246,.65)'},
-      {label:'מועצה מקומית',data:byKind('מועצה מקומית').map(d=>({x:d.population,y:d.pure_exclusive,name:d.name})),
-        backgroundColor:'rgba(245,158,11,.65)'},
-      {label:'יישוב',data:byKind('יישוב').map(d=>({x:d.population,y:d.pure_exclusive,name:d.name})),
-        backgroundColor:'rgba(148,163,184,.65)'}
+      {label:'עיר',data:byKind('עיר').map(d=>({x:d.population,y:d.pure_exclusive,name:d.name})),backgroundColor:'rgba(59,130,246,.65)'},
+      {label:'מועצה מקומית',data:byKind('מועצה מקומית').map(d=>({x:d.population,y:d.pure_exclusive,name:d.name})),backgroundColor:'rgba(245,158,11,.65)'},
+      {label:'יישוב',data:byKind('יישוב').map(d=>({x:d.population,y:d.pure_exclusive,name:d.name})),backgroundColor:'rgba(148,163,184,.65)'}
     ]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{labels:{color:'#e7ecf3'}},
-        tooltip:{callbacks:{label:ctx=>{
-          const p=ctx.raw; return `${p.name}: אוכ׳ ${fmt(p.x)}, ייחודיים ${p.y}`;
-        }}}},
+        tooltip:{callbacks:{label:ctx=>{const p=ctx.raw; return `${p.name}: אוכ׳ ${fmt(p.x)}, ייחודיים ${p.y}`}}}},
       scales:{
-        x:{type:'logarithmic',title:{display:true,text:'אוכלוסייה (לוג)',color:'#8b9bb4'},
-          ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
-        y:{title:{display:true,text:'שמות ייחודיים',color:'#8b9bb4'},
-          ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}}
+        x:{type:'logarithmic',title:{display:true,text:'אוכלוסייה (לוג)',color:'#8b9bb4'},ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
+        y:{title:{display:true,text:'שמות ייחודיים',color:'#8b9bb4'},ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}}
       }}
   });
 
-  const topM=[...DATA].sort((a,b)=>(b.rarity_mean_log||0)-(a.rarity_mean_log||0)).slice(0,25);
-  new Chart(document.getElementById('cMean'),{
-    type:'bar',
-    data:{labels:topM.map(d=>d.name),datasets:[{data:topM.map(d=>d.rarity_mean_log),
-      backgroundColor:topM.map(d=>d.is_arab?'rgba(16,185,129,.85)':'rgba(99,102,241,.75)'),borderRadius:4}]},
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-      scales:{x:{max:100,ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
-              y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}}}
-  });
-  const topS=[...DATA].sort((a,b)=>(b.rarity_sum_log||0)-(a.rarity_sum_log||0)).slice(0,20);
-  new Chart(document.getElementById('cSum'),{
-    type:'bar',
-    data:{labels:topS.map(d=>d.name),datasets:[{data:topS.map(d=>d.rarity_sum_log),
-      backgroundColor:topS.map(d=>d.is_arab?'rgba(16,185,129,.85)':'rgba(59,130,246,.75)'),borderRadius:4}]},
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-      scales:{x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
-              y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}}}
-  });
-  new Chart(document.getElementById('cGrp'),{
-    type:'bar',
-    data:{labels:['ממוצע נדירות %','ממוצע רחובות÷10'],
-      datasets:[
-        {label:'ערביות',data:[mA,arab.reduce((s,d)=>s+(d.streets||0),0)/(arab.length||1)/10],backgroundColor:'rgba(16,185,129,.8)'},
-        {label:'יהודיות',data:[mJ,jew.reduce((s,d)=>s+(d.streets||0),0)/(jew.length||1)/10],backgroundColor:'rgba(99,102,241,.8)'}
-      ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e7ecf3'}}},
-      scales:{x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},y:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}}}}
-  });
+  document.getElementById('metric').onchange=onMetricChange;
+  document.getElementById('fk').onchange=renderTable;
+  document.getElementById('fg').onchange=renderTable;
+  document.getElementById('q').oninput=renderTable;
+  document.getElementById('sb').onchange=function(){sortCol=this.value;sortDir=-1;renderTable()};
 
-  let sortCol='rarity_mean_log', sortDir=-1;
-  function kindOf(d){
-    return d.kind||(d.status==='עירייה'?'עיר':d.status==='מועצה מקומית'?'מועצה מקומית':'יישוב');
-  }
-  function render(){
-    const k=document.getElementById('fk').value;
-    const g=document.getElementById('fg').value;
-    const q=document.getElementById('q').value.trim();
-    let rows=[...DATA];
-    if(k!=='all') rows=rows.filter(d=>kindOf(d)===k);
-    if(g==='arab') rows=rows.filter(d=>d.is_arab);
-    if(g==='jewish') rows=rows.filter(d=>!d.is_arab);
-    if(q) rows=rows.filter(d=>d.name&&d.name.includes(q));
-    rows.sort((a,b)=>{
-      const va=a[sortCol], vb=b[sortCol];
-      return typeof va==='string'?sortDir*String(va).localeCompare(String(vb),'he'):sortDir*((va||0)-(vb||0));
-    });
-    document.getElementById('tb').innerHTML=rows.map(d=>`<tr>
-      <td><strong>${d.name}</strong></td>
-      <td>${kindBadge(d)}</td>
-      <td>${d.district||'—'}</td>
-      <td>${fmt(d.streets)}</td>
-      <td>${fmt(d.pure_exclusive)}</td>
-      <td>${d.rarity_mean_log!=null?d.rarity_mean_log.toFixed(1):'—'}</td>
-      <td>${d.rarity_sum_log!=null?d.rarity_sum_log.toFixed(0):'—'}</td>
-      <td>${fmt(d.population)}</td>
-      <td><span class="badge ${d.is_arab?'arab':'jew'}">${d.is_arab?'ערבית':'יהודית'}</span></td>
-    </tr>`).join('');
-  }
-  document.getElementById('fk').onchange=render;
-  document.getElementById('fg').onchange=render;
-  document.getElementById('q').oninput=render;
-  document.getElementById('sb').onchange=function(){sortCol=this.value;sortDir=-1;render()};
-  render();
+  rebuildCharts();
+  renderTable();
+  renderExamples();
 }
 main();
 </script>
