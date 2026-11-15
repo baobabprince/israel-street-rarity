@@ -44,25 +44,28 @@ def normalize(name):
     if not isinstance(name, str):
         return ""
     s = name.strip()
-    # Leading type prefixes (street / ave / alley / neighborhood…)
+    # Unify quotes early so prefixes like שכ' match
+    s = s.replace("'", "׳").replace("`", "׳").replace("'", "׳")
+    s = re.sub(r"\s+", " ", s).strip()
+    # Leading type prefixes
     for p in [
-        r"^רחוב\s+", r"^רח'\s+", r"^רח\.\s+", r"^רח\s+",
-        r"^שדרות\s+", r"^שד['׳']\s+", r"^שד\.\s+", r"^שד\s+",
+        r"^רחוב\s+", r"^רח׳\s+", r"^רח\.\s+", r"^רח\s+",
+        r"^שדרות\s+", r"^שד׳\s+", r"^שד\.\s+", r"^שד\s+",
         r"^דרך\s+", r"^סמטת\s+", r"^סמטה\s+", r"^כיכר\s+", r"^ככר\s+",
         r"^מעלה\s+", r"^שביל\s+", r"^טיילת\s+",
-        r"^שכונת\s+", r"^שכונה\s+", r"^שכ['׳']\s+", r"^שכ\.\s+", r"^שכ\s+",
+        r"^שכונת\s+", r"^שכונה\s+", r"^שכ׳\s+", r"^שכ\.\s+", r"^שכ\s+",
     ]:
         s = re.sub(p, "", s)
-    s = s.replace("'", "׳").replace("`", "׳")
     s = re.sub(r"\s+", " ", s).strip()
     s = re.sub(r"\s*\(.*\)\s*$", "", s).strip()
-    # Trailing alley / branch numbers: "כרם אל-הדרה סמ5", "... סמ 12", "... סמטה3"
+    # Trailing alley / branch numbers: "כרם אל-הדרה סמ5", "... סמ 12"
     s = re.sub(r"\s+סמט(?:ה|ת)?\s*\d+\s*$", "", s).strip()
-    s = re.sub(r"\s+סמ['׳']?\s*\d+\s*$", "", s).strip()
+    s = re.sub(r"\s+סמ׳?\s*\d+\s*$", "", s).strip()
     s = re.sub(r"\s+סמ\d+\s*$", "", s).strip()
-    # Trailing lone number after a name (e.g. "הדרה 5") — only short numeric tails
+    # Trailing short numeric tail after a real name
     s = re.sub(r"\s+\d{1,3}\s*$", "", s).strip()
-    if re.search(r"ז[׳']?בוטינסקי|זבוטינסקי", s):
+    # Known person-name variants (before stripping leading ה)
+    if re.search(r"ז[׳]?בוטינסקי|זבוטינסקי", s):
         return "ז'בוטינסקי"
     if re.search(r"(בנימין זאב )?הרצל$", s) or s in ("הרצל", "בנימין זאב הרצל"):
         return "הרצל"
@@ -88,6 +91,9 @@ def normalize(name):
         return "אלנבי"
     if len(s) > 2 and s.startswith("ה"):
         s = s[1:]
+    # Drop pure numbers left after stripping prefixes (e.g. "סמטה 12" → "12")
+    if re.fullmatch(r"\d+", s):
+        return ""
     return s
 
 def kind_from_status(status):
