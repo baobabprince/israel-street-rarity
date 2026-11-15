@@ -53,6 +53,8 @@ footer a{color:#60a5fa}
 .ex-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem}
 .ex-card .en{font-weight:700;font-size:1.05rem;margin-bottom:.25rem}
 .ex-card .meta{font-size:.85rem;color:var(--muted)}
+.place-chip{display:inline-block;margin:.15rem .2rem;padding:.12rem .45rem;border-radius:6px;background:rgba(59,130,246,.18);color:#93c5fd;font-size:.78rem;font-weight:600}
+.place-chip.more{background:rgba(148,163,184,.2);color:#cbd5e1}
 @media(max-width:600px){.chart-wrap{height:320px}header h1{font-size:1.45rem}}
 </style>
 </head>
@@ -88,9 +90,14 @@ footer a{color:#60a5fa}
   <p><strong>שורש:</strong> <code dir="ltr">1 / √n</code> — מעניש חזק יותר שמות שמופיעים בעשרות/מאות יישובים.</p>
   <p class="muted">אפשר להחליף בין הנוסחאות בסרגל למטה — הגרפים והטבלה מתעדכנים מיד.</p>
   <h3>נרמול</h3>
-  <p>הסרת מספריים בלבד; קידומות (רחוב/שדרות/דרך…); ה׳ הידיעה; איחוד וריאנטים (ז׳בוטינסקי, הרצל, בן גוריון…).</p>
+  <p>הסרת מספריים בלבד; קידומות (רחוב/שדרות/דרך/שכ…); סיומות סמטה-מספר; מקפים (־/-)→רווח; ה׳ הידיעה; איחוד וריאנטים (ז׳בוטינסקי, הרצל, בן גוריון…).</p>
   <h3>סוגי יישובים</h3>
   <p>הטבלה מפרידה בין <strong>עיר</strong>, <strong>מועצה מקומית</strong> ו־<strong>יישוב</strong>.</p>
+</section>
+
+<section id="meta-section">
+  <h2>סטטיסטיקה כללית (לפני / אחרי ניקוי)</h2>
+  <div class="cards" id="meta-cards"><div class="muted">טוען…</div></div>
 </section>
 
 <div class="metric-bar">
@@ -106,7 +113,7 @@ footer a{color:#60a5fa}
 
 <section id="examples-section">
   <h2>דוגמאות להמחשה <span class="muted" style="font-weight:400;font-size:.9rem">(מתחלפות בכל טעינה)</span></h2>
-  <p class="muted">חמש דוגמאות אקראיות — לפחות אחת ייחודית ליישוב אחד בלבד. המשקל מתעדכן לפי הנוסחה שנבחרה.</p>
+  <p class="muted">חמש דוגמאות אקראיות — לפחות אחת ייחודית. שמות היישובים בהם מופיע הרחוב מודגשים למטה.</p>
   <div class="ex-grid" id="examples">טוען דוגמאות…</div>
 </section>
 
@@ -115,7 +122,7 @@ footer a{color:#60a5fa}
   <ul class="clean">
     <li><a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">הריפו</a></li>
     <li><a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/build_data.py" target="_blank" rel="noopener">build_data.py</a></li>
-    <li><a href="https://github.com/baobabprince/israel-street-rarity/blob/main/data.json" target="_blank" rel="noopener">data.json</a> · <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/examples.json" target="_blank" rel="noopener">examples.json</a></li>
+    <li><a href="https://github.com/baobabprince/israel-street-rarity/blob/main/data.json" target="_blank" rel="noopener">data.json</a> · <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/examples.json" target="_blank" rel="noopener">examples.json</a> · <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/meta.json" target="_blank" rel="noopener">meta.json</a></li>
   </ul>
 </section>
 </div>
@@ -164,12 +171,19 @@ function renderExamples(){
   }
   el.innerHTML=PICKED.map(e=>{
     const w=metric==='sqrt'?(e.weight_sqrt??e.weight):(e.weight_log??e.weight);
+    const places=e.places&&e.places.length?e.places:(e.example_place?[e.example_place]:[]);
+    const shown=places.slice(0,8);
+    const extra=places.length-shown.length;
+    const chips=shown.map(p=>`<span class="place-chip">${p}</span>`).join('')
+      +(extra>0?`<span class="place-chip more">+${extra}</span>`:'');
     return `<div class="ex-card">
       <div class="en">${e.name}</div>
       <div class="meta">${e.unique
-        ? `<span class="badge uniq">ייחודי לגמרי</span> · רק ב${e.example_place||'יישוב אחד'}`
+        ? `<span class="badge uniq">ייחודי לגמרי</span>`
         : `<span class="badge common">ב־${e.n_places} יישובים</span> · משקל ${w}`}
-      </div></div>`;
+      </div>
+      <div class="meta" style="margin-top:.35rem"><strong>יישובים:</strong> ${chips||'—'}</div>
+    </div>`;
   }).join('');
 }
 
@@ -177,10 +191,8 @@ function rebuildCharts(){
   const arab=DATA.filter(d=>d.is_arab), jew=DATA.filter(d=>!d.is_arab);
   const mA=arab.length?arab.reduce((s,d)=>s+meanOf(d),0)/arab.length:0;
   const mJ=jew.length?jew.reduce((s,d)=>s+meanOf(d),0)/jew.length:0;
-
   const topM=[...DATA].sort((a,b)=>meanOf(b)-meanOf(a)).slice(0,25);
   const topS=[...DATA].sort((a,b)=>sumOf(b)-sumOf(a)).slice(0,20);
-
   if(charts.mean) charts.mean.destroy();
   charts.mean=new Chart(document.getElementById('cMean'),{
     type:'bar',
@@ -190,7 +202,6 @@ function rebuildCharts(){
       scales:{x:{max:100,ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
               y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}}}
   });
-
   if(charts.sum) charts.sum.destroy();
   charts.sum=new Chart(document.getElementById('cSum'),{
     type:'bar',
@@ -200,7 +211,6 @@ function rebuildCharts(){
       scales:{x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
               y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}}}
   });
-
   if(charts.grp) charts.grp.destroy();
   charts.grp=new Chart(document.getElementById('cGrp'),{
     type:'bar',
@@ -212,7 +222,6 @@ function rebuildCharts(){
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e7ecf3'}}},
       scales:{x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},y:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}}}}
   });
-
   const cards=document.getElementById('summary-cards');
   if(cards){
     const jer=DATA.find(d=>d.name&&d.name.includes('ירושלים'));
@@ -236,12 +245,12 @@ function renderTable(){
   if(g==='arab') rows=rows.filter(d=>d.is_arab);
   if(g==='jewish') rows=rows.filter(d=>!d.is_arab);
   if(q) rows=rows.filter(d=>d.name&&d.name.includes(q));
-  const col=sortCol==='rarity_mean_log'?meanKey():sortCol==='rarity_sum_log'?sumKey():sortCol;
   rows.sort((a,b)=>{
-    let va=col==='name'?a.name:(a[col]??(col.includes('mean')?meanOf(a):col.includes('sum')?sumOf(a):0));
-    let vb=col==='name'?b.name:(b[col]??(col.includes('mean')?meanOf(b):col.includes('sum')?sumOf(b):0));
+    let va, vb;
     if(sortCol==='rarity_mean_log'){va=meanOf(a);vb=meanOf(b)}
-    if(sortCol==='rarity_sum_log'){va=sumOf(a);vb=sumOf(b)}
+    else if(sortCol==='rarity_sum_log'){va=sumOf(a);vb=sumOf(b)}
+    else if(sortCol==='name'){va=a.name;vb=b.name}
+    else {va=a[sortCol];vb=b[sortCol]}
     return typeof va==='string'?sortDir*String(va).localeCompare(String(vb),'he'):sortDir*((va||0)-(vb||0));
   });
   document.getElementById('tb').innerHTML=rows.map(d=>`<tr>
@@ -268,25 +277,39 @@ function onMetricChange(){
 
 async function main(){
   const app=document.getElementById('app');
+  let META={};
   try{
-    const [rd,re]=await Promise.all([
+    const [rd,re,rm]=await Promise.all([
       fetch('data.json?t='+Date.now()),
-      fetch('examples.json?t='+Date.now())
+      fetch('examples.json?t='+Date.now()),
+      fetch('meta.json?t='+Date.now())
     ]);
     if(!rd.ok) throw new Error('data');
     DATA=await rd.json();
     if(re.ok) EXAMPLES=await re.json();
+    if(rm.ok) META=await rm.json();
   }catch(e){
     app.innerHTML='<p class="error">שגיאה בטעינת נתונים. הריצו את ה-Action לעדכון.</p>';
     return;
   }
   PICKED=pickExamples(EXAMPLES);
+  const mc=document.getElementById('meta-cards');
+  if(mc && META && META.rows_raw!=null){
+    const f=fmt;
+    mc.innerHTML=`
+      <div class="card"><div class="num">${f(META.rows_raw)}</div><div class="label">רשומות גולמיות</div></div>
+      <div class="card"><div class="num">${f(META.unique_raw)}</div><div class="label">שמות גולמיים ייחודיים</div></div>
+      <div class="card"><div class="num">${f(META.rows_after_normalize)}</div><div class="label">רשומות אחרי ניקוי</div></div>
+      <div class="card"><div class="num">${f(META.unique_after_normalize)}</div><div class="label">שמות מנורמלים ייחודיים</div></div>
+      <div class="card"><div class="num">${f(META.pure_exclusive_names)}</div><div class="label">שמות ייחודיים ליישוב אחד</div></div>
+      <div class="card"><div class="num">${f(META.places_in_ranking)}</div><div class="label">יישובים בדירוג</div></div>`;
+  }
 
   app.innerHTML=`
   <div class="cards" id="summary-cards"></div>
   <section>
     <h2>גודל יישוב × שמות ייחודיים</h2>
-    <p class="muted">ציר X: אוכלוסייה (לוג). ציר Y: שמות שמופיעים רק ביישוב הזה. לא תלוי בנוסחת המשקל.</p>
+    <p class="muted">ציר X: אוכלוסייה (לוג). ציר Y: שמות שמופיעים רק ביישוב הזה.</p>
     <div class="chart-wrap"><canvas id="cScatter"></canvas></div>
   </section>
   <section>
@@ -352,7 +375,6 @@ async function main(){
   document.getElementById('fg').onchange=renderTable;
   document.getElementById('q').oninput=renderTable;
   document.getElementById('sb').onchange=function(){sortCol=this.value;sortDir=-1;renderTable()};
-
   rebuildCharts();
   renderTable();
   renderExamples();
