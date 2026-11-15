@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch Israel streets, normalize, compute rarity scores, write data.json + examples.json"""
+"""Fetch Israel streets, normalize, compute rarity scores (log + sqrt), write data.json + examples.json"""
 from __future__ import annotations
 import json, re, sys, random
 from pathlib import Path
@@ -107,7 +107,8 @@ def main():
 
     nloc = df.groupby("norm")["סמל_ישוב"].nunique()
     df["n"] = df["norm"].map(nloc)
-    df["w"] = 1.0 / np.log2(1 + df["n"])
+    df["w_log"] = 1.0 / np.log2(1 + df["n"])
+    df["w_sqrt"] = 1.0 / np.sqrt(df["n"].astype(float))
 
     name_places = (
         df.groupby("norm")
@@ -122,14 +123,15 @@ def main():
     common_pool = name_places[name_places["n"] >= 50].sample(n=min(40, n_common), random_state=42)
     examples = []
     for _, row in pd.concat([unique_pool, mid_pool, common_pool]).iterrows():
-        w = float(1.0 / np.log2(1 + row["n"]))
+        n = int(row["n"])
         examples.append({
             "name": str(row["norm"]),
             "raw": str(row["raw"]),
-            "n_places": int(row["n"]),
+            "n_places": n,
             "example_place": str(row["place"]),
-            "weight": round(w, 3),
-            "unique": int(row["n"]) == 1,
+            "weight_log": round(float(1.0 / np.log2(1 + n)), 3),
+            "weight_sqrt": round(float(1.0 / np.sqrt(n)), 3),
+            "unique": n == 1,
         })
     random.Random(42).shuffle(examples)
     (OUT / "examples.json").write_text(json.dumps(examples, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -138,11 +140,15 @@ def main():
     per = df.groupby(["סמל_ישוב", "שם_ישוב"]).agg(
         streets=("norm", "nunique"),
         pure_exclusive=("n", lambda x: int((x == 1).sum())),
-        rarity_sum_log=("w", "sum"),
-        rarity_mean_log=("w", "mean"),
+        rarity_sum_log=("w_log", "sum"),
+        rarity_mean_log=("w_log", "mean"),
+        rarity_sum_sqrt=("w_sqrt", "sum"),
+        rarity_mean_sqrt=("w_sqrt", "mean"),
     ).reset_index()
     per["rarity_mean_log"] = (per["rarity_mean_log"] * 100).round(1)
     per["rarity_sum_log"] = per["rarity_sum_log"].round(1)
+    per["rarity_mean_sqrt"] = (per["rarity_mean_sqrt"] * 100).round(1)
+    per["rarity_sum_sqrt"] = per["rarity_sum_sqrt"].round(1)
 
     print("Fetching CBS...")
     cbs = pd.DataFrame(fetch_all(CBS_ID))
@@ -177,6 +183,8 @@ def main():
             "pure_exclusive": int(r["pure_exclusive"]) if pd.notna(r["pure_exclusive"]) else 0,
             "rarity_mean_log": float(r["rarity_mean_log"]) if pd.notna(r["rarity_mean_log"]) else None,
             "rarity_sum_log": float(r["rarity_sum_log"]) if pd.notna(r["rarity_sum_log"]) else None,
+            "rarity_mean_sqrt": float(r["rarity_mean_sqrt"]) if pd.notna(r["rarity_mean_sqrt"]) else None,
+            "rarity_sum_sqrt": float(r["rarity_sum_sqrt"]) if pd.notna(r["rarity_sum_sqrt"]) else None,
             "population": int(r["pop"]) if pd.notna(r["pop"]) else 0,
             "founded": int(r["year"]) if pd.notna(r["year"]) else None,
             "is_arab": bool(r["is_arab"]),
