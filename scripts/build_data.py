@@ -44,16 +44,24 @@ def normalize(name):
     if not isinstance(name, str):
         return ""
     s = name.strip()
+    # Leading type prefixes (street / ave / alley / neighborhood…)
     for p in [
         r"^רחוב\s+", r"^רח'\s+", r"^רח\.\s+", r"^רח\s+",
         r"^שדרות\s+", r"^שד['׳']\s+", r"^שד\.\s+", r"^שד\s+",
         r"^דרך\s+", r"^סמטת\s+", r"^סמטה\s+", r"^כיכר\s+", r"^ככר\s+",
         r"^מעלה\s+", r"^שביל\s+", r"^טיילת\s+",
+        r"^שכונת\s+", r"^שכונה\s+", r"^שכ['׳']\s+", r"^שכ\.\s+", r"^שכ\s+",
     ]:
         s = re.sub(p, "", s)
     s = s.replace("'", "׳").replace("`", "׳")
     s = re.sub(r"\s+", " ", s).strip()
     s = re.sub(r"\s*\(.*\)\s*$", "", s).strip()
+    # Trailing alley / branch numbers: "כרם אל-הדרה סמ5", "... סמ 12", "... סמטה3"
+    s = re.sub(r"\s+סמט(?:ה|ת)?\s*\d+\s*$", "", s).strip()
+    s = re.sub(r"\s+סמ['׳']?\s*\d+\s*$", "", s).strip()
+    s = re.sub(r"\s+סמ\d+\s*$", "", s).strip()
+    # Trailing lone number after a name (e.g. "הדרה 5") — only short numeric tails
+    s = re.sub(r"\s+\d{1,3}\s*$", "", s).strip()
     if re.search(r"ז[׳']?בוטינסקי|זבוטינסקי", s):
         return "ז'בוטינסקי"
     if re.search(r"(בנימין זאב )?הרצל$", s) or s in ("הרצל", "בנימין זאב הרצל"):
