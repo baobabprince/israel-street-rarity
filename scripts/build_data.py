@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch Israel streets, normalize, compute rarity scores (log + sqrt), write data.json + examples.json"""
+"""Fetch Israel streets, normalize, compute rarity scores (log + sqrt), write data + examples + meta"""
 from __future__ import annotations
 import json, re, sys, random
 from pathlib import Path
@@ -44,8 +44,10 @@ def normalize(name):
     if not isinstance(name, str):
         return ""
     s = name.strip()
-    # Unify quotes early so prefixes like שכ' match
+    # Unify quotes and dashes early
     s = s.replace("'", "׳").replace("`", "׳").replace("'", "׳")
+    for dash in ("-", "–", "—", "־", "−"):  # hyphen, en/em dash, maqaf, minus
+        s = s.replace(dash, " ")
     s = re.sub(r"\s+", " ", s).strip()
     # Leading type prefixes
     for p in [
@@ -58,11 +60,10 @@ def normalize(name):
         s = re.sub(p, "", s)
     s = re.sub(r"\s+", " ", s).strip()
     s = re.sub(r"\s*\(.*\)\s*$", "", s).strip()
-    # Trailing alley / branch numbers: "כרם אל-הדרה סמ5", "... סמ 12"
+    # Trailing alley / branch numbers
     s = re.sub(r"\s+סמט(?:ה|ת)?\s*\d+\s*$", "", s).strip()
     s = re.sub(r"\s+סמ׳?\s*\d+\s*$", "", s).strip()
     s = re.sub(r"\s+סמ\d+\s*$", "", s).strip()
-    # Trailing short numeric tail after a real name
     s = re.sub(r"\s+\d{1,3}\s*$", "", s).strip()
     # Known person-name variants (before stripping leading ה)
     if re.search(r"ז[׳]?בוטינסקי|זבוטינסקי", s):
@@ -71,7 +72,7 @@ def normalize(name):
         return "הרצל"
     if "ויצמן" in s or "וייצמן" in s:
         return "ויצמן"
-    if re.search(r"בן[- ]?גוריון", s):
+    if re.search(r"בן\s*גוריון", s):
         return "בן גוריון"
     if "בגין" in s:
         return "בגין"
@@ -91,7 +92,6 @@ def normalize(name):
         return "אלנבי"
     if len(s) > 2 and s.startswith("ה"):
         s = s[1:]
-    # Drop pure numbers left after stripping prefixes (e.g. "סמטה 12" → "12")
     if re.fullmatch(r"\d+", s):
         return ""
     return s
@@ -112,17 +112,34 @@ ARAB = {
 
 def main():
     print("Fetching streets...")
-    df = pd.DataFrame(fetch_all(STREETS_ID))
-    df["סמל_ישוב"] = pd.to_numeric(df["סמל_ישוב"], errors="coerce")
-    df = df[~df["שם_רחוב"].apply(is_numeric)].copy()
-    df["norm"] = df["שם_רחוב"].apply(normalize)
-    df = df[df["norm"].str.len() > 0]
-    print(f"clean rows={len(df)} unique={df['norm'].nunique()}")
+    raw = pd.DataFrame(fetch_all(STREETS_ID))
+    rows_raw = len(raw)
+    unique_raw = int(raw["שם_רחוב"].nunique()) if "שם_רחוב" in raw.columns else 0
+
+    raw["סמל_ישוב"] = pd.to_numeric(raw["סמל_ישוב"], errors="coerce")
+    after_num = raw[~raw["שם_רחוב"].apply(is_numeric)].copy()
+    rows_after_numeric = len(after_num)
+    unique_after_numeric = int(after_num["שם_רחוב"].nunique())
+
+    after_num["norm"] = after_num["שם_רחוב"].apply(normalize)
+    df = after_num[after_num["norm"].str.len() > 0].copy()
+    rows_clean = len(df)
+    unique_norm = int(df["norm"].nunique())
+    print(f"raw={rows_raw} after_numeric={rows_after_numeric} clean={rows_clean} unique_norm={unique_norm}")
 
     nloc = df.groupby("norm")["סמל_ישוב"].nunique()
     df["n"] = df["norm"].map(nloc)
     df["w_log"] = 1.0 / np.log2(1 + df["n"])
     df["w_sqrt"] = 1.0 / np.sqrt(df["n"].astype(float))
+
+    pure_exclusive_names = int((nloc == 1).sum())
+
+    # Places list per norm (for examples)
+    places_by_norm = (
+        df.groupby("norm")["שם_ישוב"]
+        .apply(lambda s: sorted({str(x) for x in s if pd.notna(x)}))
+        .to_dict()
+    )
 
     name_places = (
         df.groupby("norm")
@@ -138,11 +155,13 @@ def main():
     examples = []
     for _, row in pd.concat([unique_pool, mid_pool, common_pool]).iterrows():
         n = int(row["n"])
+        places = places_by_norm.get(row["norm"], [str(row["place"])])
         examples.append({
             "name": str(row["norm"]),
             "raw": str(row["raw"]),
             "n_places": n,
             "example_place": str(row["place"]),
+            "places": places[:12],  # show up to 12 settlements
             "weight_log": round(float(1.0 / np.log2(1 + n)), 3),
             "weight_sqrt": round(float(1.0 / np.sqrt(n)), 3),
             "unique": n == 1,
@@ -206,8 +225,21 @@ def main():
     out.sort(key=lambda x: -(x["rarity_mean_log"] or 0))
     (OUT / "data.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     (OUT / "data.min.json").write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+
+    meta = {
+        "rows_raw": rows_raw,
+        "unique_raw": unique_raw,
+        "rows_after_numeric_filter": rows_after_numeric,
+        "unique_after_numeric_filter": unique_after_numeric,
+        "rows_after_normalize": rows_clean,
+        "unique_after_normalize": unique_norm,
+        "pure_exclusive_names": pure_exclusive_names,
+        "places_in_ranking": len(out),
+    }
+    (OUT / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
     from collections import Counter
     print(f"Wrote {len(out)} places", Counter(x["kind"] for x in out))
+    print("meta", meta)
 
 if __name__ == "__main__":
     main()
