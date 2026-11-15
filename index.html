@@ -6,7 +6,7 @@
 <title>נדירות שמות רחובות בישראל</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-:root{--bg:#0f1419;--card:#1a2332;--text:#e7ecf3;--muted:#8b9bb4;--accent:#3b82f6;--border:#2d3a4f;--green:#10b981}
+:root{--bg:#0f1419;--card:#1a2332;--text:#e7ecf3;--muted:#8b9bb4;--accent:#3b82f6;--border:#2d3a4f}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,Segoe UI,Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;padding-bottom:3rem}
 header{background:linear-gradient(135deg,#1e3a5f,#0f1419);padding:2.4rem 1.2rem 2rem;text-align:center;border-bottom:1px solid var(--border)}
@@ -14,49 +14,54 @@ header h1{font-size:1.9rem;margin-bottom:.5rem}
 header p{color:var(--muted);max-width:740px;margin:.35rem auto 0;font-size:.98rem}
 .header-links{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
 .header-links a{display:inline-block;padding:.4rem .9rem;border-radius:8px;background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.4);color:#93c5fd;text-decoration:none;font-size:.9rem}
-.header-links a:hover{background:rgba(59,130,246,.35)}
 .container{max-width:1100px;margin:0 auto;padding:1.2rem}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1.2rem 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin:1.2rem 0}
 .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
-.card .num{font-size:1.6rem;font-weight:700;color:var(--accent)}
-.card .label{font-size:.8rem;color:var(--muted);margin-top:.2rem}
+.card .num{font-size:1.5rem;font-weight:700;color:var(--accent)}
+.card .label{font-size:.78rem;color:var(--muted);margin-top:.2rem}
 section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.35rem 1.3rem;margin-bottom:1.2rem}
 section h2{font-size:1.2rem;margin-bottom:.85rem;padding-bottom:.45rem;border-bottom:1px solid var(--border)}
 section h3{font-size:1.02rem;margin:1.1rem 0 .45rem;color:#93c5fd}
-p.lead,section p{color:var(--text);margin:.45rem 0;font-size:.95rem}
+p.lead,section p{margin:.45rem 0;font-size:.95rem}
 .muted{color:var(--muted);font-size:.9rem}
-ul.clean{margin:.4rem 0 .6rem 1.2rem;padding:0}
-ul.clean li{margin:.25rem 0}
-code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88rem}
-code{background:#0b1220;padding:.1rem .35rem;border-radius:4px}
-pre{background:#0b1220;border:1px solid var(--border);border-radius:8px;padding:.85rem 1rem;overflow:auto;margin:.6rem 0;direction:ltr;text-align:left}
+ul.clean{margin:.4rem 0 .6rem 1.2rem}
+code{background:#0b1220;padding:.1rem .35rem;border-radius:4px;font-size:.88rem}
 .chart-wrap{height:400px;margin:1rem 0;position:relative}
 .insight{background:var(--bg);border-radius:10px;padding:.85rem 1rem;border-right:3px solid var(--accent);margin:.55rem 0;font-size:.93rem}
-.badge{display:inline-block;padding:.15rem .5rem;border-radius:999px;font-size:.75rem;font-weight:600}
+.badge{display:inline-block;padding:.15rem .5rem;border-radius:999px;font-size:.72rem;font-weight:600}
 .badge.arab{background:rgba(16,185,129,.2);color:#34d399}
 .badge.jew{background:rgba(99,102,241,.2);color:#a5b4fc}
-table{width:100%;border-collapse:collapse;font-size:.88rem}
-th,td{padding:.4rem .55rem;text-align:right;border-bottom:1px solid var(--border)}
+.badge.city{background:rgba(59,130,246,.2);color:#93c5fd}
+.badge.council{background:rgba(245,158,11,.2);color:#fbbf24}
+.badge.settle{background:rgba(148,163,184,.25);color:#cbd5e1}
+.badge.uniq{background:rgba(16,185,129,.25);color:#34d399}
+.badge.common{background:rgba(239,68,68,.15);color:#fca5a5}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th,td{padding:.4rem .5rem;text-align:right;border-bottom:1px solid var(--border)}
 th{color:var(--muted)}
 .table-wrap{max-height:440px;overflow:auto}
 .filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem;align-items:center}
 .filters select,.filters input{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.35rem .55rem}
-footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.8rem;padding:0 1rem}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.8rem}
 footer a{color:#60a5fa}
 .loading{text-align:center;padding:3rem;color:var(--muted)}
 .error{color:#f87171;padding:1rem}
-.formula{background:#0b1220;border-radius:8px;padding:.7rem 1rem;margin:.5rem 0;border:1px solid var(--border);font-size:.95rem}
+.formula{background:#0b1220;border-radius:8px;padding:.7rem 1rem;margin:.5rem 0;border:1px solid var(--border)}
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-top:.8rem}
+.ex-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem}
+.ex-card .en{font-weight:700;font-size:1.05rem;margin-bottom:.25rem}
+.ex-card .meta{font-size:.85rem;color:var(--muted)}
 @media(max-width:600px){.chart-wrap{height:320px}header h1{font-size:1.45rem}}
 </style>
 </head>
 <body>
 <header>
   <h1>נדירות שמות רחובות בישראל</h1>
-  <p>כמה מהשמות ברחובות של כל עיר באמת ייחודיים לה — ולא חוזרים בעשרות יישובים אחרים?</p>
+  <p>כמה מהשמות ברחובות של כל יישוב באמת ייחודיים לו — ולא חוזרים בעשרות מקומות אחרים?</p>
   <div class="header-links">
-    <a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">קוד המקור ב-GitHub</a>
+    <a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">קוד המקור</a>
     <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/build_data.py" target="_blank" rel="noopener">סקריפט החישוב</a>
-    <a href="https://github.com/baobabprince/israel-street-rarity/actions" target="_blank" rel="noopener">עדכון נתונים (Actions)</a>
+    <a href="https://github.com/baobabprince/israel-street-rarity/actions" target="_blank" rel="noopener">Actions</a>
   </div>
 </header>
 
@@ -64,166 +69,188 @@ footer a{color:#60a5fa}
 
 <section>
   <h2>למה זה מעניין?</h2>
-  <p class="lead">שמות רחובות מספרים סיפור על עיר: עד כמה היא נשענת על מאגר שמות לאומי משותף (עצים, פרחים, מנהיגים), ועד כמה היא ממציאה שמות מקומיים — משפחות, אתרים, רבנים, כפרים ושכונות.</p>
-  <p>הפרויקט מודד לכל עיר בישראל <strong>עד כמה שמות הרחובות שלה נדירים</strong> ברמה הארצית. לא רק "כמה רחובות יש", אלא כמה מהם באמת שייכים רק לה (או כמעט רק לה).</p>
-  <p class="muted">מקור הנתונים: רשימת הרחובות הרשמית של רשות האוכלוסין (data.gov.il) + קובץ היישובים של הלמ״ס. העדכון רץ אוטומטית ב-GitHub Actions.</p>
+  <p class="lead">שמות רחובות מספרים סיפור: עד כמה היישוב נשען על מאגר לאומי משותף (עצים, פרחים, מנהיגים) ועד כמה הוא ממציא שמות מקומיים.</p>
+  <p class="muted">מקור: רשות האוכלוסין (data.gov.il) + הלמ״ס. מעודכן ב-GitHub Actions.</p>
+</section>
+
+<section id="examples-section">
+  <h2>דוגמאות להמחשה <span class="muted" style="font-weight:400;font-size:.9rem">(מתחלפות בכל טעינה)</span></h2>
+  <p class="muted">חמש דוגמאות אקראיות משמות רחובות אמיתיים — לפחות אחת ייחודית ליישוב אחד בלבד.</p>
+  <div class="ex-grid" id="examples">טוען דוגמאות…</div>
 </section>
 
 <section>
-  <h2>איך מחשבים — בקצרה</h2>
-  <ol style="margin:.4rem 1.2rem;padding:0">
-    <li>מורידים את כל שמות הרחובות בישראל (~60 אלף רשומות אחרי ניקוי).</li>
-    <li>מנרמלים שמות (ראו למטה) כדי ש־"רחוב הרצל" ו־"הרצל" ייחשבו אותו שם.</li>
-    <li>לכל שם מנורמל סופרים <strong>בכמה יישובים</strong> הוא מופיע.</li>
-    <li>נותנים לכל שם <strong>משקל נדירות</strong>: ככל שהוא מופיע בפחות מקומות — המשקל גבוה יותר.</li>
-    <li>לכל עיר מחשבים ממוצע וסכום של המשקלים.</li>
+  <h2>איך מחשבים</h2>
+  <ol style="margin:.4rem 1.2rem">
+    <li>מורידים את כל שמות הרחובות ומנרמלים אותם.</li>
+    <li>סופרים בכמה יישובים מופיע כל שם מנורמל (<code>n</code>).</li>
+    <li>משקל: <code dir="ltr">1 / log₂(1+n)</code> — ייחודי=1.0, נפוץ=נמוך.</li>
+    <li>לכל יישוב: ממוצע נדירות (איכות) וסכום נדירות (כמות).</li>
   </ol>
-</section>
-
-<section>
-  <h2>נרמול שמות — מה עושים בדיוק</h2>
-  <p>בלי נרמול, "רחוב ז׳בוטינסקי", "זאב ז׳בוטינסקי" ו־"זבוטינסקי" נספרים כשלושה שמות שונים — וזה מנפח ייחודיות מלאכותית. לכן:</p>
-
-  <h3>1. הסרת רחובות מספריים בלבד</h3>
-  <p>רשומות כמו <code>רח 1000</code>, <code>רח 8070</code> (נפוץ מאוד בנצרת ובמזרח ירושלים) מוסרות. אין בהן שם אמיתי להשוואה.</p>
-
-  <h3>2. הסרת קידומות</h3>
-  <p>מוסרים מתחילת השם: רחוב, רח׳, שדרות, שד׳, דרך, סמטה/סמטת, כיכר/ככר, מעלה, מעבר, שביל, טיילת.</p>
-  <p class="muted">דוגמה: <code>שדרות רוטשילד</code> → <code>רוטשילד</code> · <code>דרך בגין</code> → <code>בגין</code></p>
-
-  <h3>3. ה׳ הידיעה</h3>
-  <p>מסירים ה׳ מובילה כדי לאחד <code>הזית</code> עם <code>זית</code>, <code>הגפן</code> עם <code>גפן</code>, וכו׳. בלי זה אותם עצים/פרחים נספרים פעמיים.</p>
-
-  <h3>4. איחוד וריאנטים של שמות אישים</h3>
-  <ul class="clean">
-    <li>זאב ז׳בוטינסקי / ז׳בוטינסקי / זבוטינסקי → <strong>ז׳בוטינסקי</strong></li>
-    <li>בנימין זאב הרצל / הרצל → <strong>הרצל</strong></li>
-    <li>ויצמן / וייצמן → <strong>ויצמן</strong></li>
-    <li>בן-גוריון / בן גוריון → <strong>בן גוריון</strong></li>
-    <li>וגם: בגין, טרומפלדור, ארלוזורוב, ביאליק, אחד העם, רוטשילד, דיזנגוף, אלנבי</li>
-  </ul>
-
-  <h3>5. ניקוי טכני</h3>
-  <p>איחוד סוגי גרשיים, הסרת סוגריים בסוף השם, ריווח כפול.</p>
-</section>
-
-<section>
-  <h2>משקל הנדירות (הנוסחה)</h2>
-  <p>לכל שם רחוב מנורמל מחשבים כמה יישובים מכילים אותו (<code>n</code>), ואז:</p>
-  <div class="formula" dir="ltr" style="text-align:left">weight = 1 / log₂(1 + n)</div>
-  <p>למה לוגריתמי ולא פשוט <code>1/n</code>?</p>
-  <ul class="clean">
-    <li><code>1/n</code> מעניש חזק מדי שמות שמופיעים ב־2–5 מקומות.</li>
-    <li>הלוג מתון יותר: עדיין נותן משקל גבוה לייחודיים, אבל לא מוחק כמעט לגמרי שמות נדירים־יחסית.</li>
-  </ul>
-  <p><strong>טבלת דוגמאות:</strong></p>
-  <div class="table-wrap" style="max-height:none">
-  <table>
-    <thead><tr><th>בכמה יישובים (n)</th><th>משקל 1/n</th><th>משקל 1/log₂(1+n)</th><th>דוגמה</th></tr></thead>
-    <tbody>
-      <tr><td>1 (ייחודי לגמרי)</td><td>1.00</td><td>1.00</td><td>שם מקומי נדיר</td></tr>
-      <tr><td>2</td><td>0.50</td><td>0.63</td><td>שני יישובים בלבד</td></tr>
-      <tr><td>5</td><td>0.20</td><td>0.39</td><td></td></tr>
-      <tr><td>10</td><td>0.10</td><td>0.29</td><td></td></tr>
-      <tr><td>50</td><td>0.02</td><td>0.18</td><td></td></tr>
-      <tr><td>~280</td><td>≈0.004</td><td>≈0.12</td><td>"זית" / "גפן"</td></tr>
-    </tbody>
-  </table>
-  </div>
-
-  <h3>שני ציונים לכל עיר</h3>
-  <div class="insight"><strong>ממוצע נדירות (rarity_mean_log)</strong> — ממוצע המשקלים של כל שמות הרחובות בעיר, באחוזים (×100). זה מדד <em>האיכות</em>: עד כמה הרחובות של העיר נדירים בממוצע.</div>
-  <div class="insight"><strong>סכום נדירות (rarity_sum_log)</strong> — סכום המשקלים. זה מדד <em>הכמות</em>: כמה "יחידות ייחודיות אפקטיביות" יש לעיר. ערים גדולות צוברות יותר.</div>
-  <p class="muted">בנוסף מוצג מספר השמות שהם ייחודיים לגמרי (מופיעים בעיר אחת בלבד) — pure exclusive.</p>
-</section>
-
-<section>
-  <h2>ממצאים עיקריים</h2>
-  <div class="insight">המשתנה המסביר החזק ביותר הוא <strong>הרכב תרבותי-לשוני</strong>: ערים ערביות גבוהות בהרבה בממוצע נדירות (~74%) מערים יהודיות (~50%).</div>
-  <div class="insight">ערים חרדיות חדשות (ביתר עילית, מודיעין עילית) גם בולטות יחסית — מאגר שמות של רבנים ומקומות קודש.</div>
-  <div class="insight">ערי פיתוח וקריות משנות ה־50–70 נוטות לנדירות נמוכה — שימוש כבד במאגר שמות סטנדרטי.</div>
-  <div class="insight">גודל האוכלוסייה משפיע חזק על <em>סכום</em> הנדירות, אבל רק מעט על <em>הממוצע</em>.</div>
+  <h3>נרמול</h3>
+  <p>הסרת מספריים בלבד; קידומות (רחוב/שדרות/דרך…); ה׳ הידיעה; איחוד וריאנטים (ז׳בוטינסקי, הרצל, בן גוריון…).</p>
+  <h3>סוגי יישובים</h3>
+  <p>הטבלה מפרידה בין <strong>עיר</strong> (עירייה), <strong>מועצה מקומית</strong>, ו־<strong>יישוב</strong> (שאר המעמדות, אם ייכללו). העמודה «מעמד» מאפשרת סינון.</p>
 </section>
 
 <div id="app" class="loading">טוען נתונים…</div>
 
 <section>
-  <h2>קוד מקור ומתודולוגיה מלאה</h2>
-  <p>כל החישוב שקוף וניתן להרצה מחדש:</p>
+  <h2>קוד מקור</h2>
   <ul class="clean">
-    <li><a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">הריפו ב-GitHub</a> — דשבורד, נתונים ו-Actions</li>
-    <li><a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/build_data.py" target="_blank" rel="noopener">scripts/build_data.py</a> — הורדה, נרמול וחישוב הציונים</li>
-    <li><a href="https://github.com/baobabprince/israel-street-rarity/blob/main/data.json" target="_blank" rel="noopener">data.json</a> — הפלט לכל הערים</li>
-    <li><a href="https://github.com/baobabprince/israel-street-rarity/actions" target="_blank" rel="noopener">GitHub Actions</a> — עדכון ידני או חודשי</li>
+    <li><a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">הריפו</a></li>
+    <li><a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/build_data.py" target="_blank" rel="noopener">build_data.py</a></li>
+    <li><a href="https://github.com/baobabprince/israel-street-rarity/blob/main/data.json" target="_blank" rel="noopener">data.json</a> · <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/examples.json" target="_blank" rel="noopener">examples.json</a></li>
   </ul>
-  <p class="muted">מקורות רשמיים: <a href="https://data.gov.il" target="_blank" rel="noopener">data.gov.il</a> (רשות האוכלוסין — רשימת רחובות) וקובץ יישובים של הלמ״ס.</p>
 </section>
-
 </div>
 
-<footer>
-  רשות האוכלוסין וההגירה · הלמ״ס ·
-  <a href="https://github.com/baobabprince/israel-street-rarity">קוד המקור</a>
-</footer>
+<footer>רשות האוכלוסין · הלמ״ס · <a href="https://github.com/baobabprince/israel-street-rarity">GitHub</a></footer>
 
 <script>
 function fmt(n){return n==null||isNaN(n)?'—':Number(n).toLocaleString('he-IL')}
+function kindBadge(d){
+  const k=d.kind||(d.status==='עירייה'?'עיר':d.status==='מועצה מקומית'?'מועצה מקומית':'יישוב');
+  const cls=k==='עיר'?'city':k==='מועצה מקומית'?'council':'settle';
+  return `<span class="badge ${cls}">${k}</span>`;
+}
+function pickExamples(pool){
+  if(!pool||!pool.length) return [];
+  const uniq=pool.filter(e=>e.unique);
+  const rest=pool.filter(e=>!e.unique);
+  const out=[];
+  if(uniq.length) out.push(uniq[Math.floor(Math.random()*uniq.length)]);
+  const bag=[...rest];
+  while(out.length<5 && bag.length){
+    const i=Math.floor(Math.random()*bag.length);
+    out.push(bag.splice(i,1)[0]);
+  }
+  while(out.length<5 && uniq.length>out.filter(e=>e.unique).length){
+    const u=uniq[Math.floor(Math.random()*uniq.length)];
+    if(!out.find(x=>x.name===u.name)) out.push(u); else break;
+  }
+  return out.slice(0,5);
+}
 async function main(){
   const app=document.getElementById('app');
-  let DATA;
+  let DATA=[], EXAMPLES=[];
   try{
-    const r=await fetch('data.json?t='+Date.now());
-    if(!r.ok) throw new Error(r.status);
-    DATA=await r.json();
+    const [rd,re]=await Promise.all([
+      fetch('data.json?t='+Date.now()),
+      fetch('examples.json?t='+Date.now())
+    ]);
+    if(!rd.ok) throw new Error('data');
+    DATA=await rd.json();
+    if(re.ok) EXAMPLES=await re.json();
   }catch(e){
-    app.innerHTML='<p class="error">אין data.json. הריצו את ה-Workflow "Update street rarity data" ב-Actions.</p>';
+    app.innerHTML='<p class="error">שגיאה בטעינת נתונים. הריצו את ה-Action לעדכון.</p>';
     return;
   }
+
+  // Examples
+  const picked=pickExamples(EXAMPLES);
+  const exEl=document.getElementById('examples');
+  if(!picked.length){
+    exEl.innerHTML='<p class="muted">אין עדיין examples.json — הריצו את ה-Action.</p>';
+  }else{
+    exEl.innerHTML=picked.map(e=>`
+      <div class="ex-card">
+        <div class="en">${e.name}</div>
+        <div class="meta">${e.unique
+          ? `<span class="badge uniq">ייחודי לגמרי</span> · רק ב${e.example_place||'יישוב אחד'}`
+          : `<span class="badge common">ב־${e.n_places} יישובים</span> · משקל ${e.weight}`}
+        </div>
+      </div>`).join('');
+  }
+
   const arab=DATA.filter(d=>d.is_arab), jew=DATA.filter(d=>!d.is_arab);
+  const cities=DATA.filter(d=>(d.kind||d.status)==='עיר'||d.status==='עירייה');
+  const councils=DATA.filter(d=>(d.kind||'')==='מועצה מקומית'||d.status==='מועצה מקומית');
   const mA=arab.length?arab.reduce((s,d)=>s+(d.rarity_mean_log||0),0)/arab.length:0;
   const mJ=jew.length?jew.reduce((s,d)=>s+(d.rarity_mean_log||0),0)/jew.length:0;
   const jer=DATA.find(d=>d.name&&d.name.includes('ירושלים'));
 
   app.innerHTML=`
   <div class="cards">
-    <div class="card"><div class="num">${DATA.length}</div><div class="label">ערים</div></div>
-    <div class="card"><div class="num">${mA.toFixed(0)}%</div><div class="label">ממוצע נדירות · ערביות</div></div>
-    <div class="card"><div class="num">${mJ.toFixed(0)}%</div><div class="label">ממוצע נדירות · יהודיות</div></div>
-    <div class="card"><div class="num">${jer?Math.round(jer.rarity_sum_log):'—'}</div><div class="label">ציון נדירות ירושלים</div></div>
+    <div class="card"><div class="num">${DATA.length}</div><div class="label">סה״כ ברשימה</div></div>
+    <div class="card"><div class="num">${cities.length}</div><div class="label">ערים</div></div>
+    <div class="card"><div class="num">${councils.length}</div><div class="label">מועצות מקומיות</div></div>
+    <div class="card"><div class="num">${mA.toFixed(0)}% / ${mJ.toFixed(0)}%</div><div class="label">ממוצע ערבי / יהודי</div></div>
+    <div class="card"><div class="num">${jer?Math.round(jer.rarity_sum_log):'—'}</div><div class="label">סכום ירושלים</div></div>
   </div>
   <section>
+    <h2>גודל יישוב × שמות ייחודיים</h2>
+    <p class="muted">ציר X: אוכלוסייה (לוג). ציר Y: מספר שמות שמופיעים רק ביישוב הזה. צבע לפי מעמד.</p>
+    <div class="chart-wrap"><canvas id="cScatter"></canvas></div>
+  </section>
+  <section>
     <h2>ממוצע נדירות — 25 הגבוהות</h2>
-    <p class="muted">ככל שהממוצע גבוה יותר — שמות הרחובות בעיר נדירים יותר בממוצע ברמה הארצית. ירוק = עיר ערבית.</p>
     <div class="chart-wrap"><canvas id="cMean"></canvas></div>
   </section>
   <section>
     <h2>סכום נדירות — 20 הגבוהות</h2>
-    <p class="muted">"כמות ייחודיות אפקטיבית" — ערים גדולות עם הרבה שמות מקומיים בראש.</p>
     <div class="chart-wrap"><canvas id="cSum"></canvas></div>
   </section>
   <section>
     <h2>ערביות מול יהודיות</h2>
     <div class="chart-wrap" style="height:260px"><canvas id="cGrp"></canvas></div>
-    <div class="insight">ערים ערביות גבוהות משמעותית בממוצע נדירות. הפער משקף מאגר שמות מקומי (משפחות, אתרים, כפרים) מול מאגר לאומי משותף.</div>
   </section>
   <section>
-    <h2>טבלת כל הערים</h2>
+    <h2>טבלה</h2>
     <div class="filters">
+      <select id="fk">
+        <option value="all">כל המעמדות</option>
+        <option value="עיר">ערים בלבד</option>
+        <option value="מועצה מקומית">מועצות מקומיות</option>
+        <option value="יישוב">יישובים</option>
+      </select>
       <select id="fg"><option value="all">הכל</option><option value="arab">ערביות</option><option value="jewish">יהודיות</option></select>
       <select id="sb">
         <option value="rarity_mean_log">ממוצע נדירות</option>
         <option value="rarity_sum_log">סכום נדירות</option>
-        <option value="streets">מספר רחובות</option>
+        <option value="pure_exclusive">שמות ייחודיים</option>
+        <option value="streets">רחובות</option>
         <option value="population">אוכלוסייה</option>
         <option value="name">שם</option>
       </select>
-      <input id="q" type="search" placeholder="חיפוש עיר...">
+      <input id="q" type="search" placeholder="חיפוש...">
     </div>
     <div class="table-wrap"><table>
-      <thead><tr><th>עיר</th><th>מחוז</th><th>רחובות</th><th>ממוצע %</th><th>סכום</th><th>אוכלוסייה</th><th>סוג</th></tr></thead>
+      <thead><tr>
+        <th>שם</th><th>מעמד</th><th>מחוז</th><th>רחובות</th><th>ייחודיים</th><th>ממוצע %</th><th>סכום</th><th>אוכלוסייה</th><th>מגזר</th>
+      </tr></thead>
       <tbody id="tb"></tbody>
     </table></div>
   </section>`;
+
+  // Scatter: pop vs pure_exclusive
+  const sc=DATA.filter(d=>d.population>0);
+  const byKind=k=>sc.filter(d=>{
+    const kk=d.kind||(d.status==='עירייה'?'עיר':d.status==='מועצה מקומית'?'מועצה מקומית':'יישוב');
+    return kk===k;
+  });
+  new Chart(document.getElementById('cScatter'),{
+    type:'scatter',
+    data:{datasets:[
+      {label:'עיר',data:byKind('עיר').map(d=>({x:d.population,y:d.pure_exclusive,name:d.name})),
+        backgroundColor:'rgba(59,130,246,.65)'},
+      {label:'מועצה מקומית',data:byKind('מועצה מקומית').map(d=>({x:d.population,y:d.pure_exclusive,name:d.name})),
+        backgroundColor:'rgba(245,158,11,.65)'},
+      {label:'יישוב',data:byKind('יישוב').map(d=>({x:d.population,y:d.pure_exclusive,name:d.name})),
+        backgroundColor:'rgba(148,163,184,.65)'}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#e7ecf3'}},
+        tooltip:{callbacks:{label:ctx=>{
+          const p=ctx.raw; return `${p.name}: אוכ׳ ${fmt(p.x)}, ייחודיים ${p.y}`;
+        }}}},
+      scales:{
+        x:{type:'logarithmic',title:{display:true,text:'אוכלוסייה (לוג)',color:'#8b9bb4'},
+          ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
+        y:{title:{display:true,text:'שמות ייחודיים',color:'#8b9bb4'},
+          ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}}
+      }}
+  });
 
   const topM=[...DATA].sort((a,b)=>(b.rarity_mean_log||0)-(a.rarity_mean_log||0)).slice(0,25);
   new Chart(document.getElementById('cMean'),{
@@ -245,7 +272,7 @@ async function main(){
   });
   new Chart(document.getElementById('cGrp'),{
     type:'bar',
-    data:{labels:['ממוצע נדירות %','ממוצע רחובות ÷10'],
+    data:{labels:['ממוצע נדירות %','ממוצע רחובות÷10'],
       datasets:[
         {label:'ערביות',data:[mA,arab.reduce((s,d)=>s+(d.streets||0),0)/(arab.length||1)/10],backgroundColor:'rgba(16,185,129,.8)'},
         {label:'יהודיות',data:[mJ,jew.reduce((s,d)=>s+(d.streets||0),0)/(jew.length||1)/10],backgroundColor:'rgba(99,102,241,.8)'}
@@ -255,24 +282,35 @@ async function main(){
   });
 
   let sortCol='rarity_mean_log', sortDir=-1;
+  function kindOf(d){
+    return d.kind||(d.status==='עירייה'?'עיר':d.status==='מועצה מקומית'?'מועצה מקומית':'יישוב');
+  }
   function render(){
-    const g=document.getElementById('fg').value, q=document.getElementById('q').value.trim();
+    const k=document.getElementById('fk').value;
+    const g=document.getElementById('fg').value;
+    const q=document.getElementById('q').value.trim();
     let rows=[...DATA];
+    if(k!=='all') rows=rows.filter(d=>kindOf(d)===k);
     if(g==='arab') rows=rows.filter(d=>d.is_arab);
     if(g==='jewish') rows=rows.filter(d=>!d.is_arab);
     if(q) rows=rows.filter(d=>d.name&&d.name.includes(q));
     rows.sort((a,b)=>{
       const va=a[sortCol], vb=b[sortCol];
-      return typeof va==='string' ? sortDir*String(va).localeCompare(String(vb),'he') : sortDir*((va||0)-(vb||0));
+      return typeof va==='string'?sortDir*String(va).localeCompare(String(vb),'he'):sortDir*((va||0)-(vb||0));
     });
     document.getElementById('tb').innerHTML=rows.map(d=>`<tr>
-      <td><strong>${d.name}</strong></td><td>${d.district||'—'}</td><td>${fmt(d.streets)}</td>
+      <td><strong>${d.name}</strong></td>
+      <td>${kindBadge(d)}</td>
+      <td>${d.district||'—'}</td>
+      <td>${fmt(d.streets)}</td>
+      <td>${fmt(d.pure_exclusive)}</td>
       <td>${d.rarity_mean_log!=null?d.rarity_mean_log.toFixed(1):'—'}</td>
       <td>${d.rarity_sum_log!=null?d.rarity_sum_log.toFixed(0):'—'}</td>
       <td>${fmt(d.population)}</td>
       <td><span class="badge ${d.is_arab?'arab':'jew'}">${d.is_arab?'ערבית':'יהודית'}</span></td>
     </tr>`).join('');
   }
+  document.getElementById('fk').onchange=render;
   document.getElementById('fg').onchange=render;
   document.getElementById('q').oninput=render;
   document.getElementById('sb').onchange=function(){sortCol=this.value;sortDir=-1;render()};
