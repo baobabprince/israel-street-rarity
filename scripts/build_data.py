@@ -18,6 +18,9 @@ STREETS_ID = "9ad3862c-8391-4b2f-84a4-2d4c68625f4b"
 CBS_ID = "d47a54ff-87f0-44b3-b33a-f284c0c38e5a"
 API = "https://data.gov.il/api/3/action/datastore_search"
 
+# Include cities and local councils (not regional councils / villages only)
+INCLUDED_STATUS = {"עירייה", "מועצה מקומית"}
+
 def fetch_all(rid, limit=32000):
     recs, offset = [], 0
     while True:
@@ -90,14 +93,19 @@ def main():
     cbs["district"] = cbs.get("שם מחוז")
     cbs["status"] = cbs.get("שם מעמד מונציפאלי")
     m = per.merge(cbs[["סמל יישוב", "pop", "year", "district", "status"]], left_on="סמל_ישוב", right_on="סמל יישוב", how="left")
-    cities = m[m["status"] == "עירייה"].copy()
-    cities["is_arab"] = cities["שם_ישוב"].isin(ARAB) | cities["שם_ישוב"].str.contains(r"אל-|אום |טמרה|טירה|נצרת|שפרעם|רהט|טייבה|מגאר|סח|עראבה|קלנסווה|באקה", na=False)
-    cities.loc[cities["שם_ישוב"].isin(["מודיעין עילית", "ביתר עילית", "אריאל", "אלעד"]), "is_arab"] = False
+    # Cities + local councils (includes פרדס חנה-כרכור, זכרון יעקב, etc.)
+    places = m[m["status"].isin(INCLUDED_STATUS)].copy()
+    places["is_arab"] = places["שם_ישוב"].isin(ARAB) | places["שם_ישוב"].str.contains(
+        r"אל-|אום |טמרה|טירה|נצרת|שפרעם|רהט|טייבה|מגאר|סח|עראבה|קלנסווה|באקה", na=False
+    )
+    places.loc[places["שם_ישוב"].isin(["מודיעין עילית", "ביתר עילית", "אריאל", "אלעד"]), "is_arab"] = False
     out = []
-    for _, r in cities.iterrows():
+    for _, r in places.iterrows():
+        status = r["status"] if pd.notna(r["status"]) else None
         out.append({
             "name": r["שם_ישוב"],
             "district": r["district"] if pd.notna(r["district"]) else None,
+            "status": status,
             "streets": int(r["streets"]) if pd.notna(r["streets"]) else 0,
             "pure_exclusive": int(r["pure_exclusive"]) if pd.notna(r["pure_exclusive"]) else 0,
             "rarity_mean_log": float(r["rarity_mean_log"]) if pd.notna(r["rarity_mean_log"]) else None,
@@ -109,7 +117,7 @@ def main():
     out.sort(key=lambda x: -(x["rarity_mean_log"] or 0))
     (OUT / "data.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     (OUT / "data.min.json").write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    print(f"Wrote {len(out)} cities")
+    print(f"Wrote {len(out)} places (cities + local councils)")
 
 if __name__ == "__main__":
     main()
