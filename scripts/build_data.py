@@ -18,6 +18,7 @@ STREETS_ID = "9ad3862c-8391-4b2f-84a4-2d4c68625f4b"
 CBS_ID = "d47a54ff-87f0-44b3-b33a-f284c0c38e5a"
 API = "https://data.gov.il/api/3/action/datastore_search"
 INCLUDED_STATUS = {"עירייה", "מועצה מקומית"}
+MIN_STREETS = 5  # drop places with fewer normalized street names
 
 def fetch_all(rid, limit=32000):
     recs, offset = [], 0
@@ -44,12 +45,10 @@ def normalize(name):
     if not isinstance(name, str):
         return ""
     s = name.strip()
-    # Unify quotes and dashes early
     s = s.replace("'", "׳").replace("`", "׳").replace("'", "׳")
-    for dash in ("-", "–", "—", "־", "−"):  # hyphen, en/em dash, maqaf, minus
+    for dash in ("-", "–", "—", "־", "−"):
         s = s.replace(dash, " ")
     s = re.sub(r"\s+", " ", s).strip()
-    # Leading type prefixes
     for p in [
         r"^רחוב\s+", r"^רח׳\s+", r"^רח\.\s+", r"^רח\s+",
         r"^שדרות\s+", r"^שד׳\s+", r"^שד\.\s+", r"^שד\s+",
@@ -60,12 +59,10 @@ def normalize(name):
         s = re.sub(p, "", s)
     s = re.sub(r"\s+", " ", s).strip()
     s = re.sub(r"\s*\(.*\)\s*$", "", s).strip()
-    # Trailing alley / branch numbers
     s = re.sub(r"\s+סמט(?:ה|ת)?\s*\d+\s*$", "", s).strip()
     s = re.sub(r"\s+סמ׳?\s*\d+\s*$", "", s).strip()
     s = re.sub(r"\s+סמ\d+\s*$", "", s).strip()
     s = re.sub(r"\s+\d{1,3}\s*$", "", s).strip()
-    # Known person-name variants (before stripping leading ה)
     if re.search(r"ז[׳]?בוטינסקי|זבוטינסקי", s):
         return "ז'בוטינסקי"
     if re.search(r"(בנימין זאב )?הרצל$", s) or s in ("הרצל", "בנימין זאב הרצל"):
@@ -134,7 +131,6 @@ def main():
 
     pure_exclusive_names = int((nloc == 1).sum())
 
-    # Places list per norm (for examples)
     places_by_norm = (
         df.groupby("norm")["שם_ישוב"]
         .apply(lambda s: sorted({str(x) for x in s if pd.notna(x)}))
@@ -161,7 +157,7 @@ def main():
             "raw": str(row["raw"]),
             "n_places": n,
             "example_place": str(row["place"]),
-            "places": places[:12],  # show up to 12 settlements
+            "places": places[:12],
             "weight_log": round(float(1.0 / np.log2(1 + n)), 3),
             "weight_sqrt": round(float(1.0 / np.sqrt(n)), 3),
             "unique": n == 1,
@@ -199,6 +195,11 @@ def main():
         how="left",
     )
     places = m[m["status"].isin(INCLUDED_STATUS)].copy()
+    places_before_min = len(places)
+    places = places[places["streets"] >= MIN_STREETS].copy()
+    places_dropped = places_before_min - len(places)
+    print(f"places status filter={places_before_min}, after min {MIN_STREETS} streets={len(places)} (dropped {places_dropped})")
+
     places["is_arab"] = places["שם_ישוב"].isin(ARAB) | places["שם_ישוב"].str.contains(
         r"אל-|אום |טמרה|טירה|נצרת|שפרעם|רהט|טייבה|מגאר|סח|עראבה|קלנסווה|באקה", na=False
     )
@@ -235,6 +236,8 @@ def main():
         "unique_after_normalize": unique_norm,
         "pure_exclusive_names": pure_exclusive_names,
         "places_in_ranking": len(out),
+        "min_streets": MIN_STREETS,
+        "places_dropped_lt_min_streets": int(places_dropped),
     }
     (OUT / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
     from collections import Counter
