@@ -1,0 +1,43 @@
+name: Build Mazal aliases (Wikidata J9U)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install requests pandas numpy
+
+      - name: Build aliases from Wikidata (J9U ≈ מז\"ל)
+        run: python scripts/build_mazal_aliases.py
+
+      - name: Rebuild street rarity data
+        run: python scripts/build_data.py
+
+      - name: Commit results to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git checkout main
+          git add data/mazal_aliases.json data.json data.min.json examples.json meta.json
+          if git diff --staged --quiet; then
+            echo "No changes"
+          else
+            git commit -m "chore: Mazal/J9U aliases + refreshed rarity data"
+            git push origin main
+          fi
