@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch Israel streets, normalize, compute rarity scores (log + sqrt), write data + examples + meta"""
+"""Fetch Israel streets, normalize (structural + Mazal-style aliases), rarity scores, write outputs"""
 from __future__ import annotations
 import json, re, sys, random
 from pathlib import Path
@@ -18,7 +18,8 @@ STREETS_ID = "9ad3862c-8391-4b2f-84a4-2d4c68625f4b"
 CBS_ID = "d47a54ff-87f0-44b3-b33a-f284c0c38e5a"
 API = "https://data.gov.il/api/3/action/datastore_search"
 INCLUDED_STATUS = {"עירייה", "מועצה מקומית"}
-MIN_STREETS = 5  # drop places with fewer normalized street names
+MIN_STREETS = 5
+ALIASES_PATH = OUT / "data" / "mazal_aliases.json"
 
 def fetch_all(rid, limit=32000):
     recs, offset = [], 0
@@ -35,13 +36,30 @@ def fetch_all(rid, limit=32000):
             break
     return recs
 
+def load_aliases():
+    """variant -> preferred form (Mazal-style). Skip keys starting with _."""
+    if not ALIASES_PATH.exists():
+        print(f"No alias file at {ALIASES_PATH}")
+        return {}
+    raw = json.loads(ALIASES_PATH.read_text(encoding="utf-8"))
+    out = {}
+    for k, v in raw.items():
+        if str(k).startswith("_"):
+            continue
+        if not isinstance(v, str) or not v.strip():
+            continue
+        out[str(k).strip()] = v.strip()
+    print(f"Loaded {len(out)} Mazal-style aliases")
+    return out
+
 def is_numeric(name):
     if not isinstance(name, str):
         return True
     s = name.strip()
     return bool(re.match(r"^(רח|רח'|רח\.|רחוב)?\s*\d+\s*$", s) or re.match(r"^\d+\s*$", s))
 
-def normalize(name):
+def structural_clean(name):
+    """Safe structural cleanup only — no ה-stripping, no fuzzy person merges."""
     if not isinstance(name, str):
         return ""
     s = name.strip()
@@ -63,35 +81,21 @@ def normalize(name):
     s = re.sub(r"\s+סמ׳?\s*\d+\s*$", "", s).strip()
     s = re.sub(r"\s+סמ\d+\s*$", "", s).strip()
     s = re.sub(r"\s+\d{1,3}\s*$", "", s).strip()
-    if re.search(r"ז[׳]?בוטינסקי|זבוטינסקי", s):
-        return "ז'בוטינסקי"
-    if re.search(r"(בנימין זאב )?הרצל$", s) or s in ("הרצל", "בנימין זאב הרצל"):
-        return "הרצל"
-    if "ויצמן" in s or "וייצמן" in s:
-        return "ויצמן"
-    if re.search(r"בן\s*גוריון", s):
-        return "בן גוריון"
-    if "בגין" in s:
-        return "בגין"
-    if "טרומפלדור" in s:
-        return "טרומפלדור"
-    if "ארלוזורוב" in s:
-        return "ארלוזורוב"
-    if "ביאליק" in s:
-        return "ביאליק"
-    if "אחד העם" in s:
-        return "אחד העם"
-    if "רוטשילד" in s:
-        return "רוטשילד"
-    if "דיזנגוף" in s:
-        return "דיזנגוף"
-    if "אלנבי" in s:
-        return "אלנבי"
-    if len(s) > 2 and s.startswith("ה"):
-        s = s[1:]
     if re.fullmatch(r"\d+", s):
         return ""
     return s
+
+def make_normalize(aliases: dict):
+    def normalize(name):
+        s = structural_clean(name)
+        if not s:
+            return ""
+        # Exact alias hit (after structural clean)
+        if s in aliases:
+            return aliases[s]
+        # Also try without final ׳/quote variants already unified
+        return s
+    return normalize
 
 def kind_from_status(status):
     s = "" if status is None or (isinstance(status, float) and np.isnan(status)) else str(status).strip()
@@ -108,6 +112,9 @@ ARAB = {
 }
 
 def main():
+    aliases = load_aliases()
+    normalize = make_normalize(aliases)
+
     print("Fetching streets...")
     raw = pd.DataFrame(fetch_all(STREETS_ID))
     rows_raw = len(raw)
@@ -238,6 +245,8 @@ def main():
         "places_in_ranking": len(out),
         "min_streets": MIN_STREETS,
         "places_dropped_lt_min_streets": int(places_dropped),
+        "mazal_aliases_count": len(aliases),
+        "normalize_mode": "structural + mazal_aliases (no auto definite-article strip)",
     }
     (OUT / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
     from collections import Counter
