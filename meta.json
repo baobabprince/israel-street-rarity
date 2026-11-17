@@ -6,5 +6,7 @@
   "rows_after_normalize": 60639,
   "unique_after_normalize": 25281,
   "pure_exclusive_names": 19129,
-  "places_in_ranking": 203
+  "places_in_ranking": 193,
+  "min_streets": 5,
+  "places_dropped_lt_min_streets": 10
 }
