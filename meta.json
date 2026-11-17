@@ -4,9 +4,11 @@
   "rows_after_numeric_filter": 60775,
   "unique_after_numeric_filter": 29880,
   "rows_after_normalize": 60639,
-  "unique_after_normalize": 25281,
-  "pure_exclusive_names": 19129,
+  "unique_after_normalize": 26225,
+  "pure_exclusive_names": 19700,
   "places_in_ranking": 193,
   "min_streets": 5,
-  "places_dropped_lt_min_streets": 10
+  "places_dropped_lt_min_streets": 10,
+  "mazal_aliases_count": 21,
+  "normalize_mode": "structural + mazal_aliases (no auto definite-article strip)"
 }
