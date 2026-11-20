@@ -23,7 +23,7 @@ pytest
 - `scripts/build_mazal_aliases.py` — בניית מפת כינויים מבוקרת מ-Wikidata (מזהי J9U / מז״ל) + עקיפות ידניות
 - `data/mazal_aliases.json` — מפת כינויים מבוקרת ומנורמלת
 - `tests/test_normalize.py` — בדיקות יחידה ובדיקות תקינות מתמטית לנתונים
-- `.github/workflows/update-data.yml` — Action חודשי + ידני
+- `.github/workflows/update-data.yml` — Action שנתי (1 בינואר) + הפעלה ידנית
 - `index.html` — דשבורד אינטראקטיבי (Chart.js)
 
 ## מתודולוגיה
