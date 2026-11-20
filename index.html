@@ -7,84 +7,119 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{
-  --bg:#0f1419;--card:#1a2332;--card2:#131b27;--text:#e7ecf3;--muted:#8b9bb4;
-  --accent:#3b82f6;--border:#2d3a4f;--arab:#10b981;--jew:#818cf8;--mixed:#f59e0b;
+  --bg:#0b111b;--surface:#131c2b;--surface2:#0f1724;--text:#e8eef6;--muted:#8fa1bc;
+  --accent:#3b82f6;--border:#243247;--arab:#10b981;--jew:#818cf8;--mixed:#f59e0b;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,Segoe UI,Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;padding-bottom:3rem}
-header{background:linear-gradient(135deg,#1e3a5f,#0f1419);padding:2.4rem 1.2rem 2rem;text-align:center;border-bottom:1px solid var(--border)}
-header h1{font-size:1.95rem;margin-bottom:.45rem}
-header p{color:var(--muted);max-width:760px;margin:.35rem auto 0;font-size:.98rem}
-.header-links{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
-.header-links a{display:inline-block;padding:.4rem .9rem;border-radius:8px;background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.4);color:#93c5fd;text-decoration:none;font-size:.9rem;transition:background .15s}
-.header-links a:hover{background:rgba(59,130,246,.32)}
-.container{max-width:1140px;margin:0 auto;padding:1.2rem}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:.85rem;margin:1.1rem 0}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.95rem .8rem;text-align:center}
-.card .num{font-size:1.42rem;font-weight:700;color:var(--accent)}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,Segoe UI,Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding-bottom:3.5rem}
+a{color:#93c5fd}
+
+/* Header */
+header{background:radial-gradient(circle at top center,#1b3358 0%,#0b111b 70%);padding:2.2rem 1.2rem 1.7rem;text-align:center;border-bottom:1px solid var(--border)}
+header h1{font-size:2rem;letter-spacing:-.01em;margin-bottom:.35rem}
+header p{color:var(--muted);max-width:680px;margin:0 auto;font-size:.98rem}
+.header-meta{margin-top:.9rem;display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:.35rem;padding:.32rem .75rem;border-radius:999px;background:rgba(148,163,184,.12);border:1px solid var(--border);color:#cbd5e1;font-size:.82rem;text-decoration:none}
+.pill.link{background:rgba(59,130,246,.16);border-color:rgba(59,130,246,.38);color:#93c5fd;transition:background .15s}
+.pill.link:hover{background:rgba(59,130,246,.28)}
+
+/* Sticky Nav & Metric Bar */
+.sticky-bar{position:sticky;top:0;z-index:40;background:rgba(11,17,27,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.sticky-inner{max-width:1160px;margin:0 auto;padding:.55rem 1.2rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.65rem}
+.nav-links{display:flex;flex-wrap:wrap;gap:.25rem}
+.nav-links a{padding:.3rem .65rem;border-radius:8px;font-size:.86rem;color:var(--muted);text-decoration:none;transition:background .15s,color .15s}
+.nav-links a:hover{background:rgba(148,163,184,.12);color:var(--text)}
+.metric-ctrl{display:flex;align-items:center;gap:.45rem;font-size:.83rem;color:var(--muted)}
+
+/* Layout */
+.container{max-width:1160px;margin:0 auto;padding:1.25rem 1.2rem 0}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.15rem;margin-bottom:1.15rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:.85rem;margin-bottom:1.15rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem .9rem;text-align:center}
+.card .num{font-size:1.55rem;font-weight:700;color:var(--accent);line-height:1.2}
 .card .num.arab{color:var(--arab)}
 .card .num.jew{color:var(--jew)}
 .card .num.mixed{color:var(--mixed)}
-.card .label{font-size:.78rem;color:var(--muted);margin-top:.2rem}
-section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.35rem 1.3rem;margin-bottom:1.2rem}
-section h2{font-size:1.2rem;margin-bottom:.85rem;padding-bottom:.45rem;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem}
-section h3{font-size:1.02rem;margin:1.05rem 0 .4rem;color:#93c5fd}
-p.lead,section p{margin:.45rem 0;font-size:.94rem}
-.muted{color:var(--muted);font-size:.88rem}
-ul.clean{margin:.4rem 0 .6rem 1.2rem}
-code{background:#0b1220;padding:.1rem .35rem;border-radius:4px;font-size:.86rem}
-.chart-wrap{height:430px;margin:.9rem 0;position:relative}
-.chart-wrap.tall{height:500px}
-.chart-wrap.med{height:310px}
-.insight{background:var(--bg);border-radius:10px;padding:.85rem 1rem;border-right:3px solid var(--accent);margin:.6rem 0;font-size:.9rem;color:#cbd5e1}
+.card .label{font-size:.8rem;color:var(--muted);margin-top:.25rem}
+
+section{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.3rem 1.35rem;margin-bottom:1.15rem;scroll-margin-top:4.2rem}
+.grid-2 > section{margin-bottom:0;display:flex;flex-direction:column}
+section h2{font-size:1.15rem;margin-bottom:.7rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem}
+section h3{font-size:.98rem;margin:1rem 0 .35rem;color:#93c5fd}
+p{margin:.35rem 0;font-size:.93rem}
+.muted{color:var(--muted);font-size:.86rem}
+code{background:#090e17;padding:.1rem .35rem;border-radius:4px;font-size:.84rem;border:1px solid rgba(148,163,184,.14)}
+
+/* Controls */
+.seg-btns{display:inline-flex;background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:2px;gap:2px}
+.seg-btns button{background:transparent;color:var(--muted);border:none;border-radius:7px;padding:.3rem .72rem;font-size:.82rem;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;white-space:nowrap}
+.seg-btns button:hover{color:var(--text)}
+.seg-btns button.active{background:var(--accent);color:#fff;font-weight:600}
+.btn{background:rgba(59,130,246,.16);color:#93c5fd;border:1px solid rgba(59,130,246,.38);border-radius:8px;padding:.32rem .75rem;font-size:.83rem;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn:hover{background:rgba(59,130,246,.28)}
+
+/* Charts & Badges */
+.chart-wrap{height:400px;margin:.6rem 0 .2rem;position:relative}
+.chart-wrap.tall{height:490px}
+.chart-wrap.med{height:310px;flex:1;min-height:280px}
+.legend-row{display:flex;flex-wrap:wrap;gap:.9rem;font-size:.82rem;color:var(--muted);margin-bottom:.35rem}
+.legend-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-left:.32rem;vertical-align:middle}
+.insight{background:var(--surface2);border-radius:10px;padding:.75rem .95rem;border-right:3px solid var(--accent);margin:.35rem 0 .7rem;font-size:.88rem;color:#cbd5e1}
 .badge{display:inline-block;padding:.14rem .52rem;border-radius:999px;font-size:.73rem;font-weight:600;white-space:nowrap}
 .badge.arab{background:rgba(16,185,129,.2);color:#34d399}
 .badge.jew{background:rgba(129,140,248,.22);color:#a5b4fc}
 .badge.mixed{background:rgba(245,158,11,.22);color:#fbbf24}
-.badge.other{background:rgba(148,163,184,.2);color:#cbd5e1}
-.badge.city{background:rgba(59,130,246,.2);color:#93c5fd}
-.badge.council{background:rgba(245,158,11,.16);color:#fcd34d}
-.badge.uniq{background:rgba(16,185,129,.24);color:#34d399}
+.badge.other{background:rgba(148,163,184,.18);color:#cbd5e1}
+.badge.city{background:rgba(59,130,246,.18);color:#93c5fd}
+.badge.council{background:rgba(245,158,11,.15);color:#fcd34d}
+.badge.uniq{background:rgba(16,185,129,.22);color:#34d399}
 .badge.common{background:rgba(239,68,68,.16);color:#fca5a5}
-.legend-row{display:flex;flex-wrap:wrap;gap:1rem;font-size:.83rem;color:var(--muted);margin:.25rem 0 .4rem}
-.legend-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-left:.35rem;vertical-align:middle}
-.seg-btns{display:inline-flex;background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.seg-btns button{background:transparent;color:var(--muted);border:none;padding:.32rem .75rem;font-size:.83rem;cursor:pointer;font-family:inherit;transition:background .15s,color .15s}
-.seg-btns button.active{background:var(--accent);color:#fff;font-weight:600}
-.btn{background:rgba(59,130,246,.18);color:#93c5fd;border:1px solid rgba(59,130,246,.4);border-radius:8px;padding:.35rem .8rem;font-size:.85rem;cursor:pointer;font-family:inherit;transition:background .15s}
-.btn:hover{background:rgba(59,130,246,.32)}
+
+/* Table */
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem;align-items:center}
+.filters select,.filters input{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.42rem .62rem;font-family:inherit;font-size:.87rem}
+.filters input{min-width:190px;flex:1 1 200px;max-width:290px}
+.table-count{margin-right:auto;font-size:.82rem;color:var(--muted)}
+.table-wrap{max-height:520px;overflow:auto;border:1px solid var(--border);border-radius:11px;background:var(--surface2)}
 table{width:100%;border-collapse:collapse;font-size:.85rem}
-th,td{padding:.48rem .5rem;text-align:right;border-bottom:1px solid var(--border)}
-thead th{color:var(--muted);position:sticky;top:0;background:var(--card);z-index:2;user-select:none}
+th,td{padding:.5rem .55rem;text-align:right;border-bottom:1px solid var(--border)}
+thead th{color:var(--muted);position:sticky;top:0;background:var(--surface);z-index:2;user-select:none;font-weight:600}
 thead th.sortable{cursor:pointer}
 thead th.sortable:hover{color:var(--text)}
 thead th.sorted{color:#93c5fd}
 tbody tr{cursor:pointer;transition:background .12s}
 tbody tr:hover{background:rgba(59,130,246,.1)}
-.table-wrap{max-height:500px;overflow:auto;border:1px solid var(--border);border-radius:10px}
-.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem;align-items:center}
-.filters select,.filters input{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.4rem .6rem;font-family:inherit;font-size:.88rem}
-.filters input{min-width:190px;flex:1 1 190px;max-width:280px}
-.table-count{margin-right:auto;font-size:.83rem;color:var(--muted)}
-.metric-bar{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin:1rem 0;padding:.85rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.metric-bar label{color:var(--muted);font-size:.9rem}
-.metric-bar select{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.4rem .7rem;font-size:.92rem;font-family:inherit}
-footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.8rem}
-footer a{color:#60a5fa}
-.loading{text-align:center;padding:3rem;color:var(--muted)}
-.error{color:#f87171;padding:1rem}
-.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-top:.8rem}
-.ex-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem}
-.ex-card .en{font-weight:700;font-size:1.05rem;margin-bottom:.25rem}
-.ex-card .meta{font-size:.84rem;color:var(--muted)}
-.place-chip{display:inline-block;margin:.15rem .18rem;padding:.12rem .45rem;border-radius:6px;background:rgba(59,130,246,.18);color:#93c5fd;font-size:.77rem;font-weight:600}
+
+/* Examples */
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:.75rem;margin-top:.75rem}
+.ex-card{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:.85rem .95rem}
+.ex-card .en{font-weight:700;font-size:1.02rem;margin-bottom:.25rem}
+.ex-card .meta{font-size:.83rem;color:var(--muted)}
+.place-chip{display:inline-block;margin:.14rem .16rem;padding:.12rem .45rem;border-radius:6px;background:rgba(59,130,246,.16);color:#93c5fd;font-size:.76rem;font-weight:600}
 .place-chip.uniq{background:rgba(16,185,129,.18);color:#34d399}
 .place-chip.common{background:rgba(239,68,68,.15);color:#fca5a5}
-.place-chip.more{background:rgba(148,163,184,.2);color:#cbd5e1}
+.place-chip.more{background:rgba(148,163,184,.18);color:#cbd5e1}
+
+/* Methodology / Collapsible Details */
+.method-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:.5rem}
+.method-box{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:.95rem 1.05rem}
+.method-box h3{margin:0 0 .4rem;font-size:.95rem}
+.method-box ol,.method-box ul{margin:.3rem 1.15rem 0;font-size:.88rem;color:#cbd5e1}
+.method-box li{margin-bottom:.3rem}
+details{margin-top:.9rem;background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:.75rem 1rem}
+details summary{cursor:pointer;font-weight:600;font-size:.9rem;color:#93c5fd;list-style:none;display:flex;align-items:center;justify-content:space-between}
+details summary::after{content:'▾';color:var(--muted);transition:transform .15s}
+details[open] summary::after{transform:rotate(180deg)}
+.mini-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:.65rem;margin-top:.8rem}
+.mini-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.7rem;text-align:center}
+.mini-card .v{font-size:1.2rem;font-weight:700;color:#93c5fd}
+.mini-card .k{font-size:.75rem;color:var(--muted);margin-top:.15rem}
+
 /* Modal */
-.modal-backdrop{position:fixed;inset:0;background:rgba(5,8,14,.74);display:none;align-items:center;justify-content:center;padding:1rem;z-index:100}
+.modal-backdrop{position:fixed;inset:0;background:rgba(5,8,14,.76);display:none;align-items:center;justify-content:center;padding:1rem;z-index:100}
 .modal-backdrop.open{display:flex}
-.modal{background:var(--card);border:1px solid var(--border);border-radius:16px;max-width:640px;width:100%;max-height:88vh;overflow:auto;padding:1.35rem 1.4rem;box-shadow:0 20px 50px rgba(0,0,0,.55)}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;max-width:640px;width:100%;max-height:88vh;overflow:auto;padding:1.35rem 1.4rem;box-shadow:0 20px 50px rgba(0,0,0,.6)}
 .modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
 .modal-head h3{font-size:1.35rem;margin:0;color:var(--text)}
 .modal-close{background:transparent;border:1px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:8px;font-size:1.1rem;cursor:pointer;line-height:1}
@@ -94,85 +129,104 @@ footer a{color:#60a5fa}
 .modal-stat .v{font-size:1.15rem;font-weight:700;color:#93c5fd}
 .modal-stat .k{font-size:.74rem;color:var(--muted)}
 .modal-block{margin-top:.9rem}
-.modal-block h4{font-size:.92rem;color:#cbd5e1;margin-bottom:.4rem}
+.modal-block h4{font-size:.9rem;color:#cbd5e1;margin-bottom:.4rem}
+
+.loading{text-align:center;padding:3rem;color:var(--muted)}
+.error{color:#f87171;padding:1rem}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
+
+@media(max-width:900px){
+  .grid-2{grid-template-columns:1fr}
+}
 @media(max-width:640px){
-  .chart-wrap{height:360px}
-  .chart-wrap.tall{height:440px}
-  header h1{font-size:1.45rem}
+  header h1{font-size:1.5rem}
   section{padding:1.05rem .9rem}
+  .chart-wrap{height:350px}
+  .chart-wrap.tall{height:440px}
+  .nav-links{display:none}
 }
 </style>
 </head>
 <body>
+
 <header>
   <h1>נדירות שמות רחובות בישראל</h1>
-  <p>כמה מהשמות ברחובות של כל עיר ומועצה מקומית באמת ייחודיים לה — וכמה חוזרים בעשרות יישובים אחרים?</p>
-  <div class="header-links">
-    <a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">קוד המקור</a>
-    <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/build_data.py" target="_blank" rel="noopener">סקריפט החישוב</a>
-    <a href="https://github.com/baobabprince/israel-street-rarity/actions" target="_blank" rel="noopener">Actions</a>
+  <p>כמה משמות הרחובות בכל עיר ומועצה מקומית ייחודיים לה — וכמה חוזרים בעשרות יישובים אחרים?</p>
+  <div class="header-meta">
+    <span class="pill" id="updated-pill">מקור: רשות האוכלוסין + הלמ״ס</span>
+    <a class="pill link" href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">GitHub</a>
+    <a class="pill link" href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/build_data.py" target="_blank" rel="noopener">סקריפט החישוב</a>
   </div>
 </header>
 
+<div class="sticky-bar">
+  <div class="sticky-inner">
+    <nav class="nav-links" aria-label="ניווט מהיר">
+      <a href="#sec-rank">דירוג</a>
+      <a href="#sec-sectors">מגזרים ופיזור</a>
+      <a href="#sec-table">טבלה</a>
+      <a href="#sec-shared">הנפוצים ביותר</a>
+      <a href="#sec-examples">דוגמאות</a>
+      <a href="#sec-method">מתודולוגיה</a>
+    </nav>
+    <div class="metric-ctrl">
+      <span>נוסחה:</span>
+      <div class="seg-btns" id="metric-toggle" role="group" aria-label="בחירת נוסחת משקל">
+        <button type="button" data-metric="log" class="active" title="1 / log₂(1 + n) — ענישה מתונה לשמות נפוצים">לוג</button>
+        <button type="button" data-metric="sqrt" title="1 / √n — ענישה חדה יותר לשמות נפוצים">שורש</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
+  <div id="app" class="loading">טוען נתונים…</div>
 
-<section>
-  <h2>למה זה מעניין?</h2>
-  <p class="lead">שמות רחובות מספרים סיפור תרבותי ומוניציפלי: עד כמה היישוב נשען על מאגר לאומי משותף (הרצל, בן גוריון, הזית, הדקל) ועד כמה הוא מעניק שמות מקומיים וייחודיים.</p>
-  <p class="muted" id="source-line">מקור: רשות האוכלוסין וההגירה (data.gov.il) + הלמ״ס. מתעדכן אוטומטית ב-GitHub Actions.</p>
-</section>
+  <section id="sec-examples">
+    <h2>
+      <span>דוגמאות אקראיות להמחשה</span>
+      <button type="button" class="btn" id="shuffle-ex">החלף דוגמאות ↻</button>
+    </h2>
+    <p class="muted">חמש דוגמאות ממאגר הרחובות המנורמל (תמיד לפחות שם ייחודי אחד).</p>
+    <div class="ex-grid" id="examples">טוען דוגמאות…</div>
+  </section>
 
-<section>
-  <h2>איך מחשבים</h2>
-  <ol style="margin:.4rem 1.25rem">
-    <li>מורידים את כל רשומות הרחובות בישראל ומסירים רשומות פיקטיביות (<code>סמל_רחוב = 9000</code> המייצג את שם היישוב עצמו) ורחובות מספריים בלבד.</li>
-    <li>מנרמלים מבנית (קידומות רחוב/שדרה/סמטה/משעול/מבוא/שכונה, מקפים, גרש/גרשיים וניקוד), מאחדים שמות אישים הפוכים (<code>בגין מנחם</code> ↔ <code>מנחם בגין</code>) ומפעילים מפת כינויים מבוקרת (מבוססת Wikidata/J9U). <strong>אין</strong> הסרה אוטומטית של ה׳ הידיעה.</li>
-    <li>מסירים כפילויות בתוך אותו יישוב (למשל <code>הגרנות</code> ו־<code>שכ הגרנות</code> נספרים כרחוב אחד), וסופרים בכמה יישובים בארץ מופיע כל שם (<code>n</code>).</li>
-    <li>מחשבים משקל נדירות (1.0 לשם ייחודי ליישוב אחד; נמוך יותר לשמות נפוצים) ולכל עיר/מועצה מקומית (עם 5 רחובות ומעלה) מחשבים ממוצע נדירות, סכום נדירות ואחוז שמות ייחודיים.</li>
-  </ol>
-  <h3>שתי נוסחאות משקל</h3>
-  <p><strong>לוג (ברירת מחדל):</strong> <code dir="ltr">1 / log₂(1 + n)</code> — ענישה מתונה יותר לשמות נפוצים.</p>
-  <p><strong>שורש:</strong> <code dir="ltr">1 / √n</code> — ענישה חדה יותר לשמות שמופיעים בעשרות ומאות יישובים.</p>
-  <h3>סיווג מגזרי (לפי הלמ״ס)</h3>
-  <p>הסיווג מבוסס ישירות על שדה <code>דת יישוב</code> הרשמי של הלשכה המרכזית לסטטיסטיקה (ולא על רשימה ידנית): <strong>יהודי</strong> (קוד 1), <strong>ערבי</strong> (קוד 2 — לפי הגדרת הלמ״ס כולל יישובים ערביים, דרוזיים וצ׳רקסיים), ו־<strong>מעורב</strong> (קוד 4 — שמונה הערים המעורבות הרשמיות: ירושלים, חיפה, תל אביב-יפו, לוד, רמלה, עכו, נוף הגליל ומעלות-תרשיחא).</p>
-</section>
+  <section id="sec-method">
+    <h2>מתודולוגיה ומקורות</h2>
+    <div class="method-grid">
+      <div class="method-box">
+        <h3>איך מחשבים נדירות?</h3>
+        <ol>
+          <li>מורידים את רשימת הרחובות מ־<code>data.gov.il</code> ומסירים רשומות פיקטיביות (<code>סמל_רחוב = 9000</code>, שם היישוב עצמו) ורחובות מספריים.</li>
+          <li>מנקים קידומות דרך/שכונה (רחוב, שדרה, סמטה, משעול, מבוא, שכ…), מאחדים שמות אישים הפוכים (<code>בגין מנחם</code> ↔ <code>מנחם בגין</code>) ומפעילים מפת כינויים מבוקרת (ללא הסרת ה׳ הידיעה).</li>
+          <li>מסירים כפילויות בתוך אותו יישוב, סופרים בכמה יישובים בארץ מופיע כל שם (<code>n</code>), ומחשבים ממוצע וסכום משקלים ליישובים עם 5 רחובות ומעלה.</li>
+        </ol>
+      </div>
+      <div class="method-box">
+        <h3>נוסחאות וסיווג מגזרי (למ״ס)</h3>
+        <ul>
+          <li><strong>לוג (ברירת מחדל):</strong> <code dir="ltr">1 / log₂(1 + n)</code> — ענישה מתונה לשמות נפוצים.</li>
+          <li><strong>שורש:</strong> <code dir="ltr">1 / √n</code> — ענישה חדה יותר לשמות שחוזרים בעשרות יישובים.</li>
+          <li><strong>סיווג מגזרי רשמי (למ״ס):</strong> לפי שדה <code>דת יישוב</code> — <strong>יהודי</strong> (1), <strong>ערבי</strong> (2, כולל יישובים דרוזיים וצ׳רקסיים לפי הגדרת הלמ״ס), ו־<strong>מעורב</strong> (4 — 8 הערים המעורבות הרשמיות).</li>
+        </ul>
+      </div>
+    </div>
 
-<section id="meta-section">
-  <h2>סטטיסטיקה כללית (לפני / אחרי ניקוי)</h2>
-  <div class="cards" id="meta-cards"><div class="muted">טוען…</div></div>
-</section>
-
-<div class="metric-bar">
-  <label for="metric">נוסחת משקל:</label>
-  <select id="metric">
-    <option value="log">לוג — 1/log₂(1+n)</option>
-    <option value="sqrt">שורש — 1/√n</option>
-  </select>
-  <span class="muted" id="metric-hint">ענישה מתונה יותר לשמות נפוצים</span>
+    <details>
+      <summary>סטטיסטיקה טכנית של הניקוי וקבצי נתונים</summary>
+      <div class="mini-cards" id="meta-cards"><div class="muted">טוען…</div></div>
+      <p class="muted" style="margin-top:.8rem">
+        קבצים פתוחים:
+        <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/data.json" target="_blank" rel="noopener">data.json</a> ·
+        <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/examples.json" target="_blank" rel="noopener">examples.json</a> ·
+        <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/meta.json" target="_blank" rel="noopener">meta.json</a> ·
+        <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/normalize.py" target="_blank" rel="noopener">scripts/normalize.py</a>
+      </p>
+    </details>
+  </section>
 </div>
 
-<div id="app" class="loading">טוען נתונים…</div>
-
-<section id="examples-section">
-  <h2>
-    <span>דוגמאות להמחשה <span class="muted" style="font-weight:400;font-size:.86rem">(מדגם אקראי)</span></span>
-    <button type="button" class="btn" id="shuffle-ex">החלף דוגמאות ↻</button>
-  </h2>
-  <p class="muted">חמש דוגמאות אקראיות ממאגר השמות המנורמלים — תמיד לפחות שם ייחודי אחד.</p>
-  <div class="ex-grid" id="examples">טוען דוגמאות…</div>
-</section>
-
-<section>
-  <h2>קוד מקור ונתונים</h2>
-  <ul class="clean">
-    <li><a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">הרפוזיטורי ב-GitHub</a></li>
-    <li><a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/build_data.py" target="_blank" rel="noopener">scripts/build_data.py</a> · <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/normalize.py" target="_blank" rel="noopener">scripts/normalize.py</a></li>
-    <li><a href="https://github.com/baobabprince/israel-street-rarity/blob/main/data.json" target="_blank" rel="noopener">data.json</a> · <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/examples.json" target="_blank" rel="noopener">examples.json</a> · <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/meta.json" target="_blank" rel="noopener">meta.json</a></li>
-  </ul>
-</section>
-</div>
-
-<footer>רשות האוכלוסין · הלמ״ס · <a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">GitHub</a></footer>
+<footer>רשות האוכלוסין וההגירה · הלשכה המרכזית לסטטיסטיקה · <a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">GitHub</a></footer>
 
 <div class="modal-backdrop" id="city-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal">
@@ -225,8 +279,7 @@ function kindOf(d){
 }
 function kindBadge(d){
   const k=kindOf(d);
-  const cls=k==='עיר'?'city':'council';
-  return `<span class="badge ${cls}">${esc(k)}</span>`;
+  return `<span class="badge ${k==='עיר'?'city':'council'}">${esc(k)}</span>`;
 }
 
 function pickExamples(pool){
@@ -245,7 +298,7 @@ function pickExamples(pool){
 
 let DATA=[], EXAMPLES=[], PICKED=[], META={};
 let metric='log';
-let rankMode='top';     // 'top' | 'bottom'
+let rankMode='top';     // 'top' | 'bottom' | 'sum'
 let scatterY='mean';    // 'mean' | 'exclusive'
 let charts={};
 let sortCol='rarity_mean_log', sortDir=-1;
@@ -326,8 +379,7 @@ function renderExamples(){
 
 function rebuildScatter(){
   const sc=DATA.filter(d=>d.population>0);
-  const sectors=['יהודי','ערבי','מעורב'];
-  const datasets=sectors.map(sec=>({
+  const datasets=['יהודי','ערבי','מעורב'].map(sec=>({
     label:sec,
     data:sc.filter(d=>sectorOf(d)===sec).map(d=>({
       x:d.population,
@@ -335,7 +387,7 @@ function rebuildScatter(){
       city:d
     })),
     backgroundColor:sectorColor(sec),
-    pointRadius:5,
+    pointRadius:4.5,
     pointHoverRadius:7
   })).filter(ds=>ds.data.length>0);
 
@@ -347,25 +399,78 @@ function rebuildScatter(){
       responsive:true,maintainAspectRatio:false,
       onClick:(_,els)=>{
         if(els&&els.length){
-          const ds=charts.scatter.data.datasets[els[0].datasetIndex];
-          const pt=ds.data[els[0].index];
+          const pt=charts.scatter.data.datasets[els[0].datasetIndex].data[els[0].index];
           if(pt&&pt.city) openCityModal(pt.city);
         }
       },
       plugins:{
-        legend:{labels:{color:'#e7ecf3'}},
+        legend:{labels:{color:'#e8eef6',boxWidth:10}},
         tooltip:{callbacks:{label:ctx=>{
           const d=ctx.raw.city;
           return `${d.name} (${sectorOf(d)}): אוכ׳ ${fmt(d.population)}, נדירות ${meanOf(d).toFixed(1)}%, ייחודיים ${fmt(d.pure_exclusive)}/${fmt(d.streets)}`;
         }}}
       },
       scales:{
-        x:{type:'logarithmic',title:{display:true,text:'אוכלוסייה (סולם לוגריתמי)',color:'#8b9bb4'},ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
+        x:{type:'logarithmic',title:{display:true,text:'אוכלוסייה (לוג)',color:'#8fa1bc'},ticks:{color:'#8fa1bc'},grid:{color:'#243247'}},
         y:{
           min:0,max:scatterY==='mean'?100:undefined,
-          title:{display:true,text:scatterY==='mean'?'ממוצע נדירות (%)':'מספר שמות ייחודיים לגמרי',color:'#8b9bb4'},
-          ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}
+          title:{display:true,text:scatterY==='mean'?'ממוצע נדירות (%)':'שמות ייחודיים לגמרי',color:'#8fa1bc'},
+          ticks:{color:'#8fa1bc'},grid:{color:'#243247'}
         }
+      }
+    }
+  });
+}
+
+function rebuildRankChart(){
+  let ranked, values, xMax, labelFn;
+  const titleEl=document.getElementById('rank-title');
+  const subEl=document.getElementById('rank-sub');
+
+  if(rankMode==='sum'){
+    ranked=[...DATA].sort((a,b)=>sumOf(b)-sumOf(a)).slice(0,20);
+    values=ranked.map(d=>sumOf(d));
+    xMax=undefined;
+    if(titleEl) titleEl.textContent='סכום נדירות — 20 הגבוהות';
+    if(subEl) subEl.textContent='משקלל גם כמות רחובות וגם ייחודיות — לכן ערים גדולות ומגוונות מובילות.';
+    labelFn=d=>` סכום ${sumOf(d).toFixed(1)} · ${sectorOf(d)} · ${fmt(d.streets)} רחובות`;
+  }else if(rankMode==='bottom'){
+    ranked=[...DATA].sort((a,b)=>meanOf(a)-meanOf(b)).slice(0,25);
+    values=ranked.map(d=>meanOf(d));
+    xMax=100;
+    if(titleEl) titleEl.textContent='ממוצע נדירות — 25 השגרתיות ביותר';
+    if(subEl) subEl.textContent='יישובים הנשענים בעיקר על מאגר שמות הרחובות הלאומי המשותף.';
+    labelFn=d=>` ${meanOf(d).toFixed(1)}% · ${sectorOf(d)} · ${fmt(d.pure_exclusive)}/${fmt(d.streets)} ייחודיים`;
+  }else{
+    ranked=[...DATA].sort((a,b)=>meanOf(b)-meanOf(a)).slice(0,25);
+    values=ranked.map(d=>meanOf(d));
+    xMax=100;
+    if(titleEl) titleEl.textContent='ממוצע נדירות — 25 הייחודיות ביותר';
+    if(subEl) subEl.textContent='יישובים עם השיעור הגבוה ביותר של שמות רחובות מקומיים וייחודיים.';
+    labelFn=d=>` ${meanOf(d).toFixed(1)}% · ${sectorOf(d)} · ${fmt(d.pure_exclusive)}/${fmt(d.streets)} ייחודיים`;
+  }
+
+  if(charts.rank) charts.rank.destroy();
+  charts.rank=new Chart(document.getElementById('cRank'),{
+    type:'bar',
+    data:{
+      labels:ranked.map(d=>d.name),
+      datasets:[{
+        data:values,
+        backgroundColor:ranked.map(d=>sectorColor(sectorOf(d))),
+        borderRadius:4
+      }]
+    },
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      onClick:(_,els)=>{if(els&&els.length) openCityModal(ranked[els[0].index])},
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>labelFn(ranked[ctx.dataIndex])}}
+      },
+      scales:{
+        x:{min:0,max:xMax,ticks:{color:'#8fa1bc'},grid:{color:'#243247'}},
+        y:{ticks:{color:'#e8eef6',font:{size:11}},grid:{display:false}}
       }
     }
   });
@@ -380,75 +485,26 @@ function rebuildCharts(){
   const mJ=avg(jew.map(meanOf)),  medJ=median(jew.map(meanOf)),  exJ=avg(jew.map(exclPctOf));
   const mM=avg(mixed.map(meanOf)),medM=median(mixed.map(meanOf)),exM=avg(mixed.map(exclPctOf));
 
-  // Mean rarity bar chart (Top 25 or Bottom 25)
-  const ranked=[...DATA].sort((a,b)=>rankMode==='top'?meanOf(b)-meanOf(a):meanOf(a)-meanOf(b)).slice(0,25);
-  const meanTitle=document.getElementById('mean-title');
-  if(meanTitle) meanTitle.textContent=rankMode==='top'?'ממוצע נדירות — 25 הייחודיות ביותר':'ממוצע נדירות — 25 השגרתיות ביותר';
+  // Summary cards
+  const cards=document.getElementById('summary-cards');
+  if(cards){
+    const cities=DATA.filter(d=>kindOf(d)==='עיר').length;
+    const councils=DATA.filter(d=>kindOf(d)==='מועצה מקומית').length;
+    cards.innerHTML=`
+      <div class="card"><div class="num">${fmt(DATA.length)}</div><div class="label">${cities} ערים · ${councils} מועצות מקומיות</div></div>
+      <div class="card"><div class="num jew">${mJ.toFixed(1)}%</div><div class="label">ממוצע נדירות — יהודי (${jew.length})</div></div>
+      <div class="card"><div class="num arab">${mA.toFixed(1)}%</div><div class="label">ממוצע נדירות — ערבי (${arab.length})</div></div>
+      <div class="card"><div class="num mixed">${mM.toFixed(1)}%</div><div class="label">ממוצע נדירות — מעורב (${mixed.length})</div></div>`;
+  }
 
-  if(charts.mean) charts.mean.destroy();
-  charts.mean=new Chart(document.getElementById('cMean'),{
-    type:'bar',
-    data:{
-      labels:ranked.map(d=>d.name),
-      datasets:[{
-        data:ranked.map(d=>meanOf(d)),
-        backgroundColor:ranked.map(d=>sectorColor(sectorOf(d))),
-        borderRadius:4
-      }]
-    },
-    options:{
-      indexAxis:'y',responsive:true,maintainAspectRatio:false,
-      onClick:(_,els)=>{if(els&&els.length) openCityModal(ranked[els[0].index])},
-      plugins:{
-        legend:{display:false},
-        tooltip:{callbacks:{label:ctx=>{
-          const d=ranked[ctx.dataIndex];
-          return ` ${meanOf(d).toFixed(1)}% · ${sectorOf(d)} · ${fmt(d.pure_exclusive)}/${fmt(d.streets)} ייחודיים`;
-        }}}
-      },
-      scales:{
-        x:{min:0,max:100,ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
-        y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}
-      }
-    }
-  });
+  rebuildRankChart();
 
-  // Sum rarity bar chart
-  const topS=[...DATA].sort((a,b)=>sumOf(b)-sumOf(a)).slice(0,20);
-  if(charts.sum) charts.sum.destroy();
-  charts.sum=new Chart(document.getElementById('cSum'),{
-    type:'bar',
-    data:{
-      labels:topS.map(d=>d.name),
-      datasets:[{
-        data:topS.map(d=>sumOf(d)),
-        backgroundColor:topS.map(d=>sectorColor(sectorOf(d))),
-        borderRadius:4
-      }]
-    },
-    options:{
-      indexAxis:'y',responsive:true,maintainAspectRatio:false,
-      onClick:(_,els)=>{if(els&&els.length) openCityModal(topS[els[0].index])},
-      plugins:{
-        legend:{display:false},
-        tooltip:{callbacks:{label:ctx=>{
-          const d=topS[ctx.dataIndex];
-          return ` סכום ${sumOf(d).toFixed(1)} · ${sectorOf(d)} · ${fmt(d.streets)} רחובות`;
-        }}}
-      },
-      scales:{
-        x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
-        y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}
-      }
-    }
-  });
-
-  // Sector comparison chart (all on clean 0-100% scale)
+  // Sector comparison chart
   if(charts.grp) charts.grp.destroy();
   charts.grp=new Chart(document.getElementById('cGrp'),{
     type:'bar',
     data:{
-      labels:['ממוצע נדירות %','חציון נדירות %','ממוצע % שמות ייחודיים לגמרי'],
+      labels:['ממוצע נדירות %','חציון נדירות %','% שמות ייחודיים'],
       datasets:[
         {label:`ערבי (${arab.length})`,data:[+mA.toFixed(1),+medA.toFixed(1),+exA.toFixed(1)],backgroundColor:SECTOR_COLORS['ערבי'],borderRadius:5},
         {label:`מעורב (${mixed.length})`,data:[+mM.toFixed(1),+medM.toFixed(1),+exM.toFixed(1)],backgroundColor:SECTOR_COLORS['מעורב'],borderRadius:5},
@@ -457,17 +513,17 @@ function rebuildCharts(){
     },
     options:{
       responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{labels:{color:'#e7ecf3'}}},
+      plugins:{legend:{labels:{color:'#e8eef6',boxWidth:10}}},
       scales:{
-        x:{ticks:{color:'#e7ecf3'},grid:{color:'#2d3a4f'}},
-        y:{min:0,max:100,ticks:{color:'#8b9bb4',callback:v=>v+'%'},grid:{color:'#2d3a4f'}}
+        x:{ticks:{color:'#e8eef6'},grid:{color:'#243247'}},
+        y:{min:0,max:100,ticks:{color:'#8fa1bc',callback:v=>v+'%'},grid:{color:'#243247'}}
       }
     }
   });
 
   const grpInsight=document.getElementById('grp-insight');
   if(grpInsight){
-    grpInsight.innerHTML=`לפי סיווג הלמ״ס: ב־<strong>${arab.length}</strong> יישובים ערביים (כולל דרוזיים וצ׳רקסיים) ממוצע הנדירות הוא <strong>${mA.toFixed(1)}%</strong> (חציון ${medA.toFixed(1)}%), ב־<strong>${mixed.length}</strong> ערים מעורבות <strong>${mM.toFixed(1)}%</strong> (חציון ${medM.toFixed(1)}%), וב־<strong>${jew.length}</strong> יישובים יהודיים <strong>${mJ.toFixed(1)}%</strong> (חציון ${medJ.toFixed(1)}%).`;
+    grpInsight.innerHTML=`לפי הלמ״ס: ממוצע הנדירות ביישובים ערביים הוא <strong>${mA.toFixed(1)}%</strong> (חציון ${medA.toFixed(1)}%), בערים מעורבות <strong>${mM.toFixed(1)}%</strong> (חציון ${medM.toFixed(1)}%), וביישובים יהודיים <strong>${mJ.toFixed(1)}%</strong> (חציון ${medJ.toFixed(1)}%).`;
   }
 
   // Top 20 most shared street names nationwide
@@ -480,7 +536,7 @@ function rebuildCharts(){
         labels:shared.map(s=>s.name),
         datasets:[{
           data:shared.map(s=>s.n_places),
-          backgroundColor:'rgba(59,130,246,.78)',
+          backgroundColor:'rgba(59,130,246,.8)',
           borderRadius:4
         }]
       },
@@ -495,23 +551,11 @@ function rebuildCharts(){
           }}}
         },
         scales:{
-          x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
-          y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}
+          x:{ticks:{color:'#8fa1bc'},grid:{color:'#243247'}},
+          y:{ticks:{color:'#e8eef6',font:{size:11}},grid:{display:false}}
         }
       }
     });
-  }
-
-  // Summary cards
-  const cards=document.getElementById('summary-cards');
-  if(cards){
-    const cities=DATA.filter(d=>kindOf(d)==='עיר');
-    const councils=DATA.filter(d=>kindOf(d)==='מועצה מקומית');
-    cards.innerHTML=`
-      <div class="card"><div class="num">${fmt(DATA.length)}</div><div class="label">${cities.length} ערים · ${councils.length} מועצות</div></div>
-      <div class="card"><div class="num jew">${mJ.toFixed(1)}%</div><div class="label">ממוצע יהודי (${jew.length})</div></div>
-      <div class="card"><div class="num arab">${mA.toFixed(1)}%</div><div class="label">ממוצע ערבי (${arab.length})</div></div>
-      <div class="card"><div class="num mixed">${mM.toFixed(1)}%</div><div class="label">ממוצע מעורב (${mixed.length})</div></div>`;
   }
 
   rebuildScatter();
@@ -529,8 +573,6 @@ function updateSortHeaders(){
       th.textContent=base;
     }
   });
-  const sb=document.getElementById('sb');
-  if(sb && [...sb.options].some(o=>o.value===sortCol)) sb.value=sortCol;
 }
 
 function renderTable(){
@@ -539,7 +581,6 @@ function renderTable(){
   const dist=document.getElementById('fd').value;
   const q=document.getElementById('q').value.trim();
 
-  // Compute global rank by current rarity metric
   const rankMap=new Map();
   [...DATA].sort((a,b)=>meanOf(b)-meanOf(a)).forEach((d,i)=>rankMap.set(d.name,i+1));
 
@@ -562,11 +603,10 @@ function renderTable(){
     return typeof va==='string'?sortDir*String(va).localeCompare(String(vb),'he'):sortDir*((va||0)-(vb||0));
   });
 
-  document.getElementById('table-count').textContent=`מציג ${rows.length} מתוך ${DATA.length} יישובים (לחצו על שורה לפירוט רחובות)`;
+  document.getElementById('table-count').textContent=`${rows.length} מתוך ${DATA.length} יישובים · לחצו על שורה לפירוט רחובות`;
   updateSortHeaders();
 
-  const tb=document.getElementById('tb');
-  tb.innerHTML=rows.map(d=>`<tr data-name="${esc(d.name)}">
+  document.getElementById('tb').innerHTML=rows.map(d=>`<tr data-name="${esc(d.name)}">
     <td class="muted">${rankMap.get(d.name)}</td>
     <td><strong>${esc(d.name)}</strong></td>
     <td>${kindBadge(d)}</td>
@@ -581,10 +621,9 @@ function renderTable(){
   </tr>`).join('');
 }
 
-function onMetricChange(){
-  metric=document.getElementById('metric').value;
-  document.getElementById('metric-hint').textContent=
-    metric==='sqrt'?'ענישה חדה יותר לשמות נפוצים':'ענישה מתונה יותר לשמות נפוצים';
+function setMetric(m){
+  metric=m;
+  document.querySelectorAll('#metric-toggle button').forEach(b=>b.classList.toggle('active',b.dataset.metric===m));
   rebuildCharts();
   renderTable();
   renderExamples();
@@ -608,20 +647,19 @@ async function main(){
   }
 
   if(META.updated_at){
-    document.getElementById('source-line').textContent=
-      `מקור: רשות האוכלוסין וההגירה (data.gov.il) + הלמ״ס · עודכן לאחרונה: ${META.updated_at}`;
+    document.getElementById('updated-pill').textContent=`עודכן: ${META.updated_at} · רשות האוכלוסין + הלמ״ס`;
   }
 
   PICKED=pickExamples(EXAMPLES);
   const mc=document.getElementById('meta-cards');
   if(mc && META && META.rows_raw!=null){
     mc.innerHTML=`
-      <div class="card"><div class="num">${fmt(META.rows_raw)}</div><div class="label">רשומות גולמיות</div></div>
-      <div class="card"><div class="num">${fmt(META.rows_after_normalize)}</div><div class="label">רשומות רחוב ייחודיות ליישוב</div></div>
-      <div class="card"><div class="num">${fmt(META.unique_after_normalize)}</div><div class="label">שמות מנורמלים ייחודיים</div></div>
-      <div class="card"><div class="num">${fmt(META.pure_exclusive_names)}</div><div class="label">שמות ליישוב אחד בלבד</div></div>
-      <div class="card"><div class="num">${fmt(META.places_in_ranking)}</div><div class="label">יישובים בדירוג (5+ רחובות)</div></div>
-      <div class="card"><div class="num">${fmt((META.mazal_aliases_count||0)+(META.reversed_pairs_merged||0))}</div><div class="label">כינויים ושמות הפוכים מאוחדים</div></div>`;
+      <div class="mini-card"><div class="v">${fmt(META.rows_raw)}</div><div class="k">רשומות גולמיות</div></div>
+      <div class="mini-card"><div class="v">${fmt(META.rows_after_normalize)}</div><div class="k">רשומות לאחר ניקוי ואיחוד</div></div>
+      <div class="mini-card"><div class="v">${fmt(META.unique_after_normalize)}</div><div class="k">שמות מנורמלים ייחודיים</div></div>
+      <div class="mini-card"><div class="v">${fmt(META.pure_exclusive_names)}</div><div class="k">שמות ליישוב אחד בלבד</div></div>
+      <div class="mini-card"><div class="v">${fmt(META.rows_placeholder_9000)}</div><div class="k">רשומות קוד 9000 שהוסרו</div></div>
+      <div class="mini-card"><div class="v">${fmt((META.mazal_aliases_count||0)+(META.reversed_pairs_merged||0))}</div><div class="k">כינויים ושמות הפוכים מאוחדים</div></div>`;
   }
 
   const districts=[...new Set(DATA.map(d=>d.district).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'he'));
@@ -629,55 +667,46 @@ async function main(){
   app.innerHTML=`
   <div class="cards" id="summary-cards"></div>
 
-  <section>
+  <section id="sec-rank">
     <h2>
-      <span id="mean-title">ממוצע נדירות — 25 הייחודיות ביותר</span>
+      <span id="rank-title">ממוצע נדירות — 25 הייחודיות ביותר</span>
       <div class="seg-btns" id="rank-toggle">
         <button type="button" data-mode="top" class="active">הכי ייחודיות</button>
         <button type="button" data-mode="bottom">הכי שגרתיות</button>
+        <button type="button" data-mode="sum">סכום נדירות</button>
       </div>
     </h2>
-    <div class="legend-row">
+    <p class="muted" id="rank-sub"></p>
+    <div class="legend-row" style="margin-top:.35rem">
       <span><span class="legend-dot" style="background:var(--arab)"></span>ערבי (למ״ס)</span>
       <span><span class="legend-dot" style="background:var(--mixed)"></span>מעורב (למ״ס)</span>
       <span><span class="legend-dot" style="background:var(--jew)"></span>יהודי (למ״ס)</span>
       <span class="muted">· לחצו על עמודה לפירוט רחובות</span>
     </div>
-    <div class="chart-wrap tall"><canvas id="cMean"></canvas></div>
+    <div class="chart-wrap tall"><canvas id="cRank"></canvas></div>
   </section>
 
-  <section>
-    <h2>השוואה לפי מגזר (למ״ס)</h2>
-    <div class="insight" id="grp-insight"></div>
-    <div class="chart-wrap med"><canvas id="cGrp"></canvas></div>
-  </section>
+  <div class="grid-2" id="sec-sectors">
+    <section>
+      <h2>השוואה לפי מגזר (למ״ס)</h2>
+      <div class="insight" id="grp-insight"></div>
+      <div class="chart-wrap med"><canvas id="cGrp"></canvas></div>
+    </section>
 
-  <section>
-    <h2>
-      <span>אוכלוסייה × נדירות לפי מגזר</span>
-      <div class="seg-btns" id="scatter-toggle">
-        <button type="button" data-y="mean" class="active">ממוצע נדירות %</button>
-        <button type="button" data-y="exclusive">מספר שמות ייחודיים</button>
-      </div>
-    </h2>
-    <p class="muted">ציר X: אוכלוסייה בסולם לוגריתמי. לחצו על נקודה לצפייה בדוגמאות רחובות מהיישוב.</p>
-    <div class="chart-wrap"><canvas id="cScatter"></canvas></div>
-  </section>
+    <section>
+      <h2>
+        <span>אוכלוסייה × נדירות</span>
+        <div class="seg-btns" id="scatter-toggle">
+          <button type="button" data-y="mean" class="active">ממוצע %</button>
+          <button type="button" data-y="exclusive">מספר ייחודיים</button>
+        </div>
+      </h2>
+      <p class="muted">ציר X לוגריתמי. לחצו על נקודה לצפייה ברחובות היישוב.</p>
+      <div class="chart-wrap med"><canvas id="cScatter"></canvas></div>
+    </section>
+  </div>
 
-  <section>
-    <h2>סכום נדירות — 20 הגבוהות</h2>
-    <p class="muted">משקלל גם כמות רחובות וגם ייחודיות — לכן ערים גדולות ומגוונות מובילות.</p>
-    <div class="chart-wrap"><canvas id="cSum"></canvas></div>
-  </section>
-
-  ${META.top_shared&&META.top_shared.length?`
-  <section>
-    <h2>20 שמות הרחובות הנפוצים ביותר בישראל</h2>
-    <p class="muted">השמות המשותפים למספר הגדול ביותר של יישובים (לאחר ניקוי, איחוד שמות הפוכים וכינויים).</p>
-    <div class="chart-wrap tall"><canvas id="cShared"></canvas></div>
-  </section>`:''}
-
-  <section>
+  <section id="sec-table">
     <h2>טבלת כל היישובים</h2>
     <div class="filters">
       <select id="fk">
@@ -694,15 +723,6 @@ async function main(){
       <select id="fd">
         <option value="all">כל המחוזות</option>
         ${districts.map(d=>`<option value="${esc(d)}">${esc(d)}</option>`).join('')}
-      </select>
-      <select id="sb">
-        <option value="rarity_mean_log">מיון: ממוצע נדירות</option>
-        <option value="rarity_sum_log">מיון: סכום נדירות</option>
-        <option value="exclusive_pct">מיון: % ייחודיים</option>
-        <option value="pure_exclusive">מיון: שמות ייחודיים</option>
-        <option value="streets">מיון: רחובות</option>
-        <option value="population">מיון: אוכלוסייה</option>
-        <option value="name">מיון: שם</option>
       </select>
       <input id="q" type="search" placeholder="חיפוש יישוב או מחוז...">
       <span class="table-count" id="table-count"></span>
@@ -723,19 +743,23 @@ async function main(){
       </tr></thead>
       <tbody id="tb"></tbody>
     </table></div>
-  </section>`;
+  </section>
+
+  ${META.top_shared&&META.top_shared.length?`
+  <section id="sec-shared">
+    <h2>20 שמות הרחובות הנפוצים ביותר בישראל</h2>
+    <p class="muted">השמות המשותפים למספר הגדול ביותר של יישובים (לאחר ניקוי ואיחוד שמות).</p>
+    <div class="chart-wrap tall"><canvas id="cShared"></canvas></div>
+  </section>`:''}`;
 
   // Wire up controls
-  document.getElementById('metric').onchange=onMetricChange;
+  document.querySelectorAll('#metric-toggle button').forEach(btn=>{
+    btn.onclick=()=>setMetric(btn.dataset.metric);
+  });
   document.getElementById('fk').onchange=renderTable;
   document.getElementById('fg').onchange=renderTable;
   document.getElementById('fd').onchange=renderTable;
   document.getElementById('q').oninput=renderTable;
-  document.getElementById('sb').onchange=function(){
-    sortCol=this.value;
-    sortDir=sortCol==='name'?1:-1;
-    renderTable();
-  };
 
   document.querySelectorAll('thead th.sortable').forEach(th=>{
     th.onclick=()=>{
@@ -757,7 +781,7 @@ async function main(){
     btn.onclick=()=>{
       rankMode=btn.dataset.mode;
       document.querySelectorAll('#rank-toggle button').forEach(b=>b.classList.toggle('active',b===btn));
-      rebuildCharts();
+      rebuildRankChart();
     };
   });
 

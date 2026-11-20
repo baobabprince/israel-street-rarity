@@ -2,7 +2,8 @@ name: Update street rarity data
 
 on:
   schedule:
-    - cron: "0 3 1-7 * 0"
+    # Once a year (January 1st, 03:00 UTC)
+    - cron: "0 3 1 1 *"
   workflow_dispatch:
 
 permissions:
