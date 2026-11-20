@@ -6,62 +6,107 @@
 <title>נדירות שמות רחובות בישראל</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-:root{--bg:#0f1419;--card:#1a2332;--text:#e7ecf3;--muted:#8b9bb4;--accent:#3b82f6;--border:#2d3a4f}
+:root{
+  --bg:#0f1419;--card:#1a2332;--card2:#131b27;--text:#e7ecf3;--muted:#8b9bb4;
+  --accent:#3b82f6;--border:#2d3a4f;--arab:#10b981;--jew:#818cf8;--mixed:#f59e0b;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,Segoe UI,Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;padding-bottom:3rem}
 header{background:linear-gradient(135deg,#1e3a5f,#0f1419);padding:2.4rem 1.2rem 2rem;text-align:center;border-bottom:1px solid var(--border)}
-header h1{font-size:1.9rem;margin-bottom:.5rem}
-header p{color:var(--muted);max-width:740px;margin:.35rem auto 0;font-size:.98rem}
+header h1{font-size:1.95rem;margin-bottom:.45rem}
+header p{color:var(--muted);max-width:760px;margin:.35rem auto 0;font-size:.98rem}
 .header-links{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
-.header-links a{display:inline-block;padding:.4rem .9rem;border-radius:8px;background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.4);color:#93c5fd;text-decoration:none;font-size:.9rem}
-.container{max-width:1100px;margin:0 auto;padding:1.2rem}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin:1.2rem 0}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
-.card .num{font-size:1.5rem;font-weight:700;color:var(--accent)}
+.header-links a{display:inline-block;padding:.4rem .9rem;border-radius:8px;background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.4);color:#93c5fd;text-decoration:none;font-size:.9rem;transition:background .15s}
+.header-links a:hover{background:rgba(59,130,246,.32)}
+.container{max-width:1140px;margin:0 auto;padding:1.2rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:.85rem;margin:1.1rem 0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.95rem .8rem;text-align:center}
+.card .num{font-size:1.42rem;font-weight:700;color:var(--accent)}
+.card .num.arab{color:var(--arab)}
+.card .num.jew{color:var(--jew)}
+.card .num.mixed{color:var(--mixed)}
 .card .label{font-size:.78rem;color:var(--muted);margin-top:.2rem}
 section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.35rem 1.3rem;margin-bottom:1.2rem}
-section h2{font-size:1.2rem;margin-bottom:.85rem;padding-bottom:.45rem;border-bottom:1px solid var(--border)}
-section h3{font-size:1.02rem;margin:1.1rem 0 .45rem;color:#93c5fd}
-p.lead,section p{margin:.45rem 0;font-size:.95rem}
-.muted{color:var(--muted);font-size:.9rem}
+section h2{font-size:1.2rem;margin-bottom:.85rem;padding-bottom:.45rem;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem}
+section h3{font-size:1.02rem;margin:1.05rem 0 .4rem;color:#93c5fd}
+p.lead,section p{margin:.45rem 0;font-size:.94rem}
+.muted{color:var(--muted);font-size:.88rem}
 ul.clean{margin:.4rem 0 .6rem 1.2rem}
-code{background:#0b1220;padding:.1rem .35rem;border-radius:4px;font-size:.88rem}
-.chart-wrap{height:400px;margin:1rem 0;position:relative}
-.insight{background:var(--bg);border-radius:10px;padding:.85rem 1rem;border-right:3px solid var(--accent);margin:.55rem 0;font-size:.93rem}
-.badge{display:inline-block;padding:.15rem .5rem;border-radius:999px;font-size:.72rem;font-weight:600}
+code{background:#0b1220;padding:.1rem .35rem;border-radius:4px;font-size:.86rem}
+.chart-wrap{height:430px;margin:.9rem 0;position:relative}
+.chart-wrap.tall{height:500px}
+.chart-wrap.med{height:310px}
+.insight{background:var(--bg);border-radius:10px;padding:.85rem 1rem;border-right:3px solid var(--accent);margin:.6rem 0;font-size:.9rem;color:#cbd5e1}
+.badge{display:inline-block;padding:.14rem .52rem;border-radius:999px;font-size:.73rem;font-weight:600;white-space:nowrap}
 .badge.arab{background:rgba(16,185,129,.2);color:#34d399}
-.badge.jew{background:rgba(99,102,241,.2);color:#a5b4fc}
+.badge.jew{background:rgba(129,140,248,.22);color:#a5b4fc}
+.badge.mixed{background:rgba(245,158,11,.22);color:#fbbf24}
+.badge.other{background:rgba(148,163,184,.2);color:#cbd5e1}
 .badge.city{background:rgba(59,130,246,.2);color:#93c5fd}
-.badge.council{background:rgba(245,158,11,.2);color:#fbbf24}
-.badge.settle{background:rgba(148,163,184,.25);color:#cbd5e1}
-.badge.uniq{background:rgba(16,185,129,.25);color:#34d399}
-.badge.common{background:rgba(239,68,68,.15);color:#fca5a5}
-table{width:100%;border-collapse:collapse;font-size:.86rem}
-th,td{padding:.4rem .5rem;text-align:right;border-bottom:1px solid var(--border)}
-th{color:var(--muted)}
-.table-wrap{max-height:440px;overflow:auto}
+.badge.council{background:rgba(245,158,11,.16);color:#fcd34d}
+.badge.uniq{background:rgba(16,185,129,.24);color:#34d399}
+.badge.common{background:rgba(239,68,68,.16);color:#fca5a5}
+.legend-row{display:flex;flex-wrap:wrap;gap:1rem;font-size:.83rem;color:var(--muted);margin:.25rem 0 .4rem}
+.legend-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-left:.35rem;vertical-align:middle}
+.seg-btns{display:inline-flex;background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.seg-btns button{background:transparent;color:var(--muted);border:none;padding:.32rem .75rem;font-size:.83rem;cursor:pointer;font-family:inherit;transition:background .15s,color .15s}
+.seg-btns button.active{background:var(--accent);color:#fff;font-weight:600}
+.btn{background:rgba(59,130,246,.18);color:#93c5fd;border:1px solid rgba(59,130,246,.4);border-radius:8px;padding:.35rem .8rem;font-size:.85rem;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn:hover{background:rgba(59,130,246,.32)}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{padding:.48rem .5rem;text-align:right;border-bottom:1px solid var(--border)}
+thead th{color:var(--muted);position:sticky;top:0;background:var(--card);z-index:2;user-select:none}
+thead th.sortable{cursor:pointer}
+thead th.sortable:hover{color:var(--text)}
+thead th.sorted{color:#93c5fd}
+tbody tr{cursor:pointer;transition:background .12s}
+tbody tr:hover{background:rgba(59,130,246,.1)}
+.table-wrap{max-height:500px;overflow:auto;border:1px solid var(--border);border-radius:10px}
 .filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem;align-items:center}
-.filters select,.filters input{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.35rem .55rem}
-.metric-bar{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:1rem 0;padding:.85rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.filters select,.filters input{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.4rem .6rem;font-family:inherit;font-size:.88rem}
+.filters input{min-width:190px;flex:1 1 190px;max-width:280px}
+.table-count{margin-right:auto;font-size:.83rem;color:var(--muted)}
+.metric-bar{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin:1rem 0;padding:.85rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:12px}
 .metric-bar label{color:var(--muted);font-size:.9rem}
-.metric-bar select{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.4rem .7rem;font-size:.95rem}
+.metric-bar select{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.4rem .7rem;font-size:.92rem;font-family:inherit}
 footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.8rem}
 footer a{color:#60a5fa}
 .loading{text-align:center;padding:3rem;color:var(--muted)}
 .error{color:#f87171;padding:1rem}
-.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-top:.8rem}
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-top:.8rem}
 .ex-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem}
 .ex-card .en{font-weight:700;font-size:1.05rem;margin-bottom:.25rem}
-.ex-card .meta{font-size:.85rem;color:var(--muted)}
-.place-chip{display:inline-block;margin:.15rem .2rem;padding:.12rem .45rem;border-radius:6px;background:rgba(59,130,246,.18);color:#93c5fd;font-size:.78rem;font-weight:600}
+.ex-card .meta{font-size:.84rem;color:var(--muted)}
+.place-chip{display:inline-block;margin:.15rem .18rem;padding:.12rem .45rem;border-radius:6px;background:rgba(59,130,246,.18);color:#93c5fd;font-size:.77rem;font-weight:600}
+.place-chip.uniq{background:rgba(16,185,129,.18);color:#34d399}
+.place-chip.common{background:rgba(239,68,68,.15);color:#fca5a5}
 .place-chip.more{background:rgba(148,163,184,.2);color:#cbd5e1}
-@media(max-width:600px){.chart-wrap{height:320px}header h1{font-size:1.45rem}}
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(5,8,14,.74);display:none;align-items:center;justify-content:center;padding:1rem;z-index:100}
+.modal-backdrop.open{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:16px;max-width:640px;width:100%;max-height:88vh;overflow:auto;padding:1.35rem 1.4rem;box-shadow:0 20px 50px rgba(0,0,0,.55)}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.modal-head h3{font-size:1.35rem;margin:0;color:var(--text)}
+.modal-close{background:transparent;border:1px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:8px;font-size:1.1rem;cursor:pointer;line-height:1}
+.modal-close:hover{color:var(--text);border-color:#64748b}
+.modal-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:.6rem;margin:1rem 0}
+.modal-stat{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.65rem;text-align:center}
+.modal-stat .v{font-size:1.15rem;font-weight:700;color:#93c5fd}
+.modal-stat .k{font-size:.74rem;color:var(--muted)}
+.modal-block{margin-top:.9rem}
+.modal-block h4{font-size:.92rem;color:#cbd5e1;margin-bottom:.4rem}
+@media(max-width:640px){
+  .chart-wrap{height:360px}
+  .chart-wrap.tall{height:440px}
+  header h1{font-size:1.45rem}
+  section{padding:1.05rem .9rem}
+}
 </style>
 </head>
 <body>
 <header>
   <h1>נדירות שמות רחובות בישראל</h1>
-  <p>כמה מהשמות ברחובות של כל יישוב באמת ייחודיים לו — ולא חוזרים בעשרות מקומות אחרים?</p>
+  <p>כמה מהשמות ברחובות של כל עיר ומועצה מקומית באמת ייחודיים לה — וכמה חוזרים בעשרות יישובים אחרים?</p>
   <div class="header-links">
     <a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">קוד המקור</a>
     <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/build_data.py" target="_blank" rel="noopener">סקריפט החישוב</a>
@@ -73,26 +118,23 @@ footer a{color:#60a5fa}
 
 <section>
   <h2>למה זה מעניין?</h2>
-  <p class="lead">שמות רחובות מספרים סיפור: עד כמה היישוב נשען על מאגר לאומי משותף (עצים, פרחים, מנהיגים) ועד כמה הוא ממציא שמות מקומיים.</p>
-  <p class="muted">מקור: רשות האוכלוסין (data.gov.il) + הלמ״ס. מעודכן ב-GitHub Actions.</p>
+  <p class="lead">שמות רחובות מספרים סיפור תרבותי ומוניציפלי: עד כמה היישוב נשען על מאגר לאומי משותף (הרצל, בן גוריון, הזית, הדקל) ועד כמה הוא מעניק שמות מקומיים וייחודיים.</p>
+  <p class="muted" id="source-line">מקור: רשות האוכלוסין וההגירה (data.gov.il) + הלמ״ס. מתעדכן אוטומטית ב-GitHub Actions.</p>
 </section>
 
 <section>
   <h2>איך מחשבים</h2>
-  <ol style="margin:.4rem 1.2rem">
-    <li>מורידים את כל שמות הרחובות ומנרמלים אותם.</li>
-    <li>סופרים בכמה יישובים מופיע כל שם מנורמל (<code>n</code>).</li>
-    <li>משקל לפי נוסחה (לוג או שורש) — ייחודי=1.0, נפוץ=נמוך.</li>
-    <li>לכל יישוב: ממוצע נדירות (איכות) וסכום נדירות (כמות).</li>
+  <ol style="margin:.4rem 1.25rem">
+    <li>מורידים את כל רשומות הרחובות בישראל ומסירים רשומות פיקטיביות (<code>סמל_רחוב = 9000</code> המייצג את שם היישוב עצמו) ורחובות מספריים בלבד.</li>
+    <li>מנרמלים מבנית (קידומות רחוב/שדרה/סמטה/משעול/מבוא/שכונה, מקפים, גרש/גרשיים וניקוד), מאחדים שמות אישים הפוכים (<code>בגין מנחם</code> ↔ <code>מנחם בגין</code>) ומפעילים מפת כינויים מבוקרת (מבוססת Wikidata/J9U). <strong>אין</strong> הסרה אוטומטית של ה׳ הידיעה.</li>
+    <li>מסירים כפילויות בתוך אותו יישוב (למשל <code>הגרנות</code> ו־<code>שכ הגרנות</code> נספרים כרחוב אחד), וסופרים בכמה יישובים בארץ מופיע כל שם (<code>n</code>).</li>
+    <li>מחשבים משקל נדירות (1.0 לשם ייחודי ליישוב אחד; נמוך יותר לשמות נפוצים) ולכל עיר/מועצה מקומית (עם 5 רחובות ומעלה) מחשבים ממוצע נדירות, סכום נדירות ואחוז שמות ייחודיים.</li>
   </ol>
-  <h3>שתי נוסחאות</h3>
-  <p><strong>לוג (ברירת מחדל):</strong> <code dir="ltr">1 / log₂(1+n)</code> — מתון יותר לשמות נפוצים.</p>
-  <p><strong>שורש:</strong> <code dir="ltr">1 / √n</code> — מעניש חזק יותר שמות שמופיעים בעשרות/מאות יישובים.</p>
-  <p class="muted">אפשר להחליף בין הנוסחאות בסרגל למטה — הגרפים והטבלה מתעדכנים מיד.</p>
-  <h3>נרמול</h3>
-  <p>הסרת מספריים בלבד; קידומות (רחוב/שדרות/דרך/שכ…); סיומות סמטה-מספר; מקפים (־/-)→רווח; ה׳ הידיעה; איחוד וריאנטים (ז׳בוטינסקי, הרצל, בן גוריון…).</p>
-  <h3>סוגי יישובים</h3>
-  <p>הטבלה מפרידה בין <strong>עיר</strong>, <strong>מועצה מקומית</strong> ו־<strong>יישוב</strong>.</p>
+  <h3>שתי נוסחאות משקל</h3>
+  <p><strong>לוג (ברירת מחדל):</strong> <code dir="ltr">1 / log₂(1 + n)</code> — ענישה מתונה יותר לשמות נפוצים.</p>
+  <p><strong>שורש:</strong> <code dir="ltr">1 / √n</code> — ענישה חדה יותר לשמות שמופיעים בעשרות ומאות יישובים.</p>
+  <h3>סיווג מגזרי (לפי הלמ״ס)</h3>
+  <p>הסיווג מבוסס ישירות על שדה <code>דת יישוב</code> הרשמי של הלשכה המרכזית לסטטיסטיקה (ולא על רשימה ידנית): <strong>יהודי</strong> (קוד 1), <strong>ערבי</strong> (קוד 2 — לפי הגדרת הלמ״ס כולל יישובים ערביים, דרוזיים וצ׳רקסיים), ו־<strong>מעורב</strong> (קוד 4 — שמונה הערים המעורבות הרשמיות: ירושלים, חיפה, תל אביב-יפו, לוד, רמלה, עכו, נוף הגליל ומעלות-תרשיחא).</p>
 </section>
 
 <section id="meta-section">
@@ -106,39 +148,87 @@ footer a{color:#60a5fa}
     <option value="log">לוג — 1/log₂(1+n)</option>
     <option value="sqrt">שורש — 1/√n</option>
   </select>
-  <span class="muted" id="metric-hint">מתון יותר לשמות נפוצים</span>
+  <span class="muted" id="metric-hint">ענישה מתונה יותר לשמות נפוצים</span>
 </div>
 
 <div id="app" class="loading">טוען נתונים…</div>
 
 <section id="examples-section">
-  <h2>דוגמאות להמחשה <span class="muted" style="font-weight:400;font-size:.9rem">(מתחלפות בכל טעינה)</span></h2>
-  <p class="muted">חמש דוגמאות אקראיות — לפחות אחת ייחודית. שמות היישובים בהם מופיע הרחוב מודגשים למטה.</p>
+  <h2>
+    <span>דוגמאות להמחשה <span class="muted" style="font-weight:400;font-size:.86rem">(מדגם אקראי)</span></span>
+    <button type="button" class="btn" id="shuffle-ex">החלף דוגמאות ↻</button>
+  </h2>
+  <p class="muted">חמש דוגמאות אקראיות ממאגר השמות המנורמלים — תמיד לפחות שם ייחודי אחד.</p>
   <div class="ex-grid" id="examples">טוען דוגמאות…</div>
 </section>
 
 <section>
-  <h2>קוד מקור</h2>
+  <h2>קוד מקור ונתונים</h2>
   <ul class="clean">
-    <li><a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">הריפו</a></li>
-    <li><a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/build_data.py" target="_blank" rel="noopener">build_data.py</a></li>
+    <li><a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">הרפוזיטורי ב-GitHub</a></li>
+    <li><a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/build_data.py" target="_blank" rel="noopener">scripts/build_data.py</a> · <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/normalize.py" target="_blank" rel="noopener">scripts/normalize.py</a></li>
     <li><a href="https://github.com/baobabprince/israel-street-rarity/blob/main/data.json" target="_blank" rel="noopener">data.json</a> · <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/examples.json" target="_blank" rel="noopener">examples.json</a> · <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/meta.json" target="_blank" rel="noopener">meta.json</a></li>
   </ul>
 </section>
 </div>
 
-<footer>רשות האוכלוסין · הלמ״ס · <a href="https://github.com/baobabprince/israel-street-rarity">GitHub</a></footer>
+<footer>רשות האוכלוסין · הלמ״ס · <a href="https://github.com/baobabprince/israel-street-rarity" target="_blank" rel="noopener">GitHub</a></footer>
+
+<div class="modal-backdrop" id="city-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <h3 id="modal-title"></h3>
+        <div id="modal-badges" style="margin-top:.35rem;display:flex;flex-wrap:wrap;gap:.35rem"></div>
+      </div>
+      <button type="button" class="modal-close" id="modal-close" aria-label="סגור">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
 
 <script>
+const SECTOR_COLORS = {
+  'ערבי':  'rgba(16,185,129,.85)',
+  'יהודי': 'rgba(129,140,248,.82)',
+  'מעורב': 'rgba(245,158,11,.88)',
+  'אחר':   'rgba(148,163,184,.75)'
+};
+
+function esc(s){
+  return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
 function fmt(n){return n==null||isNaN(n)?'—':Number(n).toLocaleString('he-IL')}
-function kindBadge(d){
-  const k=d.kind||(d.status==='עירייה'?'עיר':d.status==='מועצה מקומית'?'מועצה מקומית':'יישוב');
-  const cls=k==='עיר'?'city':k==='מועצה מקומית'?'council':'settle';
-  return `<span class="badge ${cls}">${k}</span>`;
+function median(arr){
+  if(!arr.length) return 0;
+  const s=[...arr].sort((a,b)=>a-b);
+  const m=Math.floor(s.length/2);
+  return s.length%2?s[m]:(s[m-1]+s[m])/2;
+}
+function avg(arr){return arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:0}
+
+function sectorOf(d){
+  if(d.sector) return d.sector;
+  if(d.is_mixed) return 'מעורב';
+  return d.is_arab?'ערבי':'יהודי';
+}
+function sectorColor(sec){return SECTOR_COLORS[sec]||SECTOR_COLORS['אחר']}
+function sectorBadge(d){
+  const sec=sectorOf(d);
+  const cls=sec==='ערבי'?'arab':sec==='מעורב'?'mixed':sec==='יהודי'?'jew':'other';
+  const tip=d.arab_pct!=null?` title="אוכלוסייה ערבית לפי הלמ״ס: ${d.arab_pct}%"`:'';
+  const label=sec==='מעורב'&&d.arab_pct!=null?`מעורב (${d.arab_pct}%)`:sec;
+  return `<span class="badge ${cls}"${tip}>${esc(label)}</span>`;
 }
 function kindOf(d){
   return d.kind||(d.status==='עירייה'?'עיר':d.status==='מועצה מקומית'?'מועצה מקומית':'יישוב');
 }
+function kindBadge(d){
+  const k=kindOf(d);
+  const cls=k==='עיר'?'city':'council';
+  return `<span class="badge ${cls}">${esc(k)}</span>`;
+}
+
 function pickExamples(pool){
   if(!pool||!pool.length) return [];
   const uniq=pool.filter(e=>e.unique);
@@ -153,8 +243,10 @@ function pickExamples(pool){
   return out.slice(0,5);
 }
 
-let DATA=[], EXAMPLES=[], PICKED=[];
+let DATA=[], EXAMPLES=[], PICKED=[], META={};
 let metric='log';
+let rankMode='top';     // 'top' | 'bottom'
+let scatterY='mean';    // 'mean' | 'exclusive'
 let charts={};
 let sortCol='rarity_mean_log', sortDir=-1;
 
@@ -162,6 +254,50 @@ function meanKey(){return metric==='sqrt'?'rarity_mean_sqrt':'rarity_mean_log'}
 function sumKey(){return metric==='sqrt'?'rarity_sum_sqrt':'rarity_sum_log'}
 function meanOf(d){const v=d[meanKey()]; return v!=null?v:(d.rarity_mean_log||0)}
 function sumOf(d){const v=d[sumKey()]; return v!=null?v:(d.rarity_sum_log||0)}
+function exclPctOf(d){return d.exclusive_pct!=null?d.exclusive_pct:(d.streets?d.pure_exclusive/d.streets*100:0)}
+
+function openCityModal(d){
+  const rank=[...DATA].sort((a,b)=>meanOf(b)-meanOf(a)).findIndex(x=>x.name===d.name)+1;
+  document.getElementById('modal-title').textContent=d.name;
+  document.getElementById('modal-badges').innerHTML=`
+    ${kindBadge(d)}
+    ${sectorBadge(d)}
+    ${d.district?`<span class="badge other">מחוז ${esc(d.district)}</span>`:''}
+    ${d.founded?`<span class="badge other">נוסד ${esc(d.founded)}</span>`:''}
+    <span class="badge other">מקום #${rank} מתוך ${DATA.length}</span>`;
+
+  const uniqChips=(d.sample_unique&&d.sample_unique.length)
+    ? d.sample_unique.map(s=>`<span class="place-chip uniq">${esc(s)}</span>`).join('')
+    : '<span class="muted">אין רחובות ייחודיים לגמרי ביישוב זה</span>';
+
+  const commonChips=(d.sample_common&&d.sample_common.length)
+    ? d.sample_common.map(s=>`<span class="place-chip common">${esc(s.name)} · ב־${fmt(s.n)} יישובים</span>`).join('')
+    : '<span class="muted">אין רחובות משותפים</span>';
+
+  document.getElementById('modal-body').innerHTML=`
+    <div class="modal-stats">
+      <div class="modal-stat"><div class="v">${meanOf(d).toFixed(1)}%</div><div class="k">ממוצע נדירות (${metric==='sqrt'?'שורש':'לוג'})</div></div>
+      <div class="modal-stat"><div class="v">${sumOf(d).toFixed(1)}</div><div class="k">סכום נדירות</div></div>
+      <div class="modal-stat"><div class="v">${fmt(d.streets)}</div><div class="k">רחובות מנורמלים</div></div>
+      <div class="modal-stat"><div class="v">${fmt(d.pure_exclusive)} (${exclPctOf(d).toFixed(1)}%)</div><div class="k">ייחודיים לגמרי</div></div>
+      <div class="modal-stat"><div class="v">${fmt(d.population)}</div><div class="k">אוכלוסייה (למ״ס)</div></div>
+      ${d.arab_pct!=null?`<div class="modal-stat"><div class="v">${d.arab_pct}%</div><div class="k">אוכלוסייה ערבית (למ״ס)</div></div>`:''}
+    </div>
+    <div class="modal-block">
+      <h4>דוגמאות לרחובות ייחודיים (מופיעים רק ב־${esc(d.name)})</h4>
+      <div>${uniqChips}</div>
+    </div>
+    <div class="modal-block">
+      <h4>הרחובות המשותפים ביותר ב־${esc(d.name)}</h4>
+      <div>${commonChips}</div>
+    </div>`;
+
+  document.getElementById('city-modal').classList.add('open');
+}
+
+function closeCityModal(){
+  document.getElementById('city-modal').classList.remove('open');
+}
 
 function renderExamples(){
   const el=document.getElementById('examples');
@@ -173,103 +309,282 @@ function renderExamples(){
     const w=metric==='sqrt'?(e.weight_sqrt??e.weight):(e.weight_log??e.weight);
     const places=e.places&&e.places.length?e.places:(e.example_place?[e.example_place]:[]);
     const shown=places.slice(0,8);
-    const extra=places.length-shown.length;
-    const chips=shown.map(p=>`<span class="place-chip">${p}</span>`).join('')
-      +(extra>0?`<span class="place-chip more">+${extra}</span>`:'');
+    const totalPlaces=Math.max(e.n_places||0, places.length);
+    const extra=Math.max(0, totalPlaces - shown.length);
+    const chips=shown.map(p=>`<span class="place-chip">${esc(p)}</span>`).join('')
+      +(extra>0?`<span class="place-chip more">+${fmt(extra)} נוספים</span>`:'');
     return `<div class="ex-card">
-      <div class="en">${e.name}</div>
+      <div class="en">${esc(e.name)}</div>
       <div class="meta">${e.unique
-        ? `<span class="badge uniq">ייחודי לגמרי</span>`
-        : `<span class="badge common">ב־${e.n_places} יישובים</span> · משקל ${w}`}
+        ? `<span class="badge uniq">ייחודי לגמרי</span> · משקל 1.0`
+        : `<span class="badge common">ב־${fmt(e.n_places)} יישובים</span> · משקל ${w}`}
       </div>
       <div class="meta" style="margin-top:.35rem"><strong>יישובים:</strong> ${chips||'—'}</div>
     </div>`;
   }).join('');
 }
 
+function rebuildScatter(){
+  const sc=DATA.filter(d=>d.population>0);
+  const sectors=['יהודי','ערבי','מעורב'];
+  const datasets=sectors.map(sec=>({
+    label:sec,
+    data:sc.filter(d=>sectorOf(d)===sec).map(d=>({
+      x:d.population,
+      y:scatterY==='mean'?meanOf(d):d.pure_exclusive,
+      city:d
+    })),
+    backgroundColor:sectorColor(sec),
+    pointRadius:5,
+    pointHoverRadius:7
+  })).filter(ds=>ds.data.length>0);
+
+  if(charts.scatter) charts.scatter.destroy();
+  charts.scatter=new Chart(document.getElementById('cScatter'),{
+    type:'scatter',
+    data:{datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      onClick:(_,els)=>{
+        if(els&&els.length){
+          const ds=charts.scatter.data.datasets[els[0].datasetIndex];
+          const pt=ds.data[els[0].index];
+          if(pt&&pt.city) openCityModal(pt.city);
+        }
+      },
+      plugins:{
+        legend:{labels:{color:'#e7ecf3'}},
+        tooltip:{callbacks:{label:ctx=>{
+          const d=ctx.raw.city;
+          return `${d.name} (${sectorOf(d)}): אוכ׳ ${fmt(d.population)}, נדירות ${meanOf(d).toFixed(1)}%, ייחודיים ${fmt(d.pure_exclusive)}/${fmt(d.streets)}`;
+        }}}
+      },
+      scales:{
+        x:{type:'logarithmic',title:{display:true,text:'אוכלוסייה (סולם לוגריתמי)',color:'#8b9bb4'},ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
+        y:{
+          min:0,max:scatterY==='mean'?100:undefined,
+          title:{display:true,text:scatterY==='mean'?'ממוצע נדירות (%)':'מספר שמות ייחודיים לגמרי',color:'#8b9bb4'},
+          ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}
+        }
+      }
+    }
+  });
+}
+
 function rebuildCharts(){
-  const arab=DATA.filter(d=>d.is_arab), jew=DATA.filter(d=>!d.is_arab);
-  const mA=arab.length?arab.reduce((s,d)=>s+meanOf(d),0)/arab.length:0;
-  const mJ=jew.length?jew.reduce((s,d)=>s+meanOf(d),0)/jew.length:0;
-  const topM=[...DATA].sort((a,b)=>meanOf(b)-meanOf(a)).slice(0,25);
-  const topS=[...DATA].sort((a,b)=>sumOf(b)-sumOf(a)).slice(0,20);
+  const arab=DATA.filter(d=>sectorOf(d)==='ערבי');
+  const jew=DATA.filter(d=>sectorOf(d)==='יהודי');
+  const mixed=DATA.filter(d=>sectorOf(d)==='מעורב');
+
+  const mA=avg(arab.map(meanOf)), medA=median(arab.map(meanOf)), exA=avg(arab.map(exclPctOf));
+  const mJ=avg(jew.map(meanOf)),  medJ=median(jew.map(meanOf)),  exJ=avg(jew.map(exclPctOf));
+  const mM=avg(mixed.map(meanOf)),medM=median(mixed.map(meanOf)),exM=avg(mixed.map(exclPctOf));
+
+  // Mean rarity bar chart (Top 25 or Bottom 25)
+  const ranked=[...DATA].sort((a,b)=>rankMode==='top'?meanOf(b)-meanOf(a):meanOf(a)-meanOf(b)).slice(0,25);
+  const meanTitle=document.getElementById('mean-title');
+  if(meanTitle) meanTitle.textContent=rankMode==='top'?'ממוצע נדירות — 25 הייחודיות ביותר':'ממוצע נדירות — 25 השגרתיות ביותר';
+
   if(charts.mean) charts.mean.destroy();
   charts.mean=new Chart(document.getElementById('cMean'),{
     type:'bar',
-    data:{labels:topM.map(d=>d.name),datasets:[{data:topM.map(d=>meanOf(d)),
-      backgroundColor:topM.map(d=>d.is_arab?'rgba(16,185,129,.85)':'rgba(99,102,241,.75)'),borderRadius:4}]},
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-      scales:{x:{max:100,ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
-              y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}}}
+    data:{
+      labels:ranked.map(d=>d.name),
+      datasets:[{
+        data:ranked.map(d=>meanOf(d)),
+        backgroundColor:ranked.map(d=>sectorColor(sectorOf(d))),
+        borderRadius:4
+      }]
+    },
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      onClick:(_,els)=>{if(els&&els.length) openCityModal(ranked[els[0].index])},
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>{
+          const d=ranked[ctx.dataIndex];
+          return ` ${meanOf(d).toFixed(1)}% · ${sectorOf(d)} · ${fmt(d.pure_exclusive)}/${fmt(d.streets)} ייחודיים`;
+        }}}
+      },
+      scales:{
+        x:{min:0,max:100,ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
+        y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}
+      }
+    }
   });
+
+  // Sum rarity bar chart
+  const topS=[...DATA].sort((a,b)=>sumOf(b)-sumOf(a)).slice(0,20);
   if(charts.sum) charts.sum.destroy();
   charts.sum=new Chart(document.getElementById('cSum'),{
     type:'bar',
-    data:{labels:topS.map(d=>d.name),datasets:[{data:topS.map(d=>sumOf(d)),
-      backgroundColor:topS.map(d=>d.is_arab?'rgba(16,185,129,.85)':'rgba(59,130,246,.75)'),borderRadius:4}]},
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-      scales:{x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
-              y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}}}
+    data:{
+      labels:topS.map(d=>d.name),
+      datasets:[{
+        data:topS.map(d=>sumOf(d)),
+        backgroundColor:topS.map(d=>sectorColor(sectorOf(d))),
+        borderRadius:4
+      }]
+    },
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      onClick:(_,els)=>{if(els&&els.length) openCityModal(topS[els[0].index])},
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>{
+          const d=topS[ctx.dataIndex];
+          return ` סכום ${sumOf(d).toFixed(1)} · ${sectorOf(d)} · ${fmt(d.streets)} רחובות`;
+        }}}
+      },
+      scales:{
+        x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
+        y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}
+      }
+    }
   });
+
+  // Sector comparison chart (all on clean 0-100% scale)
   if(charts.grp) charts.grp.destroy();
   charts.grp=new Chart(document.getElementById('cGrp'),{
     type:'bar',
-    data:{labels:['ממוצע נדירות %','ממוצע רחובות÷10'],
+    data:{
+      labels:['ממוצע נדירות %','חציון נדירות %','ממוצע % שמות ייחודיים לגמרי'],
       datasets:[
-        {label:'ערביות',data:[mA,arab.reduce((s,d)=>s+(d.streets||0),0)/(arab.length||1)/10],backgroundColor:'rgba(16,185,129,.8)'},
-        {label:'יהודיות',data:[mJ,jew.reduce((s,d)=>s+(d.streets||0),0)/(jew.length||1)/10],backgroundColor:'rgba(99,102,241,.8)'}
-      ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e7ecf3'}}},
-      scales:{x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},y:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}}}}
+        {label:`ערבי (${arab.length})`,data:[+mA.toFixed(1),+medA.toFixed(1),+exA.toFixed(1)],backgroundColor:SECTOR_COLORS['ערבי'],borderRadius:5},
+        {label:`מעורב (${mixed.length})`,data:[+mM.toFixed(1),+medM.toFixed(1),+exM.toFixed(1)],backgroundColor:SECTOR_COLORS['מעורב'],borderRadius:5},
+        {label:`יהודי (${jew.length})`,data:[+mJ.toFixed(1),+medJ.toFixed(1),+exJ.toFixed(1)],backgroundColor:SECTOR_COLORS['יהודי'],borderRadius:5}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#e7ecf3'}}},
+      scales:{
+        x:{ticks:{color:'#e7ecf3'},grid:{color:'#2d3a4f'}},
+        y:{min:0,max:100,ticks:{color:'#8b9bb4',callback:v=>v+'%'},grid:{color:'#2d3a4f'}}
+      }
+    }
   });
+
+  const grpInsight=document.getElementById('grp-insight');
+  if(grpInsight){
+    grpInsight.innerHTML=`לפי סיווג הלמ״ס: ב־<strong>${arab.length}</strong> יישובים ערביים (כולל דרוזיים וצ׳רקסיים) ממוצע הנדירות הוא <strong>${mA.toFixed(1)}%</strong> (חציון ${medA.toFixed(1)}%), ב־<strong>${mixed.length}</strong> ערים מעורבות <strong>${mM.toFixed(1)}%</strong> (חציון ${medM.toFixed(1)}%), וב־<strong>${jew.length}</strong> יישובים יהודיים <strong>${mJ.toFixed(1)}%</strong> (חציון ${medJ.toFixed(1)}%).`;
+  }
+
+  // Top 20 most shared street names nationwide
+  if(META.top_shared&&META.top_shared.length){
+    const shared=META.top_shared.slice(0,20);
+    if(charts.shared) charts.shared.destroy();
+    charts.shared=new Chart(document.getElementById('cShared'),{
+      type:'bar',
+      data:{
+        labels:shared.map(s=>s.name),
+        datasets:[{
+          data:shared.map(s=>s.n_places),
+          backgroundColor:'rgba(59,130,246,.78)',
+          borderRadius:4
+        }]
+      },
+      options:{
+        indexAxis:'y',responsive:true,maintainAspectRatio:false,
+        plugins:{
+          legend:{display:false},
+          tooltip:{callbacks:{label:ctx=>{
+            const s=shared[ctx.dataIndex];
+            const w=metric==='sqrt'?s.weight_sqrt:s.weight_log;
+            return ` מופיע ב־${fmt(s.n_places)} יישובים (משקל ${w})`;
+          }}}
+        },
+        scales:{
+          x:{ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
+          y:{ticks:{color:'#e7ecf3',font:{size:11}},grid:{display:false}}
+        }
+      }
+    });
+  }
+
+  // Summary cards
   const cards=document.getElementById('summary-cards');
   if(cards){
-    const jer=DATA.find(d=>d.name&&d.name.includes('ירושלים'));
     const cities=DATA.filter(d=>kindOf(d)==='עיר');
     const councils=DATA.filter(d=>kindOf(d)==='מועצה מקומית');
     cards.innerHTML=`
-      <div class="card"><div class="num">${DATA.length}</div><div class="label">סה״כ ברשימה</div></div>
-      <div class="card"><div class="num">${cities.length}</div><div class="label">ערים</div></div>
-      <div class="card"><div class="num">${councils.length}</div><div class="label">מועצות מקומיות</div></div>
-      <div class="card"><div class="num">${mA.toFixed(0)}% / ${mJ.toFixed(0)}%</div><div class="label">ממוצע ערבי / יהודי</div></div>
-      <div class="card"><div class="num">${jer?Math.round(sumOf(jer)):'—'}</div><div class="label">סכום ירושלים</div></div>`;
+      <div class="card"><div class="num">${fmt(DATA.length)}</div><div class="label">${cities.length} ערים · ${councils.length} מועצות</div></div>
+      <div class="card"><div class="num jew">${mJ.toFixed(1)}%</div><div class="label">ממוצע יהודי (${jew.length})</div></div>
+      <div class="card"><div class="num arab">${mA.toFixed(1)}%</div><div class="label">ממוצע ערבי (${arab.length})</div></div>
+      <div class="card"><div class="num mixed">${mM.toFixed(1)}%</div><div class="label">ממוצע מעורב (${mixed.length})</div></div>`;
   }
+
+  rebuildScatter();
+}
+
+function updateSortHeaders(){
+  document.querySelectorAll('thead th.sortable').forEach(th=>{
+    const col=th.dataset.col;
+    const base=th.dataset.label;
+    if(col===sortCol){
+      th.classList.add('sorted');
+      th.textContent=`${base} ${sortDir===-1?'▼':'▲'}`;
+    }else{
+      th.classList.remove('sorted');
+      th.textContent=base;
+    }
+  });
+  const sb=document.getElementById('sb');
+  if(sb && [...sb.options].some(o=>o.value===sortCol)) sb.value=sortCol;
 }
 
 function renderTable(){
   const k=document.getElementById('fk').value;
   const g=document.getElementById('fg').value;
+  const dist=document.getElementById('fd').value;
   const q=document.getElementById('q').value.trim();
+
+  // Compute global rank by current rarity metric
+  const rankMap=new Map();
+  [...DATA].sort((a,b)=>meanOf(b)-meanOf(a)).forEach((d,i)=>rankMap.set(d.name,i+1));
+
   let rows=[...DATA];
   if(k!=='all') rows=rows.filter(d=>kindOf(d)===k);
-  if(g==='arab') rows=rows.filter(d=>d.is_arab);
-  if(g==='jewish') rows=rows.filter(d=>!d.is_arab);
-  if(q) rows=rows.filter(d=>d.name&&d.name.includes(q));
+  if(g!=='all') rows=rows.filter(d=>sectorOf(d)===g);
+  if(dist!=='all') rows=rows.filter(d=>(d.district||'')===dist);
+  if(q) rows=rows.filter(d=>(d.name&&d.name.includes(q))||(d.district&&d.district.includes(q)));
+
   rows.sort((a,b)=>{
     let va, vb;
     if(sortCol==='rarity_mean_log'){va=meanOf(a);vb=meanOf(b)}
     else if(sortCol==='rarity_sum_log'){va=sumOf(a);vb=sumOf(b)}
-    else if(sortCol==='name'){va=a.name;vb=b.name}
-    else {va=a[sortCol];vb=b[sortCol]}
+    else if(sortCol==='exclusive_pct'){va=exclPctOf(a);vb=exclPctOf(b)}
+    else if(sortCol==='rank'){va=rankMap.get(a.name);vb=rankMap.get(b.name)}
+    else if(sortCol==='name'||sortCol==='district'||sortCol==='sector'){
+      va=sortCol==='sector'?sectorOf(a):(a[sortCol]||'');
+      vb=sortCol==='sector'?sectorOf(b):(b[sortCol]||'');
+    } else {va=a[sortCol];vb=b[sortCol]}
     return typeof va==='string'?sortDir*String(va).localeCompare(String(vb),'he'):sortDir*((va||0)-(vb||0));
   });
-  document.getElementById('tb').innerHTML=rows.map(d=>`<tr>
-    <td><strong>${d.name}</strong></td>
+
+  document.getElementById('table-count').textContent=`מציג ${rows.length} מתוך ${DATA.length} יישובים (לחצו על שורה לפירוט רחובות)`;
+  updateSortHeaders();
+
+  const tb=document.getElementById('tb');
+  tb.innerHTML=rows.map(d=>`<tr data-name="${esc(d.name)}">
+    <td class="muted">${rankMap.get(d.name)}</td>
+    <td><strong>${esc(d.name)}</strong></td>
     <td>${kindBadge(d)}</td>
-    <td>${d.district||'—'}</td>
+    <td>${esc(d.district||'—')}</td>
     <td>${fmt(d.streets)}</td>
     <td>${fmt(d.pure_exclusive)}</td>
-    <td>${meanOf(d).toFixed(1)}</td>
-    <td>${sumOf(d).toFixed(0)}</td>
+    <td>${exclPctOf(d).toFixed(1)}%</td>
+    <td><strong>${meanOf(d).toFixed(1)}%</strong></td>
+    <td>${sumOf(d).toFixed(1)}</td>
     <td>${fmt(d.population)}</td>
-    <td><span class="badge ${d.is_arab?'arab':'jew'}">${d.is_arab?'ערבית':'יהודית'}</span></td>
+    <td>${sectorBadge(d)}</td>
   </tr>`).join('');
 }
 
 function onMetricChange(){
   metric=document.getElementById('metric').value;
   document.getElementById('metric-hint').textContent=
-    metric==='sqrt'?'מעניש חזק יותר שמות נפוצים':'מתון יותר לשמות נפוצים';
+    metric==='sqrt'?'ענישה חדה יותר לשמות נפוצים':'ענישה מתונה יותר לשמות נפוצים';
   rebuildCharts();
   renderTable();
   renderExamples();
@@ -277,10 +592,9 @@ function onMetricChange(){
 
 async function main(){
   const app=document.getElementById('app');
-  let META={};
   try{
     const [rd,re,rm]=await Promise.all([
-      fetch('data.json?t='+Date.now()),
+      fetch('data.min.json?t='+Date.now()).then(r=>r.ok?r:fetch('data.json?t='+Date.now())),
       fetch('examples.json?t='+Date.now()),
       fetch('meta.json?t='+Date.now())
     ]);
@@ -292,89 +606,178 @@ async function main(){
     app.innerHTML='<p class="error">שגיאה בטעינת נתונים. הריצו את ה-Action לעדכון.</p>';
     return;
   }
+
+  if(META.updated_at){
+    document.getElementById('source-line').textContent=
+      `מקור: רשות האוכלוסין וההגירה (data.gov.il) + הלמ״ס · עודכן לאחרונה: ${META.updated_at}`;
+  }
+
   PICKED=pickExamples(EXAMPLES);
   const mc=document.getElementById('meta-cards');
   if(mc && META && META.rows_raw!=null){
-    const f=fmt;
     mc.innerHTML=`
-      <div class="card"><div class="num">${f(META.rows_raw)}</div><div class="label">רשומות גולמיות</div></div>
-      <div class="card"><div class="num">${f(META.unique_raw)}</div><div class="label">שמות גולמיים ייחודיים</div></div>
-      <div class="card"><div class="num">${f(META.rows_after_normalize)}</div><div class="label">רשומות אחרי ניקוי</div></div>
-      <div class="card"><div class="num">${f(META.unique_after_normalize)}</div><div class="label">שמות מנורמלים ייחודיים</div></div>
-      <div class="card"><div class="num">${f(META.pure_exclusive_names)}</div><div class="label">שמות ייחודיים ליישוב אחד</div></div>
-      <div class="card"><div class="num">${f(META.places_in_ranking)}</div><div class="label">יישובים בדירוג</div></div>`;
+      <div class="card"><div class="num">${fmt(META.rows_raw)}</div><div class="label">רשומות גולמיות</div></div>
+      <div class="card"><div class="num">${fmt(META.rows_after_normalize)}</div><div class="label">רשומות רחוב ייחודיות ליישוב</div></div>
+      <div class="card"><div class="num">${fmt(META.unique_after_normalize)}</div><div class="label">שמות מנורמלים ייחודיים</div></div>
+      <div class="card"><div class="num">${fmt(META.pure_exclusive_names)}</div><div class="label">שמות ליישוב אחד בלבד</div></div>
+      <div class="card"><div class="num">${fmt(META.places_in_ranking)}</div><div class="label">יישובים בדירוג (5+ רחובות)</div></div>
+      <div class="card"><div class="num">${fmt((META.mazal_aliases_count||0)+(META.reversed_pairs_merged||0))}</div><div class="label">כינויים ושמות הפוכים מאוחדים</div></div>`;
   }
+
+  const districts=[...new Set(DATA.map(d=>d.district).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'he'));
 
   app.innerHTML=`
   <div class="cards" id="summary-cards"></div>
+
   <section>
-    <h2>גודל יישוב × שמות ייחודיים</h2>
-    <p class="muted">ציר X: אוכלוסייה (לוג). ציר Y: שמות שמופיעים רק ביישוב הזה.</p>
+    <h2>
+      <span id="mean-title">ממוצע נדירות — 25 הייחודיות ביותר</span>
+      <div class="seg-btns" id="rank-toggle">
+        <button type="button" data-mode="top" class="active">הכי ייחודיות</button>
+        <button type="button" data-mode="bottom">הכי שגרתיות</button>
+      </div>
+    </h2>
+    <div class="legend-row">
+      <span><span class="legend-dot" style="background:var(--arab)"></span>ערבי (למ״ס)</span>
+      <span><span class="legend-dot" style="background:var(--mixed)"></span>מעורב (למ״ס)</span>
+      <span><span class="legend-dot" style="background:var(--jew)"></span>יהודי (למ״ס)</span>
+      <span class="muted">· לחצו על עמודה לפירוט רחובות</span>
+    </div>
+    <div class="chart-wrap tall"><canvas id="cMean"></canvas></div>
+  </section>
+
+  <section>
+    <h2>השוואה לפי מגזר (למ״ס)</h2>
+    <div class="insight" id="grp-insight"></div>
+    <div class="chart-wrap med"><canvas id="cGrp"></canvas></div>
+  </section>
+
+  <section>
+    <h2>
+      <span>אוכלוסייה × נדירות לפי מגזר</span>
+      <div class="seg-btns" id="scatter-toggle">
+        <button type="button" data-y="mean" class="active">ממוצע נדירות %</button>
+        <button type="button" data-y="exclusive">מספר שמות ייחודיים</button>
+      </div>
+    </h2>
+    <p class="muted">ציר X: אוכלוסייה בסולם לוגריתמי. לחצו על נקודה לצפייה בדוגמאות רחובות מהיישוב.</p>
     <div class="chart-wrap"><canvas id="cScatter"></canvas></div>
   </section>
-  <section>
-    <h2>ממוצע נדירות — 25 הגבוהות</h2>
-    <div class="chart-wrap"><canvas id="cMean"></canvas></div>
-  </section>
+
   <section>
     <h2>סכום נדירות — 20 הגבוהות</h2>
+    <p class="muted">משקלל גם כמות רחובות וגם ייחודיות — לכן ערים גדולות ומגוונות מובילות.</p>
     <div class="chart-wrap"><canvas id="cSum"></canvas></div>
   </section>
+
+  ${META.top_shared&&META.top_shared.length?`
   <section>
-    <h2>ערביות מול יהודיות</h2>
-    <div class="chart-wrap" style="height:260px"><canvas id="cGrp"></canvas></div>
-  </section>
+    <h2>20 שמות הרחובות הנפוצים ביותר בישראל</h2>
+    <p class="muted">השמות המשותפים למספר הגדול ביותר של יישובים (לאחר ניקוי, איחוד שמות הפוכים וכינויים).</p>
+    <div class="chart-wrap tall"><canvas id="cShared"></canvas></div>
+  </section>`:''}
+
   <section>
-    <h2>טבלה</h2>
+    <h2>טבלת כל היישובים</h2>
     <div class="filters">
       <select id="fk">
         <option value="all">כל המעמדות</option>
         <option value="עיר">ערים בלבד</option>
         <option value="מועצה מקומית">מועצות מקומיות</option>
-        <option value="יישוב">יישובים</option>
       </select>
-      <select id="fg"><option value="all">הכל</option><option value="arab">ערביות</option><option value="jewish">יהודיות</option></select>
+      <select id="fg">
+        <option value="all">כל המגזרים</option>
+        <option value="יהודי">יהודי</option>
+        <option value="ערבי">ערבי</option>
+        <option value="מעורב">מעורב</option>
+      </select>
+      <select id="fd">
+        <option value="all">כל המחוזות</option>
+        ${districts.map(d=>`<option value="${esc(d)}">${esc(d)}</option>`).join('')}
+      </select>
       <select id="sb">
-        <option value="rarity_mean_log">ממוצע נדירות</option>
-        <option value="rarity_sum_log">סכום נדירות</option>
-        <option value="pure_exclusive">שמות ייחודיים</option>
-        <option value="streets">רחובות</option>
-        <option value="population">אוכלוסייה</option>
-        <option value="name">שם</option>
+        <option value="rarity_mean_log">מיון: ממוצע נדירות</option>
+        <option value="rarity_sum_log">מיון: סכום נדירות</option>
+        <option value="exclusive_pct">מיון: % ייחודיים</option>
+        <option value="pure_exclusive">מיון: שמות ייחודיים</option>
+        <option value="streets">מיון: רחובות</option>
+        <option value="population">מיון: אוכלוסייה</option>
+        <option value="name">מיון: שם</option>
       </select>
-      <input id="q" type="search" placeholder="חיפוש...">
+      <input id="q" type="search" placeholder="חיפוש יישוב או מחוז...">
+      <span class="table-count" id="table-count"></span>
     </div>
     <div class="table-wrap"><table>
       <thead><tr>
-        <th>שם</th><th>מעמד</th><th>מחוז</th><th>רחובות</th><th>ייחודיים</th><th>ממוצע %</th><th>סכום</th><th>אוכלוסייה</th><th>מגזר</th>
+        <th class="sortable" data-col="rank" data-label="#">#</th>
+        <th class="sortable" data-col="name" data-label="שם">שם</th>
+        <th>מעמד</th>
+        <th class="sortable" data-col="district" data-label="מחוז">מחוז</th>
+        <th class="sortable" data-col="streets" data-label="רחובות">רחובות</th>
+        <th class="sortable" data-col="pure_exclusive" data-label="ייחודיים">ייחודיים</th>
+        <th class="sortable" data-col="exclusive_pct" data-label="% ייחודיים">% ייחודיים</th>
+        <th class="sortable" data-col="rarity_mean_log" data-label="ממוצע %">ממוצע %</th>
+        <th class="sortable" data-col="rarity_sum_log" data-label="סכום">סכום</th>
+        <th class="sortable" data-col="population" data-label="אוכלוסייה">אוכלוסייה</th>
+        <th class="sortable" data-col="sector" data-label="מגזר">מגזר</th>
       </tr></thead>
       <tbody id="tb"></tbody>
     </table></div>
   </section>`;
 
-  const sc=DATA.filter(d=>d.population>0);
-  const byKind=k=>sc.filter(d=>kindOf(d)===k);
-  charts.scatter=new Chart(document.getElementById('cScatter'),{
-    type:'scatter',
-    data:{datasets:[
-      {label:'עיר',data:byKind('עיר').map(d=>({x:d.population,y:d.pure_exclusive,name:d.name})),backgroundColor:'rgba(59,130,246,.65)'},
-      {label:'מועצה מקומית',data:byKind('מועצה מקומית').map(d=>({x:d.population,y:d.pure_exclusive,name:d.name})),backgroundColor:'rgba(245,158,11,.65)'},
-      {label:'יישוב',data:byKind('יישוב').map(d=>({x:d.population,y:d.pure_exclusive,name:d.name})),backgroundColor:'rgba(148,163,184,.65)'}
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{labels:{color:'#e7ecf3'}},
-        tooltip:{callbacks:{label:ctx=>{const p=ctx.raw; return `${p.name}: אוכ׳ ${fmt(p.x)}, ייחודיים ${p.y}`}}}},
-      scales:{
-        x:{type:'logarithmic',title:{display:true,text:'אוכלוסייה (לוג)',color:'#8b9bb4'},ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}},
-        y:{title:{display:true,text:'שמות ייחודיים',color:'#8b9bb4'},ticks:{color:'#8b9bb4'},grid:{color:'#2d3a4f'}}
-      }}
-  });
-
+  // Wire up controls
   document.getElementById('metric').onchange=onMetricChange;
   document.getElementById('fk').onchange=renderTable;
   document.getElementById('fg').onchange=renderTable;
+  document.getElementById('fd').onchange=renderTable;
   document.getElementById('q').oninput=renderTable;
-  document.getElementById('sb').onchange=function(){sortCol=this.value;sortDir=-1;renderTable()};
+  document.getElementById('sb').onchange=function(){
+    sortCol=this.value;
+    sortDir=sortCol==='name'?1:-1;
+    renderTable();
+  };
+
+  document.querySelectorAll('thead th.sortable').forEach(th=>{
+    th.onclick=()=>{
+      const col=th.dataset.col;
+      if(sortCol===col){sortDir=-sortDir}
+      else{sortCol=col; sortDir=(col==='name'||col==='district'||col==='rank')?1:-1}
+      renderTable();
+    };
+  });
+
+  document.getElementById('tb').onclick=e=>{
+    const tr=e.target.closest('tr[data-name]');
+    if(!tr) return;
+    const city=DATA.find(d=>d.name===tr.dataset.name);
+    if(city) openCityModal(city);
+  };
+
+  document.querySelectorAll('#rank-toggle button').forEach(btn=>{
+    btn.onclick=()=>{
+      rankMode=btn.dataset.mode;
+      document.querySelectorAll('#rank-toggle button').forEach(b=>b.classList.toggle('active',b===btn));
+      rebuildCharts();
+    };
+  });
+
+  document.querySelectorAll('#scatter-toggle button').forEach(btn=>{
+    btn.onclick=()=>{
+      scatterY=btn.dataset.y;
+      document.querySelectorAll('#scatter-toggle button').forEach(b=>b.classList.toggle('active',b===btn));
+      rebuildScatter();
+    };
+  });
+
+  document.getElementById('shuffle-ex').onclick=()=>{
+    PICKED=pickExamples(EXAMPLES);
+    renderExamples();
+  };
+
+  document.getElementById('modal-close').onclick=closeCityModal;
+  document.getElementById('city-modal').onclick=e=>{if(e.target.id==='city-modal') closeCityModal()};
+  document.addEventListener('keydown',e=>{if(e.key==='Escape') closeCityModal()});
+
   rebuildCharts();
   renderTable();
   renderExamples();

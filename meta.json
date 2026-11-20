@@ -1,14 +1,176 @@
 {
+  "updated_at": "2026-11-20",
   "rows_raw": 63662,
   "unique_raw": 31743,
-  "rows_after_numeric_filter": 60775,
-  "unique_after_numeric_filter": 29880,
-  "rows_after_normalize": 60639,
-  "unique_after_normalize": 26099,
-  "pure_exclusive_names": 19591,
+  "rows_placeholder_9000": 1316,
+  "rows_after_numeric_filter": 59320,
+  "unique_after_numeric_filter": 29112,
+  "rows_after_normalize": 57728,
+  "rows_intra_city_dups_removed": 1506,
+  "unique_after_normalize": 23507,
+  "pure_exclusive_names": 17347,
   "places_in_ranking": 193,
+  "sector_counts": {
+    "ערבי": 71,
+    "מעורב": 8,
+    "יהודי": 114
+  },
   "min_streets": 5,
-  "places_dropped_lt_min_streets": 10,
-  "mazal_aliases_count": 963,
-  "normalize_mode": "structural + mazal_aliases (no auto definite-article strip)"
+  "places_dropped_lt_min_streets": 3,
+  "mazal_aliases_count": 733,
+  "reversed_pairs_merged": 235,
+  "sector_source": "CBS official דת יישוב (1=יהודי, 2=ערבי כולל דרוזים וצ׳רקסים, 4=מעורב)",
+  "normalize_mode": "structural + dedup per city + reversed person names + cleaned mazal_aliases (no auto definite-article strip)",
+  "top_shared": [
+    {
+      "name": "הזית",
+      "n_places": 232,
+      "weight_log": 0.127,
+      "weight_sqrt": 0.066
+    },
+    {
+      "name": "הגפן",
+      "n_places": 223,
+      "weight_log": 0.128,
+      "weight_sqrt": 0.067
+    },
+    {
+      "name": "הרימון",
+      "n_places": 183,
+      "weight_log": 0.133,
+      "weight_sqrt": 0.074
+    },
+    {
+      "name": "התאנה",
+      "n_places": 182,
+      "weight_log": 0.133,
+      "weight_sqrt": 0.074
+    },
+    {
+      "name": "התמר",
+      "n_places": 140,
+      "weight_log": 0.14,
+      "weight_sqrt": 0.085
+    },
+    {
+      "name": "האלה",
+      "n_places": 124,
+      "weight_log": 0.144,
+      "weight_sqrt": 0.09
+    },
+    {
+      "name": "השקד",
+      "n_places": 123,
+      "weight_log": 0.144,
+      "weight_sqrt": 0.09
+    },
+    {
+      "name": "הדקל",
+      "n_places": 121,
+      "weight_log": 0.144,
+      "weight_sqrt": 0.091
+    },
+    {
+      "name": "המייסדים",
+      "n_places": 119,
+      "weight_log": 0.145,
+      "weight_sqrt": 0.092
+    },
+    {
+      "name": "החרוב",
+      "n_places": 113,
+      "weight_log": 0.146,
+      "weight_sqrt": 0.094
+    },
+    {
+      "name": "הברוש",
+      "n_places": 110,
+      "weight_log": 0.147,
+      "weight_sqrt": 0.095
+    },
+    {
+      "name": "האלון",
+      "n_places": 109,
+      "weight_log": 0.147,
+      "weight_sqrt": 0.096
+    },
+    {
+      "name": "האורן",
+      "n_places": 91,
+      "weight_log": 0.153,
+      "weight_sqrt": 0.105
+    },
+    {
+      "name": "הערבה",
+      "n_places": 89,
+      "weight_log": 0.154,
+      "weight_sqrt": 0.106
+    },
+    {
+      "name": "אלון",
+      "n_places": 85,
+      "weight_log": 0.156,
+      "weight_sqrt": 0.108
+    },
+    {
+      "name": "הדס",
+      "n_places": 85,
+      "weight_log": 0.156,
+      "weight_sqrt": 0.108
+    },
+    {
+      "name": "הכלנית",
+      "n_places": 84,
+      "weight_log": 0.156,
+      "weight_sqrt": 0.109
+    },
+    {
+      "name": "רימון",
+      "n_places": 82,
+      "weight_log": 0.157,
+      "weight_sqrt": 0.11
+    },
+    {
+      "name": "תמר",
+      "n_places": 80,
+      "weight_log": 0.158,
+      "weight_sqrt": 0.112
+    },
+    {
+      "name": "השיטה",
+      "n_places": 77,
+      "weight_log": 0.159,
+      "weight_sqrt": 0.114
+    },
+    {
+      "name": "דולב",
+      "n_places": 77,
+      "weight_log": 0.159,
+      "weight_sqrt": 0.114
+    },
+    {
+      "name": "הראשונים",
+      "n_places": 76,
+      "weight_log": 0.16,
+      "weight_sqrt": 0.115
+    },
+    {
+      "name": "הבנים",
+      "n_places": 73,
+      "weight_log": 0.161,
+      "weight_sqrt": 0.117
+    },
+    {
+      "name": "תאנה",
+      "n_places": 71,
+      "weight_log": 0.162,
+      "weight_sqrt": 0.119
+    },
+    {
+      "name": "שקד",
+      "n_places": 70,
+      "weight_log": 0.163,
+      "weight_sqrt": 0.12
+    }
+  ]
 }

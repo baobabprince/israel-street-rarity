@@ -1,698 +1,42 @@
 [
   {
-    "name": "האשל",
-    "raw": "האשל",
-    "n_places": 54,
-    "example_place": "אדורה",
-    "places": [
-      "אדורה",
-      "אורנית",
-      "אילת",
-      "אליאב",
-      "אשדוד",
-      "אשלים",
-      "אשקלון",
-      "בית אריה",
-      "בית שמש",
-      "ביתן אהרן",
-      "בני דרור",
-      "בנימינה-גבעת עדה"
-    ],
-    "weight_log": 0.173,
-    "weight_sqrt": 0.136,
-    "unique": false
-  },
-  {
-    "name": "אלמקאבר",
-    "raw": "אלמקאבר",
-    "n_places": 1,
-    "example_place": "סאג'ור",
-    "places": [
-      "סאג'ור"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "הראשונים גבעת עדה",
-    "raw": "הראשונים גבעת עדה",
-    "n_places": 1,
-    "example_place": "בנימינה-גבעת עדה",
-    "places": [
-      "בנימינה-גבעת עדה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "הרב לסרי",
-    "raw": "הרב לסרי",
-    "n_places": 1,
-    "example_place": "בית שאן",
-    "places": [
-      "בית שאן"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "גדור",
-    "raw": "גדור",
-    "n_places": 1,
-    "example_place": "חדרה",
-    "places": [
-      "חדרה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אל דורדאר",
-    "raw": "אל דורדאר",
-    "n_places": 1,
-    "example_place": "סלמה",
-    "places": [
-      "סלמה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "שקיב ארסלאן",
-    "raw": "שקיב ארסלאן",
-    "n_places": 1,
-    "example_place": "דאלית אל-כרמל",
-    "places": [
-      "דאלית אל-כרמל"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "הבדולח",
-    "raw": "ככר הבדולח",
-    "n_places": 3,
-    "example_place": "מבשרת ציון",
-    "places": [
-      "מבשרת ציון",
-      "מעלה אדומים",
-      "רעננה"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "להקת חלב ודבש",
-    "raw": "כיכר להקת חלב ודבש",
-    "n_places": 1,
-    "example_place": "חיפה",
-    "places": [
-      "חיפה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "מחנה עבודה",
-    "raw": "מחנה עבודה",
-    "n_places": 1,
-    "example_place": "נתניה",
-    "places": [
-      "נתניה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "נמל יפו",
-    "raw": "נמל יפו",
-    "n_places": 1,
-    "example_place": "תל אביב - יפו",
-    "places": [
-      "תל אביב - יפו"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "דבר מלכות",
-    "raw": "דבר מלכות",
-    "n_places": 1,
-    "example_place": "כפר חב\"ד",
-    "places": [
-      "כפר חב\"ד"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "דרור",
-    "raw": "דרור",
-    "n_places": 56,
-    "example_place": "אבירים",
-    "places": [
-      "אבירים",
-      "אבן יהודה",
-      "אופקים",
-      "אור יהודה",
-      "אילת",
-      "אלפי מנשה",
-      "אשדוד",
-      "באר שבע",
-      "בית אל",
-      "בת חפר",
-      "גבעת זאב",
-      "גדרה"
-    ],
-    "weight_log": 0.171,
-    "weight_sqrt": 0.134,
-    "unique": false
-  },
-  {
-    "name": "נוראל הוודא",
-    "raw": "נוראל הוודא",
-    "n_places": 1,
-    "example_place": "ירושלים",
-    "places": [
-      "ירושלים"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "משה רבנו",
-    "raw": "משה רבנו",
-    "n_places": 4,
-    "example_place": "אשקלון",
-    "places": [
-      "אשקלון",
-      "בית שמש",
-      "רמלה",
-      "שדרות"
-    ],
-    "weight_log": 0.431,
-    "weight_sqrt": 0.5,
-    "unique": false
-  },
-  {
-    "name": "עדה",
-    "raw": "עדה",
-    "n_places": 3,
-    "example_place": "חיפה",
-    "places": [
-      "חיפה",
-      "ראשון לציון",
-      "תל אביב - יפו"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "הכדים",
-    "raw": "הכדים",
-    "n_places": 2,
-    "example_place": "אשקלון",
-    "places": [
-      "אשקלון",
-      "ירושלים"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "לשם",
-    "raw": "לשם",
-    "n_places": 53,
-    "example_place": "אבן ספיר",
-    "places": [
-      "אבן ספיר",
-      "אבני איתן",
-      "אבני חפץ",
-      "אור יהודה",
-      "אילת",
-      "אלפי מנשה",
-      "אריאל",
-      "אשדוד",
-      "אשקלון",
-      "באר גנים",
-      "באר יעקב",
-      "גבעת זאב"
-    ],
-    "weight_log": 0.174,
-    "weight_sqrt": 0.137,
-    "unique": false
-  },
-  {
-    "name": "העצמאות",
-    "raw": "העצמאות",
-    "n_places": 50,
-    "example_place": "אביחיל",
-    "places": [
-      "אביחיל",
-      "אבן יהודה",
-      "אופקים",
-      "אור יהודה",
-      "אור עקיבא",
-      "אילת",
-      "אריאל",
-      "אשדוד",
-      "אשקלון",
-      "באר שבע",
-      "בית דגן",
-      "בנימינה-גבעת עדה"
-    ],
-    "weight_log": 0.176,
-    "weight_sqrt": 0.141,
-    "unique": false
-  },
-  {
-    "name": "תבואות",
-    "raw": "תבואות",
-    "n_places": 1,
-    "example_place": "ברכה",
-    "places": [
-      "ברכה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אלת׳קאפה",
-    "raw": "אלת'קאפה",
-    "n_places": 2,
-    "example_place": "חורה",
-    "places": [
-      "חורה",
-      "חורפיש"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "תמר",
-    "raw": "תמר",
-    "n_places": 73,
-    "example_place": "אבן יהודה",
-    "places": [
-      "אבן יהודה",
-      "אבשלום",
-      "אחווה",
-      "אילת",
-      "אניעם",
-      "אפרת",
-      "באר שבע",
-      "בחן",
-      "בית אל",
-      "בית חלקיה",
-      "בית שמש",
-      "בני עי\"ש"
-    ],
-    "weight_log": 0.161,
-    "weight_sqrt": 0.117,
-    "unique": false
-  },
-  {
-    "name": "הפזית",
-    "raw": "הפזית",
-    "n_places": 1,
-    "example_place": "ראשון לציון",
-    "places": [
-      "ראשון לציון"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אלסנדבאד",
-    "raw": "אלסנדבאד",
-    "n_places": 2,
-    "example_place": "מג'ד אל-כרום",
-    "places": [
-      "מג'ד אל-כרום",
-      "עראבה"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "ד\"ר פליקס זנדמן",
-    "raw": "ד\"ר פליקס זנדמן",
-    "n_places": 3,
-    "example_place": "באר שבע",
-    "places": [
-      "באר שבע",
-      "דימונה",
-      "חולון"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "זית",
-    "raw": "זית",
-    "n_places": 61,
-    "example_place": "אבשלום",
-    "places": [
-      "אבשלום",
-      "אור יהודה",
-      "אורה",
-      "אחווה",
-      "אחוזת ברק",
-      "אלי-עד",
-      "אניעם",
-      "באר גנים",
-      "בחן",
-      "בית אל",
-      "בית חלקיה",
-      "בית שאן"
-    ],
-    "weight_log": 0.168,
-    "weight_sqrt": 0.128,
-    "unique": false
-  },
-  {
-    "name": "תאנה",
-    "raw": "תאנה",
-    "n_places": 69,
-    "example_place": "אבשלום",
-    "places": [
-      "אבשלום",
-      "אורה",
-      "אחיטוב",
-      "אלי-עד",
-      "אלקנה",
-      "אניעם",
-      "אפרת",
-      "אשקלון",
-      "באר שבע",
-      "בחן",
-      "בית אל",
-      "בית חלקיה"
-    ],
-    "weight_log": 0.163,
-    "weight_sqrt": 0.12,
-    "unique": false
-  },
-  {
-    "name": "הר תורען מכבים רעות",
-    "raw": "הר תורען מכבים רעות",
-    "n_places": 1,
-    "example_place": "מודיעין-מכבים-רעות",
-    "places": [
-      "מודיעין-מכבים-רעות"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "בית ראשון במולדת",
-    "raw": "בית ראשון במולדת",
-    "n_places": 52,
-    "example_place": "אורים",
-    "places": [
-      "אורים",
-      "אחוזת ברק",
-      "בית זרע",
-      "בית קשת",
-      "בלפוריה",
-      "גדות",
-      "גונן",
-      "גיניגר",
-      "גשר",
-      "דפנה",
-      "חולתה",
-      "חוקוק"
-    ],
-    "weight_log": 0.175,
-    "weight_sqrt": 0.139,
-    "unique": false
-  },
-  {
-    "name": "רמב\"ם",
-    "raw": "הרמב\"ם",
+    "name": "הרדוף",
+    "raw": "הרדוף",
     "n_places": 59,
-    "example_place": "אופקים",
+    "example_place": "אבני איתן",
     "places": [
-      "אופקים",
-      "אור עקיבא",
-      "אזור",
-      "אליכין",
-      "אלעד",
-      "אשדוד",
-      "אשקלון",
-      "באר יעקב",
+      "אבני איתן",
+      "אור יהודה",
+      "אילת",
+      "אלפי מנשה",
+      "אריאל",
       "באר שבע",
-      "בית שאן",
-      "בית שמש",
-      "בני ברק"
+      "בית ינאי",
+      "בית עובד",
+      "בני דרור",
+      "בנימינה-גבעת עדה",
+      "ברקן",
+      "גבעות בר"
     ],
     "weight_log": 0.169,
     "weight_sqrt": 0.13,
     "unique": false
   },
   {
-    "name": "טבק מכבים רעות",
-    "raw": "טבק מכבים רעות",
+    "name": "קנמון יעקב",
+    "raw": "קנמון יעקב",
     "n_places": 1,
-    "example_place": "מודיעין-מכבים-רעות",
+    "example_place": "עפולה",
     "places": [
-      "מודיעין-מכבים-רעות"
+      "עפולה"
     ],
     "weight_log": 1.0,
     "weight_sqrt": 1.0,
     "unique": true
   },
   {
-    "name": "ש עממי אורגו",
-    "raw": "ש עממי אורגו",
-    "n_places": 1,
-    "example_place": "ירושלים",
-    "places": [
-      "ירושלים"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "התמר",
-    "raw": "התמר",
-    "n_places": 131,
-    "example_place": "אבו גוש",
-    "places": [
-      "אבו גוש",
-      "אדורה",
-      "אודים",
-      "אופקים",
-      "אור עקיבא",
-      "אורנית",
-      "אחיהוד",
-      "אלון שבות",
-      "אליכין",
-      "אליפלט",
-      "אלישיב",
-      "אשלים"
-    ],
-    "weight_log": 0.142,
-    "weight_sqrt": 0.087,
-    "unique": false
-  },
-  {
-    "name": "סופית",
-    "raw": "סופית",
-    "n_places": 2,
-    "example_place": "להבים",
-    "places": [
-      "להבים",
-      "שוהם"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "כנאענה",
-    "raw": "שכונת כנאענה",
-    "n_places": 1,
-    "example_place": "עראבה",
-    "places": [
-      "עראבה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "בית אשל",
-    "raw": "בית אשל",
-    "n_places": 5,
-    "example_place": "באר שבע",
-    "places": [
-      "באר שבע",
-      "ירוחם",
-      "ירושלים",
-      "מיתר",
-      "תל אביב - יפו"
-    ],
-    "weight_log": 0.387,
-    "weight_sqrt": 0.447,
-    "unique": false
-  },
-  {
-    "name": "גיא בן הינום",
-    "raw": "גיא בן הינום",
-    "n_places": 1,
-    "example_place": "ירושלים",
-    "places": [
-      "ירושלים"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "הרב יוסף גבאי",
-    "raw": "הרב יוסף גבאי",
-    "n_places": 2,
-    "example_place": "ירושלים",
-    "places": [
-      "ירושלים",
-      "מעלות-תרשיחא"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "הערבה",
-    "raw": "הערבה",
-    "n_places": 78,
-    "example_place": "אבן יהודה",
-    "places": [
-      "אבן יהודה",
-      "אור עקיבא",
-      "אורנית",
-      "אילת",
-      "אליפלט",
-      "אריאל",
-      "באר יעקב",
-      "בית דגן",
-      "בית זית",
-      "בית נקופה",
-      "בית שמש",
-      "בנימינה-גבעת עדה"
-    ],
-    "weight_log": 0.159,
-    "weight_sqrt": 0.113,
-    "unique": false
-  },
-  {
-    "name": "רוז אל יוסף",
-    "raw": "רוז אל-יוסף",
-    "n_places": 1,
-    "example_place": "אום אל-פחם",
-    "places": [
-      "אום אל-פחם"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "תחנת הרכבת",
-    "raw": "תחנת הרכבת",
-    "n_places": 3,
-    "example_place": "בית שמש",
-    "places": [
-      "בית שמש",
-      "זכרון יעקב",
-      "עכו"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "צפונית מזרחית",
-    "raw": "שכונה צפונית מזרחית",
-    "n_places": 1,
-    "example_place": "ערערה",
-    "places": [
-      "ערערה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "מפרש",
-    "raw": "מפרש",
-    "n_places": 2,
-    "example_place": "טירת כרמל",
-    "places": [
-      "טירת כרמל",
-      "עתלית"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "מכבים",
-    "raw": "מכבים",
-    "n_places": 2,
-    "example_place": "אזור",
-    "places": [
-      "אזור",
-      "פרדס חנה-כרכור"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "האילן",
-    "raw": "האילן",
-    "n_places": 9,
-    "example_place": "אור עקיבא",
-    "places": [
-      "אור עקיבא",
-      "אורות",
-      "אשקלון",
-      "גאולים",
-      "טל-אל",
-      "מגדל העמק",
-      "מצליח",
-      "עכו",
-      "ראשון לציון"
-    ],
-    "weight_log": 0.301,
-    "weight_sqrt": 0.333,
-    "unique": false
-  },
-  {
-    "name": "טרגר חנה",
-    "raw": "טרגר חנה",
+    "name": "דובדבני משה",
+    "raw": "דובדבני משה",
     "n_places": 1,
     "example_place": "פתח תקווה",
     "places": [
@@ -703,451 +47,81 @@
     "unique": true
   },
   {
-    "name": "הראשונים",
-    "raw": "דרך הראשונים",
-    "n_places": 76,
-    "example_place": "אבן שמואל",
-    "places": [
-      "אבן שמואל",
-      "אור יהודה",
-      "אלישיב",
-      "ארבל",
-      "אריאל",
-      "אשדוד",
-      "אשרת",
-      "בית חירות",
-      "בית יצחק-שער חפר",
-      "בית לחם הגלילית",
-      "בני ברק",
-      "בני דרום"
-    ],
-    "weight_log": 0.16,
-    "weight_sqrt": 0.115,
-    "unique": false
-  },
-  {
-    "name": "מרוה",
-    "raw": "מרוה",
-    "n_places": 3,
-    "example_place": "טלמון",
-    "places": [
-      "טלמון",
-      "ירושלים",
-      "קרית טבעון"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "סמ אילון",
-    "raw": "סמ אילון",
+    "name": "אבטיחי מנחם",
+    "raw": "אבטיחי מנחם",
     "n_places": 1,
-    "example_place": "קרית אתא",
+    "example_place": "משמר השבעה",
     "places": [
-      "קרית אתא"
+      "משמר השבעה"
     ],
     "weight_log": 1.0,
     "weight_sqrt": 1.0,
     "unique": true
   },
   {
-    "name": "שיטרית",
-    "raw": "שיטרית",
-    "n_places": 4,
-    "example_place": "באר שבע",
-    "places": [
-      "באר שבע",
-      "טבריה",
-      "נתניה",
-      "תל אביב - יפו"
-    ],
-    "weight_log": 0.431,
-    "weight_sqrt": 0.5,
-    "unique": false
-  },
-  {
-    "name": "נהרים",
-    "raw": "נהרים",
+    "name": "המלוח",
+    "raw": "מבוא המלוח",
     "n_places": 1,
-    "example_place": "באר שבע",
+    "example_place": "מעלה אדומים",
     "places": [
-      "באר שבע"
+      "מעלה אדומים"
     ],
     "weight_log": 1.0,
     "weight_sqrt": 1.0,
     "unique": true
   },
   {
-    "name": "אבו זאיד",
-    "raw": "אבו זאיד",
+    "name": "שארע א סקי",
+    "raw": "שארע א-סקי",
     "n_places": 1,
-    "example_place": "הוזייל (שבט)",
+    "example_place": "כפר כנא",
     "places": [
-      "הוזייל (שבט)"
+      "כפר כנא"
     ],
     "weight_log": 1.0,
     "weight_sqrt": 1.0,
     "unique": true
   },
   {
-    "name": "המכס",
-    "raw": "המכס",
-    "n_places": 3,
-    "example_place": "אילת",
-    "places": [
-      "אילת",
-      "אשדוד",
-      "חיפה"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "ואדי א תמאסיח",
-    "raw": "ואדי א-תמאסיח",
+    "name": "סירן",
+    "raw": "ככר סירן",
     "n_places": 1,
-    "example_place": "ערערה",
-    "places": [
-      "ערערה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אלמוג׳ר",
-    "raw": "אלמוג'ר",
-    "n_places": 2,
-    "example_place": "דייר חנא",
-    "places": [
-      "דייר חנא",
-      "מג'ד אל-כרום"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "יהלום",
-    "raw": "יהלום",
-    "n_places": 58,
-    "example_place": "אבן ספיר",
-    "places": [
-      "אבן ספיר",
-      "אבני איתן",
-      "אבני חפץ",
-      "אופקים",
-      "אור יהודה",
-      "אילת",
-      "אלפי מנשה",
-      "אריאל",
-      "אשקלון",
-      "באר יעקב",
-      "בית אל",
-      "בית יהושע"
-    ],
-    "weight_log": 0.17,
-    "weight_sqrt": 0.131,
-    "unique": false
-  },
-  {
-    "name": "השיטה",
-    "raw": "השיטה",
-    "n_places": 74,
-    "example_place": "אבן יהודה",
-    "places": [
-      "אבן יהודה",
-      "אודים",
-      "אופקים",
-      "אור יהודה",
-      "אור עקיבא",
-      "אורנית",
-      "אילת",
-      "אליאב",
-      "אליפלט",
-      "אמנון",
-      "ארבל",
-      "אשדוד"
-    ],
-    "weight_log": 0.161,
-    "weight_sqrt": 0.116,
-    "unique": false
-  },
-  {
-    "name": "באבל",
-    "raw": "באבל",
-    "n_places": 1,
-    "example_place": "רהט",
-    "places": [
-      "רהט"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "הארז",
-    "raw": "הארז",
-    "n_places": 58,
-    "example_place": "אור יהודה",
-    "places": [
-      "אור יהודה",
-      "אורנית",
-      "אחוזת ברק",
-      "אחיטוב",
-      "אלון שבות",
-      "אריאל",
-      "אשדוד",
-      "אשקלון",
-      "אשרת",
-      "באר יעקב",
-      "בורגתה",
-      "בית שמש"
-    ],
-    "weight_log": 0.17,
-    "weight_sqrt": 0.131,
-    "unique": false
-  },
-  {
-    "name": "ש כסופים",
-    "raw": "ש כסופים",
-    "n_places": 1,
-    "example_place": "כפר סבא",
-    "places": [
-      "כפר סבא"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "ז׳קלין כהנוב",
-    "raw": "ז'קלין כהנוב",
-    "n_places": 2,
-    "example_place": "באר שבע",
-    "places": [
-      "באר שבע",
-      "תל אביב - יפו"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "קהיר",
-    "raw": "קהיר",
-    "n_places": 1,
-    "example_place": "דאלית אל-כרמל",
-    "places": [
-      "דאלית אל-כרמל"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אל סנובר",
-    "raw": "אל סנובר",
-    "n_places": 1,
-    "example_place": "סלמה",
-    "places": [
-      "סלמה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "נחל עבדת",
-    "raw": "נחל עבדת",
-    "n_places": 2,
-    "example_place": "אופקים",
-    "places": [
-      "אופקים",
-      "נטע"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "יא",
-    "raw": "שביל יא",
-    "n_places": 3,
-    "example_place": "אשדוד",
-    "places": [
-      "אשדוד",
-      "מבשרת ציון",
-      "צפת"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "ברקת",
-    "raw": "ברקת",
-    "n_places": 70,
-    "example_place": "אבן ספיר",
-    "places": [
-      "אבן ספיר",
-      "אבני איתן",
-      "אבני חפץ",
-      "אופקים",
-      "אור יהודה",
-      "אילת",
-      "אלפי מנשה",
-      "אריאל",
-      "אשדוד",
-      "אשקלון",
-      "באר יעקב",
-      "בית אל"
-    ],
-    "weight_log": 0.163,
-    "weight_sqrt": 0.12,
-    "unique": false
-  },
-  {
-    "name": "הר קדרים מכבים רעות",
-    "raw": "הר קדרים מכבים רעות",
-    "n_places": 1,
-    "example_place": "מודיעין-מכבים-רעות",
-    "places": [
-      "מודיעין-מכבים-רעות"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "האלון",
-    "raw": "האלון",
-    "n_places": 102,
-    "example_place": "אביאל",
-    "places": [
-      "אביאל",
-      "אבן יהודה",
-      "אבן מנחם",
-      "אדורה",
-      "אדמית",
-      "אופקים",
-      "אור עקיבא",
-      "אורנית",
-      "אחיעזר",
-      "אלון שבות",
-      "אלקוש",
-      "אמנון"
-    ],
-    "weight_log": 0.15,
-    "weight_sqrt": 0.099,
-    "unique": false
-  },
-  {
-    "name": "רבנו תם",
-    "raw": "רבנו תם",
-    "n_places": 10,
-    "example_place": "אלעד",
-    "places": [
-      "אלעד",
-      "אשדוד",
-      "באר שבע",
-      "בני ברק",
-      "הרצליה",
-      "חיפה",
-      "ירושלים",
-      "ראשון לציון",
-      "רמת השרון",
-      "תל אביב - יפו"
-    ],
-    "weight_log": 0.289,
-    "weight_sqrt": 0.316,
-    "unique": false
-  },
-  {
-    "name": "שמריהו לוין",
-    "raw": "שמריהו לוין",
-    "n_places": 6,
     "example_place": "חולון",
     "places": [
-      "חולון",
-      "חיפה",
-      "כפר סבא",
-      "ראשון לציון",
-      "רעננה",
-      "תל אביב - יפו"
-    ],
-    "weight_log": 0.356,
-    "weight_sqrt": 0.408,
-    "unique": false
-  },
-  {
-    "name": "כוכב הדרום",
-    "raw": "כוכב הדרום",
-    "n_places": 1,
-    "example_place": "אשדוד",
-    "places": [
-      "אשדוד"
+      "חולון"
     ],
     "weight_log": 1.0,
     "weight_sqrt": 1.0,
     "unique": true
   },
   {
-    "name": "אורי וינברג",
-    "raw": "אורי וינברג",
-    "n_places": 1,
-    "example_place": "חיפה",
+    "name": "אלדרג׳ה",
+    "raw": "אלדרג'ה",
+    "n_places": 2,
+    "example_place": "בית ג'ן",
     "places": [
-      "חיפה"
+      "בית ג'ן",
+      "פסוטה"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "דרכי אליעזר",
+    "raw": "דרכי אליעזר",
+    "n_places": 1,
+    "example_place": "בית שמש",
+    "places": [
+      "בית שמש"
     ],
     "weight_log": 1.0,
     "weight_sqrt": 1.0,
     "unique": true
   },
   {
-    "name": "מזור",
-    "raw": "מזור",
-    "n_places": 5,
-    "example_place": "דימונה",
-    "places": [
-      "דימונה",
-      "ירושלים",
-      "כפר סבא",
-      "מזור",
-      "ערד"
-    ],
-    "weight_log": 0.387,
-    "weight_sqrt": 0.447,
-    "unique": false
-  },
-  {
-    "name": "השקד",
-    "raw": "השקד",
-    "n_places": 116,
-    "example_place": "אביאל",
-    "places": [
-      "אביאל",
-      "אבן שמואל",
-      "אדמית",
-      "אופקים",
-      "אור עקיבא",
-      "אורנית",
-      "אחיהוד",
-      "אלוני אבא",
-      "אליאב",
-      "אלקוש",
-      "אמונים",
-      "אמנון"
-    ],
-    "weight_log": 0.146,
-    "weight_sqrt": 0.093,
-    "unique": false
-  },
-  {
-    "name": "אלמחג׳ר אלגרבי",
-    "raw": "אלמחג'ר אלגרבי",
+    "name": "נאדי אלאחווה",
+    "raw": "נאדי אלאחווה",
     "n_places": 1,
     "example_place": "פקיעין (בוקייעה)",
     "places": [
@@ -1158,1194 +132,116 @@
     "unique": true
   },
   {
-    "name": "רון חיים",
-    "raw": "רון חיים",
+    "name": "אלקוס׳יבה",
+    "raw": "אלקוס'יבה",
     "n_places": 1,
-    "example_place": "ראשון לציון",
+    "example_place": "דייר אל-אסד",
     "places": [
-      "ראשון לציון"
+      "דייר אל-אסד"
     ],
     "weight_log": 1.0,
     "weight_sqrt": 1.0,
     "unique": true
   },
   {
-    "name": "אל מהדי",
-    "raw": "אל-מהדי",
-    "n_places": 2,
-    "example_place": "טמרה",
-    "places": [
-      "טמרה",
-      "קלנסווה"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "הסובלנות",
-    "raw": "הסובלנות",
+    "name": "עליאא",
+    "raw": "עליאא",
     "n_places": 1,
-    "example_place": "בית חורון",
+    "example_place": "בסמ\"ה",
     "places": [
-      "בית חורון"
+      "בסמ\"ה"
     ],
     "weight_log": 1.0,
     "weight_sqrt": 1.0,
     "unique": true
   },
   {
-    "name": "אל בורה",
-    "raw": "אל-בורה",
-    "n_places": 1,
-    "example_place": "כפר קרע",
-    "places": [
-      "כפר קרע"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "להט, ציון בן רצון, 1947-",
-    "raw": "צבר",
-    "n_places": 56,
-    "example_place": "אבן יהודה",
-    "places": [
-      "אבן יהודה",
-      "אופקים",
-      "אורות",
-      "אורנית",
-      "אזור",
-      "אילניה",
-      "אילת",
-      "אלוני אבא",
-      "אליאב",
-      "אשקלון",
-      "באר שבע",
-      "בית זית"
-    ],
-    "weight_log": 0.171,
-    "weight_sqrt": 0.134,
-    "unique": false
-  },
-  {
-    "name": "ברגמן",
-    "raw": "ברגמן",
-    "n_places": 2,
-    "example_place": "ראשון לציון",
-    "places": [
-      "ראשון לציון",
-      "רחובות"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "אל סינדיאן",
-    "raw": "אל סינדיאן",
-    "n_places": 1,
-    "example_place": "רמלה",
-    "places": [
-      "רמלה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אודם",
-    "raw": "אודם",
-    "n_places": 64,
-    "example_place": "אבן ספיר",
-    "places": [
-      "אבן ספיר",
-      "אבני חפץ",
-      "אודם",
-      "אופקים",
-      "אור יהודה",
-      "אורנית",
-      "אילת",
-      "אלפי מנשה",
-      "אשדוד",
-      "אשקלון",
-      "באר יעקב",
-      "בית חנניה"
-    ],
-    "weight_log": 0.166,
-    "weight_sqrt": 0.125,
-    "unique": false
-  },
-  {
-    "name": "אלקניטרה",
-    "raw": "אלקניטרה",
-    "n_places": 1,
-    "example_place": "מג'ד אל-כרום",
-    "places": [
-      "מג'ד אל-כרום"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "המצילתיים",
-    "raw": "המצילתיים",
-    "n_places": 3,
-    "example_place": "ירושלים",
-    "places": [
-      "ירושלים",
-      "פתח תקווה",
-      "ראשון לציון"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "האורן",
-    "raw": "האורן",
-    "n_places": 88,
-    "example_place": "אבן יהודה",
-    "places": [
-      "אבן יהודה",
-      "אדורה",
-      "אדמית",
-      "אודים",
-      "אופקים",
-      "אורנית",
-      "אחיטוב",
-      "אליפלט",
-      "אשדוד",
-      "אשלים",
-      "באר יעקב",
-      "בית חירות"
-    ],
-    "weight_log": 0.154,
-    "weight_sqrt": 0.107,
-    "unique": false
-  },
-  {
-    "name": "את קרית הפלדה",
-    "raw": "את קרית הפלדה",
-    "n_places": 1,
-    "example_place": "עכו",
-    "places": [
-      "עכו"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "ירבוע",
-    "raw": "ירבוע",
-    "n_places": 2,
-    "example_place": "אילת",
-    "places": [
-      "אילת",
-      "באר שבע"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "החורש",
-    "raw": "החורש",
-    "n_places": 53,
-    "example_place": "אבטליון",
-    "places": [
-      "אבטליון",
-      "אופקים",
-      "אורנית",
-      "אלון הגליל",
-      "אלון שבות",
-      "אלוני אבא",
-      "באר שבע",
-      "בית חירות",
-      "בית לחם הגלילית",
-      "בית שאן",
-      "בנימינה-גבעת עדה",
-      "היוגב"
-    ],
-    "weight_log": 0.174,
-    "weight_sqrt": 0.137,
-    "unique": false
-  },
-  {
-    "name": "בנימין זאב הרצל",
-    "raw": "שד הרצל",
-    "n_places": 58,
-    "example_place": "אופקים",
-    "places": [
-      "אופקים",
-      "אור יהודה",
-      "אור עקיבא",
-      "אזור",
-      "אשדוד",
-      "אשקלון",
-      "באר יעקב",
-      "באר שבע",
-      "בית דגן",
-      "בית שאן",
-      "בית שמש",
-      "בני ברק"
-    ],
-    "weight_log": 0.17,
-    "weight_sqrt": 0.131,
-    "unique": false
-  },
-  {
-    "name": "יקינתון",
-    "raw": "יקינתון",
-    "n_places": 13,
-    "example_place": "אשדוד",
-    "places": [
-      "אשדוד",
-      "גבע בנימין",
-      "גבעות בר",
-      "חיפה",
-      "כרמיאל",
-      "להב",
-      "נס ציונה",
-      "נתניה",
-      "עפולה",
-      "קרית ביאליק",
-      "קרית ים",
-      "תל אביב - יפו"
-    ],
-    "weight_log": 0.263,
-    "weight_sqrt": 0.277,
-    "unique": false
-  },
-  {
-    "name": "הצופים",
-    "raw": "הצופים",
-    "n_places": 10,
-    "example_place": "אשקלון",
-    "places": [
-      "אשקלון",
-      "בית שמש",
-      "חיפה",
-      "יקנעם עילית",
-      "כפר אדומים",
-      "מגדל העמק",
-      "ראשון לציון",
-      "רמת גן",
-      "רמת השרון",
-      "תנובות"
-    ],
-    "weight_log": 0.289,
-    "weight_sqrt": 0.316,
-    "unique": false
-  },
-  {
-    "name": "המגיד",
-    "raw": "המגיד",
-    "n_places": 6,
-    "example_place": "אשדוד",
-    "places": [
-      "אשדוד",
-      "חולון",
-      "ירושלים",
-      "נתניה",
-      "פתח תקווה",
-      "תל אביב - יפו"
-    ],
-    "weight_log": 0.356,
-    "weight_sqrt": 0.408,
-    "unique": false
-  },
-  {
-    "name": "גנוסר",
-    "raw": "גנוסר",
-    "n_places": 3,
-    "example_place": "בת ים",
-    "places": [
-      "בת ים",
-      "גבעת אלה",
-      "קצרין"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "ההגנה",
-    "raw": "ההגנה",
-    "n_places": 57,
-    "example_place": "אביחיל",
-    "places": [
-      "אביחיל",
-      "אופקים",
-      "אור יהודה",
-      "אור עקיבא",
-      "אזור",
-      "אריאל",
-      "אשדוד",
-      "אשקלון",
-      "באר שבע",
-      "בני ברק",
-      "בנימינה-גבעת עדה",
-      "בת ים"
-    ],
-    "weight_log": 0.171,
-    "weight_sqrt": 0.132,
-    "unique": false
-  },
-  {
-    "name": "אלתסאמח",
-    "raw": "אלתסאמח",
-    "n_places": 5,
-    "example_place": "דאלית אל-כרמל",
-    "places": [
-      "דאלית אל-כרמל",
-      "ערערה-בנגב",
-      "ראמה",
-      "רהט",
-      "שפרעם"
-    ],
-    "weight_log": 0.387,
-    "weight_sqrt": 0.447,
-    "unique": false
-  },
-  {
-    "name": "בן זומא",
-    "raw": "בן זומא",
-    "n_places": 3,
-    "example_place": "אשקלון",
-    "places": [
-      "אשקלון",
-      "בני ברק",
-      "תל אביב - יפו"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "החזון",
-    "raw": "החזון",
-    "n_places": 2,
-    "example_place": "נהריה",
-    "places": [
-      "נהריה",
-      "רמלה"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "מעלות לגרלף סלמה",
-    "raw": "מעלות לגרלף סלמה",
-    "n_places": 1,
-    "example_place": "ירושלים",
-    "places": [
-      "ירושלים"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "יעקב בן-סירא",
-    "raw": "יעקב בן סירא",
-    "n_places": 1,
-    "example_place": "ראשון לציון",
-    "places": [
-      "ראשון לציון"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "הברוש",
-    "raw": "הברוש",
-    "n_places": 105,
-    "example_place": "אבו גוש",
-    "places": [
-      "אבו גוש",
-      "אבן יהודה",
-      "אדורה",
-      "אדמית",
-      "אודים",
-      "אור עקיבא",
-      "אורנית",
-      "אזור",
-      "אילניה",
-      "אילת",
-      "אליפלט",
-      "אשקלון"
-    ],
-    "weight_log": 0.149,
-    "weight_sqrt": 0.098,
-    "unique": false
-  },
-  {
-    "name": "משעול טפח",
-    "raw": "משעול טפח",
-    "n_places": 1,
-    "example_place": "מעלות-תרשיחא",
-    "places": [
-      "מעלות-תרשיחא"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "פנינת הים",
-    "raw": "פנינת הים",
-    "n_places": 1,
-    "example_place": "ראשון לציון",
-    "places": [
-      "ראשון לציון"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "לוז",
-    "raw": "שדרות לוז",
-    "n_places": 6,
-    "example_place": "בית אל",
-    "places": [
-      "בית אל",
-      "טלמון",
-      "משהד",
-      "עין ראפה",
-      "צופים",
-      "ראשון לציון"
-    ],
-    "weight_log": 0.356,
-    "weight_sqrt": 0.408,
-    "unique": false
-  },
-  {
-    "name": "שקד",
-    "raw": "שקד",
-    "n_places": 67,
-    "example_place": "אבן יהודה",
-    "places": [
-      "אבן יהודה",
-      "אבני חפץ",
-      "אבשלום",
-      "אודם",
-      "אומן",
-      "אור יהודה",
-      "אליכין",
-      "אניעם",
-      "באר שבע",
-      "בחן",
-      "בית אל",
-      "בית שאן"
-    ],
-    "weight_log": 0.164,
-    "weight_sqrt": 0.122,
-    "unique": false
-  },
-  {
-    "name": "ביס שדה",
-    "raw": "ביס שדה",
-    "n_places": 3,
-    "example_place": "כפר תבור",
-    "places": [
-      "כפר תבור",
-      "מעגן מיכאל",
-      "עין גדי"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "ח׳לת סעד",
-    "raw": "ח'לת סעד",
-    "n_places": 1,
-    "example_place": "עספיא",
-    "places": [
-      "עספיא"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "בדולח",
-    "raw": "בדולח",
-    "n_places": 9,
-    "example_place": "אשקלון",
-    "places": [
-      "אשקלון",
-      "הושעיה",
-      "מודיעין-מכבים-רעות",
-      "נעלה",
-      "נתיבות",
-      "ערד",
-      "קצרין",
-      "ראשון לציון",
-      "תל אביב - יפו"
-    ],
-    "weight_log": 0.301,
-    "weight_sqrt": 0.333,
-    "unique": false
-  },
-  {
-    "name": "הכלנית",
-    "raw": "הכלנית",
-    "n_places": 77,
-    "example_place": "אבן שמואל",
-    "places": [
-      "אבן שמואל",
-      "אודים",
-      "אופקים",
-      "אור יהודה",
-      "אור עקיבא",
-      "אורנית",
-      "אירוס",
-      "אליכין",
-      "אלישיב",
-      "אשדוד",
-      "אשקלון",
-      "באר יעקב"
-    ],
-    "weight_log": 0.159,
-    "weight_sqrt": 0.114,
-    "unique": false
-  },
-  {
-    "name": "אלמוסאוא",
-    "raw": "אלמוסאוא",
-    "n_places": 1,
-    "example_place": "דאלית אל-כרמל",
-    "places": [
-      "דאלית אל-כרמל"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אל ג׳בל אל אביד",
-    "raw": "אל-ג'בל אל-אביד",
-    "n_places": 1,
-    "example_place": "עין מאהל",
-    "places": [
-      "עין מאהל"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "עגורים",
-    "raw": "עגורים",
-    "n_places": 2,
-    "example_place": "הררית",
-    "places": [
-      "הררית",
-      "סביון"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "משעול חבושים",
-    "raw": "משעול חבושים",
-    "n_places": 1,
-    "example_place": "אילת",
-    "places": [
-      "אילת"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "לב העיר",
-    "raw": "לב העיר",
-    "n_places": 2,
-    "example_place": "מודיעין-מכבים-רעות",
-    "places": [
-      "מודיעין-מכבים-רעות",
-      "נוף הגליל"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "צפית",
-    "raw": "צפית",
-    "n_places": 3,
-    "example_place": "כפר מנחם",
-    "places": [
-      "כפר מנחם",
-      "צור הדסה",
-      "קצרין"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "קדושי לוצק",
-    "raw": "קדושי לוצק",
-    "n_places": 1,
-    "example_place": "בת ים",
-    "places": [
-      "בת ים"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "ברוש",
-    "raw": "ברוש",
-    "n_places": 52,
-    "example_place": "אבשלום",
-    "places": [
-      "אבשלום",
-      "אופקים",
-      "אור יהודה",
-      "אניעם",
-      "אפרת",
-      "בחן",
-      "בית אל",
-      "בית שאן",
-      "ברוש",
-      "גאליה",
-      "גדרה",
-      "גורן"
-    ],
-    "weight_log": 0.175,
-    "weight_sqrt": 0.139,
-    "unique": false
-  },
-  {
-    "name": "רותם מכבים רעות",
-    "raw": "רותם מכבים רעות",
-    "n_places": 1,
-    "example_place": "מודיעין-מכבים-רעות",
-    "places": [
-      "מודיעין-מכבים-רעות"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "מרח אלג׳זלאן",
-    "raw": "מרח אלג'זלאן",
-    "n_places": 1,
-    "example_place": "כאבול",
-    "places": [
-      "כאבול"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "המצפור",
-    "raw": "המצפור",
-    "n_places": 2,
-    "example_place": "כמון",
-    "places": [
-      "כמון",
-      "משגב עם"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "משעול כרמי",
-    "raw": "משעול כרמי",
-    "n_places": 2,
-    "example_place": "הרצליה",
-    "places": [
-      "הרצליה",
-      "קרית גת"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "החצבים",
-    "raw": "החצבים",
-    "n_places": 8,
-    "example_place": "אלון הגליל",
-    "places": [
-      "אלון הגליל",
-      "ברקן",
-      "כפר שמריהו",
-      "מטולה",
-      "נתניה",
-      "קדימה-צורן",
-      "רמת ישי",
-      "תובל"
-    ],
-    "weight_log": 0.315,
-    "weight_sqrt": 0.354,
-    "unique": false
-  },
-  {
-    "name": "חבלת אבו סלאמה",
-    "raw": "חבלת אבו סלאמה",
-    "n_places": 1,
-    "example_place": "ג'ת",
-    "places": [
-      "ג'ת"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "יששכר בורנשטיין",
-    "raw": "יששכר בורנשטיין",
-    "n_places": 1,
-    "example_place": "נתניה",
-    "places": [
-      "נתניה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אירנה סנדלר",
-    "raw": "אירנה סנדלר",
-    "n_places": 2,
-    "example_place": "נתניה",
-    "places": [
-      "נתניה",
-      "רמת גן"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "אורט ישראל",
-    "raw": "אורט ישראל",
-    "n_places": 1,
-    "example_place": "בת ים",
-    "places": [
-      "בת ים"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "הקנה",
-    "raw": "הקנה",
-    "n_places": 3,
-    "example_place": "חדרה",
-    "places": [
-      "חדרה",
-      "ירושלים",
-      "מעלה אדומים"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "הפחח",
-    "raw": "הפחח",
-    "n_places": 2,
-    "example_place": "אילת",
-    "places": [
-      "אילת",
-      "באר שבע"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "קרית חינוך דרור",
-    "raw": "קרית חינוך דרור",
-    "n_places": 1,
-    "example_place": "בני דרור",
-    "places": [
-      "בני דרור"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אלסדיר",
-    "raw": "אלסדיר",
-    "n_places": 1,
-    "example_place": "בית ג'ן",
-    "places": [
-      "בית ג'ן"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "ורדימון",
-    "raw": "שד ורדימון",
-    "n_places": 3,
-    "example_place": "ירוחם",
-    "places": [
-      "ירוחם",
-      "קרית מלאכי",
-      "שדרות"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "גבעת חרובים",
-    "raw": "גבעת חרובים",
-    "n_places": 1,
-    "example_place": "רכסים",
-    "places": [
-      "רכסים"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "א ראפעי",
-    "raw": "א-ראפעי",
-    "n_places": 1,
-    "example_place": "טמרה",
-    "places": [
-      "טמרה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אזה",
-    "raw": "אזה",
-    "n_places": 2,
-    "example_place": "כפר כמא",
-    "places": [
-      "כפר כמא",
-      "ריחאניה"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "גן העשרים",
-    "raw": "גן העשרים",
-    "n_places": 1,
-    "example_place": "ירושלים",
-    "places": [
-      "ירושלים"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "חמה",
-    "raw": "חמה",
-    "n_places": 3,
-    "example_place": "באר שבע",
-    "places": [
-      "באר שבע",
-      "יהוד-מונוסון",
-      "ירוחם"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "ש סטודנטים ק יובל",
-    "raw": "ש סטודנטים ק יובל",
-    "n_places": 1,
-    "example_place": "ירושלים",
-    "places": [
-      "ירושלים"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "זופה",
-    "raw": "זופה",
-    "n_places": 1,
-    "example_place": "משהד",
-    "places": [
-      "משהד"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אלעסקלאני",
-    "raw": "אלעסקלאני",
-    "n_places": 2,
-    "example_place": "אום אל-פחם",
-    "places": [
-      "אום אל-פחם",
-      "שפרעם"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "הקינמון",
-    "raw": "הקינמון",
-    "n_places": 4,
-    "example_place": "חדרה",
-    "places": [
-      "חדרה",
-      "מעלה לבונה",
-      "עין נקובא",
-      "צור הדסה"
-    ],
-    "weight_log": 0.431,
-    "weight_sqrt": 0.5,
-    "unique": false
-  },
-  {
-    "name": "אלנדאא",
-    "raw": "אלנדאא",
-    "n_places": 1,
-    "example_place": "כפר קרע",
-    "places": [
-      "כפר קרע"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "תל אביב יפו",
-    "raw": "תל אביב-יפו",
-    "n_places": 2,
-    "example_place": "כפר סבא",
-    "places": [
-      "כפר סבא",
-      "תל אביב - יפו"
-    ],
-    "weight_log": 0.631,
-    "weight_sqrt": 0.707,
-    "unique": false
-  },
-  {
-    "name": "ז׳בוטינסקי",
-    "raw": "ז'בוטינסקי",
-    "n_places": 52,
-    "example_place": "אופקים",
-    "places": [
-      "אופקים",
-      "אור יהודה",
-      "אור עקיבא",
-      "אזור",
-      "אשדוד",
-      "אשקלון",
-      "באר יעקב",
-      "בית דגן",
-      "בית שמש",
-      "בני ברק",
-      "בנימינה-גבעת עדה",
-      "בת ים"
-    ],
-    "weight_log": 0.175,
-    "weight_sqrt": 0.139,
-    "unique": false
-  },
-  {
-    "name": "חצב",
-    "raw": "חצב",
+    "name": "ההדס",
+    "raw": "ההדס",
     "n_places": 50,
-    "example_place": "אבן יהודה",
+    "example_place": "אדמית",
     "places": [
-      "אבן יהודה",
-      "אומן",
-      "אופקים",
-      "אורה",
-      "אחוזת ברק",
+      "אדמית",
+      "אור עקיבא",
+      "אורנית",
+      "אליפלט",
       "אשקלון",
-      "באר שבע",
-      "בית אריה",
-      "בית שאן",
-      "בני ציון",
-      "בת חפר",
-      "גדרה"
+      "בורגתה",
+      "בית שמש",
+      "בן זכאי",
+      "בני ראם",
+      "בנימינה-גבעת עדה",
+      "גאולים",
+      "גנות"
     ],
     "weight_log": 0.176,
     "weight_sqrt": 0.141,
     "unique": false
   },
   {
-    "name": "אלעולא",
-    "raw": "אלעולא",
-    "n_places": 3,
-    "example_place": "זרזיר",
-    "places": [
-      "זרזיר",
-      "טורעאן",
-      "עראבה"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "המייסדים",
-    "raw": "המייסדים",
-    "n_places": 115,
-    "example_place": "אושה",
-    "places": [
-      "אושה",
-      "אחיטוב",
-      "אילת",
-      "ארבל",
-      "באר יעקב",
-      "באר שבע",
-      "ביצרון",
-      "בית אלעזרי",
-      "בית חורון",
-      "בית נקופה",
-      "בית עובד",
-      "בית שאן"
-    ],
-    "weight_log": 0.146,
-    "weight_sqrt": 0.093,
-    "unique": false
-  },
-  {
-    "name": "גיבורי סיני",
-    "raw": "גיבורי סיני",
+    "name": "הצייר יוסי",
+    "raw": "הצייר יוסי",
     "n_places": 1,
-    "example_place": "עכו",
+    "example_place": "ירושלים",
     "places": [
-      "עכו"
+      "ירושלים"
     ],
     "weight_log": 1.0,
     "weight_sqrt": 1.0,
     "unique": true
   },
   {
-    "name": "החרוב",
-    "raw": "החרוב",
-    "n_places": 103,
-    "example_place": "אבו גוש",
+    "name": "רוטרי",
+    "raw": "ככר רוטרי",
+    "n_places": 8,
+    "example_place": "אילת",
     "places": [
-      "אבו גוש",
-      "אביאל",
-      "אבן יהודה",
-      "אדורה",
-      "אדמית",
-      "אודים",
-      "אופקים",
-      "אור עקיבא",
-      "אורות",
-      "אורנית",
-      "אחיהוד",
-      "אלוני אבא"
+      "אילת",
+      "אשקלון",
+      "באר יעקב",
+      "באר שבע",
+      "הרצליה",
+      "מעלות-תרשיחא",
+      "נתניה",
+      "רחובות"
     ],
-    "weight_log": 0.149,
-    "weight_sqrt": 0.099,
+    "weight_log": 0.315,
+    "weight_sqrt": 0.354,
     "unique": false
   },
   {
-    "name": "א רוחה",
-    "raw": "א-רוחה",
+    "name": "אייל",
+    "raw": "אייל",
     "n_places": 2,
-    "example_place": "טירה",
+    "example_place": "אשדוד",
     "places": [
-      "טירה",
-      "ערערה"
+      "אשדוד",
+      "בת ים"
     ],
     "weight_log": 0.631,
     "weight_sqrt": 0.707,
     "unique": false
   },
   {
-    "name": "אלון",
-    "raw": "אלון",
-    "n_places": 81,
-    "example_place": "אבשלום",
+    "name": "אבו חצירה",
+    "raw": "אבו חצירה",
+    "n_places": 5,
+    "example_place": "טבריה",
     "places": [
-      "אבשלום",
-      "אודם",
-      "אחוזת ברק",
-      "אלון",
-      "אניעם",
-      "בחן",
-      "בית אל",
-      "בית דגן",
-      "בית שאן",
-      "בני דרור",
-      "בני יהודה",
-      "בת חפר"
+      "טבריה",
+      "ירוחם",
+      "ראשון לציון",
+      "רמלה",
+      "רמת השרון"
     ],
-    "weight_log": 0.157,
-    "weight_sqrt": 0.111,
+    "weight_log": 0.387,
+    "weight_sqrt": 0.447,
     "unique": false
-  },
-  {
-    "name": "ש לוינסון",
-    "raw": "ש לוינסון",
-    "n_places": 1,
-    "example_place": "חדרה",
-    "places": [
-      "חדרה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "משעול תר\"ל",
-    "raw": "משעול תר\"ל",
-    "n_places": 1,
-    "example_place": "מקווה ישראל",
-    "places": [
-      "מקווה ישראל"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "כפר מיעוטים",
-    "raw": "כפר מיעוטים",
-    "n_places": 1,
-    "example_place": "רמלה",
-    "places": [
-      "רמלה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
   },
   {
     "name": "הזית",
     "raw": "הזית",
-    "n_places": 221,
+    "n_places": 232,
     "example_place": "אבטליון",
     "places": [
       "אבטליון",
@@ -2361,27 +257,36 @@
       "אושה",
       "אחיהוד"
     ],
-    "weight_log": 0.128,
-    "weight_sqrt": 0.067,
+    "weight_log": 0.127,
+    "weight_sqrt": 0.066,
     "unique": false
   },
   {
-    "name": "אילת השחר",
-    "raw": "אילת השחר",
-    "n_places": 3,
-    "example_place": "אבן יהודה",
+    "name": "שוהם",
+    "raw": "שוהם",
+    "n_places": 58,
+    "example_place": "אבן ספיר",
     "places": [
-      "אבן יהודה",
-      "עמנואל",
-      "ערד"
+      "אבן ספיר",
+      "אופקים",
+      "אור יהודה",
+      "אילת",
+      "אריאל",
+      "אשקלון",
+      "באר גנים",
+      "באר יעקב",
+      "בית אל",
+      "ברקן",
+      "גבעת זאב",
+      "גדרה"
     ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
+    "weight_log": 0.17,
+    "weight_sqrt": 0.131,
     "unique": false
   },
   {
-    "name": "ש נוה הקריה",
-    "raw": "ש נוה הקריה",
+    "name": "הרשד״ם",
+    "raw": "הרשד\"ם",
     "n_places": 1,
     "example_place": "ירושלים",
     "places": [
@@ -2392,13 +297,553 @@
     "unique": true
   },
   {
-    "name": "מאפו אברהם",
-    "raw": "מאפו אברהם",
-    "n_places": 2,
-    "example_place": "באר שבע",
+    "name": "חסידי אומות העולם",
+    "raw": "חסידי אומות העולם",
+    "n_places": 3,
+    "example_place": "אשדוד",
     "places": [
+      "אשדוד",
+      "חיפה",
+      "ראשון לציון"
+    ],
+    "weight_log": 0.5,
+    "weight_sqrt": 0.577,
+    "unique": false
+  },
+  {
+    "name": "מנחם בגין",
+    "raw": "מנחם בגין",
+    "n_places": 54,
+    "example_place": "אופקים",
+    "places": [
+      "אופקים",
+      "אור יהודה",
+      "אילת",
+      "אשדוד",
+      "אשקלון",
       "באר שבע",
-      "חדרה"
+      "בית דגן",
+      "בית שאן",
+      "בני ברק",
+      "בני עי\"ש",
+      "בת ים",
+      "גבעת שמואל"
+    ],
+    "weight_log": 0.173,
+    "weight_sqrt": 0.136,
+    "unique": false
+  },
+  {
+    "name": "אלרחאל",
+    "raw": "אלרחאל",
+    "n_places": 1,
+    "example_place": "חורפיש",
+    "places": [
+      "חורפיש"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "יער חניתה",
+    "raw": "יער חניתה",
+    "n_places": 2,
+    "example_place": "מודיעין-מכבים-רעות",
+    "places": [
+      "מודיעין-מכבים-רעות",
+      "שלומי"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "עומר אלח׳יאם",
+    "raw": "עומר אלח'יאם",
+    "n_places": 2,
+    "example_place": "מג'ד אל-כרום",
+    "places": [
+      "מג'ד אל-כרום",
+      "שגב-שלום"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "הרימון",
+    "raw": "הרימון",
+    "n_places": 183,
+    "example_place": "אביאל",
+    "places": [
+      "אביאל",
+      "אבן יהודה",
+      "אבן מנחם",
+      "אבן שמואל",
+      "אדורה",
+      "אודים",
+      "אופקים",
+      "אור יהודה",
+      "אור עקיבא",
+      "אורנית",
+      "אזור",
+      "אחיהוד"
+    ],
+    "weight_log": 0.133,
+    "weight_sqrt": 0.074,
+    "unique": false
+  },
+  {
+    "name": "הדס",
+    "raw": "הדס",
+    "n_places": 85,
+    "example_place": "אבן יהודה",
+    "places": [
+      "אבן יהודה",
+      "אבני איתן",
+      "אומן",
+      "אופקים",
+      "אושה",
+      "אילת",
+      "אמונים",
+      "אפרת",
+      "אשדוד",
+      "בית אל",
+      "בית דגן",
+      "ביתר עילית"
+    ],
+    "weight_log": 0.156,
+    "weight_sqrt": 0.108,
+    "unique": false
+  },
+  {
+    "name": "המוזיאונים",
+    "raw": "שדרת המוזיאונים",
+    "n_places": 1,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "דוד בן גוריון",
+    "raw": "שד בן גוריון",
+    "n_places": 62,
+    "example_place": "אביחיל",
+    "places": [
+      "אביחיל",
+      "אופקים",
+      "אור יהודה",
+      "אור עקיבא",
+      "אזור",
+      "אילת",
+      "אשדוד",
+      "אשקלון",
+      "באר שבע",
+      "בית שאן",
+      "בית שמש",
+      "בני ברק"
+    ],
+    "weight_log": 0.167,
+    "weight_sqrt": 0.127,
+    "unique": false
+  },
+  {
+    "name": "סביון",
+    "raw": "סביון",
+    "n_places": 56,
+    "example_place": "אבן יהודה",
+    "places": [
+      "אבן יהודה",
+      "אבשלום",
+      "אופקים",
+      "אור יהודה",
+      "אילת",
+      "אלפי מנשה",
+      "אשקלון",
+      "באר יעקב",
+      "באר שבע",
+      "בית דגן",
+      "בית עובד",
+      "גבע בנימין"
+    ],
+    "weight_log": 0.171,
+    "weight_sqrt": 0.134,
+    "unique": false
+  },
+  {
+    "name": "תרמ״ג",
+    "raw": "תרמ\"ג",
+    "n_places": 1,
+    "example_place": "מזכרת בתיה",
+    "places": [
+      "מזכרת בתיה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "וייץ יוסף",
+    "raw": "וייץ יוסף",
+    "n_places": 1,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "העצמאות",
+    "raw": "העצמאות",
+    "n_places": 51,
+    "example_place": "אביחיל",
+    "places": [
+      "אביחיל",
+      "אבן יהודה",
+      "אופקים",
+      "אור יהודה",
+      "אור עקיבא",
+      "אילת",
+      "אריאל",
+      "אשדוד",
+      "אשקלון",
+      "באר שבע",
+      "בית דגן",
+      "בנימינה-גבעת עדה"
+    ],
+    "weight_log": 0.175,
+    "weight_sqrt": 0.14,
+    "unique": false
+  },
+  {
+    "name": "אל אהראם",
+    "raw": "אל-אהראם",
+    "n_places": 2,
+    "example_place": "אבו סנאן",
+    "places": [
+      "אבו סנאן",
+      "אום אל-פחם"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "גני אור",
+    "raw": "גני אור",
+    "n_places": 1,
+    "example_place": "אור עקיבא",
+    "places": [
+      "אור עקיבא"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "שרה",
+    "raw": "שרה",
+    "n_places": 8,
+    "example_place": "אשקלון",
+    "places": [
+      "אשקלון",
+      "הרצליה",
+      "זכרון יעקב",
+      "חיפה",
+      "ירוחם",
+      "כפר סבא",
+      "רכסים",
+      "שדרות"
+    ],
+    "weight_log": 0.315,
+    "weight_sqrt": 0.354,
+    "unique": false
+  },
+  {
+    "name": "תוכינון",
+    "raw": "תוכינון",
+    "n_places": 1,
+    "example_place": "אילת",
+    "places": [
+      "אילת"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "היקינתון",
+    "raw": "שביל היקינתון",
+    "n_places": 4,
+    "example_place": "יגור",
+    "places": [
+      "יגור",
+      "מסד",
+      "רגבה",
+      "רעננה"
+    ],
+    "weight_log": 0.431,
+    "weight_sqrt": 0.5,
+    "unique": false
+  },
+  {
+    "name": "החצב",
+    "raw": "החצב",
+    "n_places": 64,
+    "example_place": "אודים",
+    "places": [
+      "אודים",
+      "אור יהודה",
+      "אורנית",
+      "אזור",
+      "אירוס",
+      "אליכין",
+      "אשלים",
+      "אשרת",
+      "באר יעקב",
+      "בית יצחק-שער חפר",
+      "בית נחמיה",
+      "בית שמש"
+    ],
+    "weight_log": 0.166,
+    "weight_sqrt": 0.125,
+    "unique": false
+  },
+  {
+    "name": "חג׳ג׳ אהרון",
+    "raw": "דרך חג'ג' אהרון",
+    "n_places": 1,
+    "example_place": "יבנה",
+    "places": [
+      "יבנה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "פריד אל אטרש",
+    "raw": "פריד אל-אטרש",
+    "n_places": 2,
+    "example_place": "אבו סנאן",
+    "places": [
+      "אבו סנאן",
+      "דאלית אל-כרמל"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "סבר",
+    "raw": "סבר",
+    "n_places": 1,
+    "example_place": "עין ראפה",
+    "places": [
+      "עין ראפה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "בית העם",
+    "raw": "בית העם",
+    "n_places": 6,
+    "example_place": "גני עם",
+    "places": [
+      "גני עם",
+      "ירקונה",
+      "כפר יהושע",
+      "נהלל",
+      "רמות השבים",
+      "רמת צבי"
+    ],
+    "weight_log": 0.356,
+    "weight_sqrt": 0.408,
+    "unique": false
+  },
+  {
+    "name": "האדמו״ר מרוז׳ין",
+    "raw": "האדמו\"ר מרוז'ין",
+    "n_places": 3,
+    "example_place": "ביתר עילית",
+    "places": [
+      "ביתר עילית",
+      "בני ברק",
+      "ירושלים"
+    ],
+    "weight_log": 0.5,
+    "weight_sqrt": 0.577,
+    "unique": false
+  },
+  {
+    "name": "יוסף שילוח",
+    "raw": "יוסף שילוח",
+    "n_places": 2,
+    "example_place": "נתיבות",
+    "places": [
+      "נתיבות",
+      "קרית מוצקין"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "לב גדרה",
+    "raw": "לב גדרה",
+    "n_places": 1,
+    "example_place": "גדרה",
+    "places": [
+      "גדרה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "ארז",
+    "raw": "ארז",
+    "n_places": 51,
+    "example_place": "אבן יהודה",
+    "places": [
+      "אבן יהודה",
+      "אבני חפץ",
+      "אודם",
+      "אומן",
+      "אורה",
+      "אניעם",
+      "בחן",
+      "בית שאן",
+      "גאליה",
+      "גדרה",
+      "דביר",
+      "דימונה"
+    ],
+    "weight_log": 0.175,
+    "weight_sqrt": 0.14,
+    "unique": false
+  },
+  {
+    "name": "אלבוסתאן",
+    "raw": "אלבוסתאן",
+    "n_places": 13,
+    "example_place": "אום אל-פחם",
+    "places": [
+      "אום אל-פחם",
+      "באקה אל-גרביה",
+      "בסמת טבעון",
+      "ג'ולס",
+      "דבוריה",
+      "דייר חנא",
+      "ירכא",
+      "כפר ברא",
+      "כפר קרע",
+      "מג'ד אל-כרום",
+      "מוקייבלה",
+      "פסוטה"
+    ],
+    "weight_log": 0.263,
+    "weight_sqrt": 0.277,
+    "unique": false
+  },
+  {
+    "name": "הרב יעקב יצחקי",
+    "raw": "הרב יעקב יצחקי",
+    "n_places": 1,
+    "example_place": "שדרות",
+    "places": [
+      "שדרות"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "שבי ציון",
+    "raw": "שבי ציון",
+    "n_places": 7,
+    "example_place": "אשדוד",
+    "places": [
+      "אשדוד",
+      "הוד השרון",
+      "זכרון יעקב",
+      "מבשרת ציון",
+      "מגדל העמק",
+      "פרדס חנה-כרכור",
+      "רמת השרון"
+    ],
+    "weight_log": 0.333,
+    "weight_sqrt": 0.378,
+    "unique": false
+  },
+  {
+    "name": "אדרת אליהו",
+    "raw": "אדרת אליהו",
+    "n_places": 1,
+    "example_place": "בית שמש",
+    "places": [
+      "בית שמש"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "יורם ורונה קרן",
+    "raw": "יורם ורונה קרן",
+    "n_places": 1,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "אפשטיין",
+    "raw": "אפשטיין",
+    "n_places": 4,
+    "example_place": "נתניה",
+    "places": [
+      "נתניה",
+      "עפולה",
+      "פתח תקווה",
+      "תל אביב - יפו"
+    ],
+    "weight_log": 0.431,
+    "weight_sqrt": 0.5,
+    "unique": false
+  },
+  {
+    "name": "א נבי יעקב",
+    "raw": "א-נבי יעקב",
+    "n_places": 1,
+    "example_place": "לוד",
+    "places": [
+      "לוד"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "נחל פרס",
+    "raw": "נחל פרס",
+    "n_places": 2,
+    "example_place": "אופקים",
+    "places": [
+      "אופקים",
+      "באר שבע"
     ],
     "weight_log": 0.631,
     "weight_sqrt": 0.707,
@@ -2428,275 +873,31 @@
     "unique": false
   },
   {
-    "name": "מתחם צוריאל",
-    "raw": "מתחם צוריאל",
-    "n_places": 1,
-    "example_place": "ראשון לציון",
+    "name": "השיטה",
+    "raw": "השיטה",
+    "n_places": 77,
+    "example_place": "אבן יהודה",
     "places": [
-      "ראשון לציון"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "דוד בן־גוריון",
-    "raw": "שד בן גוריון",
-    "n_places": 56,
-    "example_place": "אביחיל",
-    "places": [
-      "אביחיל",
-      "אופקים",
-      "אור יהודה",
-      "אזור",
-      "אילת",
-      "אשדוד",
-      "אשקלון",
-      "באר שבע",
-      "בית שאן",
-      "בית שמש",
-      "בני עי\"ש",
-      "בת ים"
-    ],
-    "weight_log": 0.171,
-    "weight_sqrt": 0.134,
-    "unique": false
-  },
-  {
-    "name": "החצב",
-    "raw": "החצב",
-    "n_places": 59,
-    "example_place": "אודים",
-    "places": [
+      "אבן יהודה",
       "אודים",
-      "אור יהודה",
-      "אורנית",
-      "אזור",
-      "אירוס",
-      "אליכין",
-      "אשלים",
-      "אשרת",
-      "באר יעקב",
-      "בית יצחק-שער חפר",
-      "בית נחמיה",
-      "בית שמש"
-    ],
-    "weight_log": 0.169,
-    "weight_sqrt": 0.13,
-    "unique": false
-  },
-  {
-    "name": "רקפת",
-    "raw": "רקפת",
-    "n_places": 60,
-    "example_place": "אומן",
-    "places": [
-      "אומן",
-      "אורה",
-      "אילת",
-      "אלפי מנשה",
-      "באר שבע",
-      "בית אריה",
-      "בית דגן",
-      "בית חורון",
-      "בית שאן",
-      "בצרה",
-      "בת ים",
-      "גבע בנימין"
-    ],
-    "weight_log": 0.169,
-    "weight_sqrt": 0.129,
-    "unique": false
-  },
-  {
-    "name": "אלרום",
-    "raw": "אלרום",
-    "n_places": 3,
-    "example_place": "בני ברק",
-    "places": [
-      "בני ברק",
-      "טורעאן",
-      "רמת גן"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "בן גוריון כפר אז\"ר",
-    "raw": "בן גוריון כפר אז\"ר",
-    "n_places": 1,
-    "example_place": "רמת גן",
-    "places": [
-      "רמת גן"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "סמ מרחבים",
-    "raw": "סמ מרחבים",
-    "n_places": 1,
-    "example_place": "פרדס חנה-כרכור",
-    "places": [
-      "פרדס חנה-כרכור"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "מלמד",
-    "raw": "מלמד",
-    "n_places": 1,
-    "example_place": "יהוד-מונוסון",
-    "places": [
-      "יהוד-מונוסון"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אירוס הנגב",
-    "raw": "אירוס הנגב",
-    "n_places": 1,
-    "example_place": "באר שבע",
-    "places": [
-      "באר שבע"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אח\"י תנין",
-    "raw": "אח\"י תנין",
-    "n_places": 1,
-    "example_place": "ראשון לציון",
-    "places": [
-      "ראשון לציון"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "המאירי",
-    "raw": "המאירי",
-    "n_places": 4,
-    "example_place": "אלעד",
-    "places": [
-      "אלעד",
-      "ירושלים",
-      "מודיעין עילית",
-      "רמת גן"
-    ],
-    "weight_log": 0.431,
-    "weight_sqrt": 0.5,
-    "unique": false
-  },
-  {
-    "name": "רותם",
-    "raw": "רותם",
-    "n_places": 53,
-    "example_place": "אופקים",
-    "places": [
       "אופקים",
-      "אחוזת ברק",
+      "אור יהודה",
+      "אור עקיבא",
+      "אורנית",
       "אילת",
-      "אלפי מנשה",
-      "אשקלון",
-      "באר שבע",
-      "בית שאן",
-      "בני יהודה",
-      "בנימינה-גבעת עדה",
-      "בת חן",
-      "גבעת זאב",
-      "גבעתיים"
+      "אליאב",
+      "אליפלט",
+      "אמנון",
+      "ארבל",
+      "אשדוד"
     ],
-    "weight_log": 0.174,
-    "weight_sqrt": 0.137,
+    "weight_log": 0.159,
+    "weight_sqrt": 0.114,
     "unique": false
   },
   {
-    "name": "הקריה",
-    "raw": "הקריה",
-    "n_places": 1,
-    "example_place": "תל אביב - יפו",
-    "places": [
-      "תל אביב - יפו"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אלסראט",
-    "raw": "אלסראט",
-    "n_places": 3,
-    "example_place": "באקה אל-גרביה",
-    "places": [
-      "באקה אל-גרביה",
-      "דאלית אל-כרמל",
-      "עראבה"
-    ],
-    "weight_log": 0.5,
-    "weight_sqrt": 0.577,
-    "unique": false
-  },
-  {
-    "name": "הרב אהרון שטיינמן",
-    "raw": "הרב אהרון שטיינמן",
-    "n_places": 1,
-    "example_place": "בית שאן",
-    "places": [
-      "בית שאן"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אמרי ברוך",
-    "raw": "אמרי ברוך",
-    "n_places": 1,
-    "example_place": "בני ברק",
-    "places": [
-      "בני ברק"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "אל נקב",
-    "raw": "אל-נקב",
-    "n_places": 1,
-    "example_place": "ריינה",
-    "places": [
-      "ריינה"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "טריק אל מקאייל",
-    "raw": "טריק אל-מקאייל",
-    "n_places": 1,
-    "example_place": "כפר קרע",
-    "places": [
-      "כפר קרע"
-    ],
-    "weight_log": 1.0,
-    "weight_sqrt": 1.0,
-    "unique": true
-  },
-  {
-    "name": "מכללת ירושלים לבנות",
-    "raw": "מכללת ירושלים לבנות",
+    "name": "השליחים",
+    "raw": "השליחים",
     "n_places": 1,
     "example_place": "ירושלים",
     "places": [
@@ -2707,20 +908,268 @@
     "unique": true
   },
   {
-    "name": "אפל דוד וצילה",
-    "raw": "אפל דוד וצילה",
-    "n_places": 1,
-    "example_place": "אשקלון",
+    "name": "הירדן",
+    "raw": "הירדן",
+    "n_places": 53,
+    "example_place": "אבני חפץ",
     "places": [
-      "אשקלון"
+      "אבני חפץ",
+      "אור יהודה",
+      "אורנית",
+      "אריאל",
+      "אשקלון",
+      "באר יעקב",
+      "בני ברק",
+      "גבעות עדן",
+      "גבעת אלה",
+      "גבעת כ\"ח",
+      "הוד השרון",
+      "הרצליה"
+    ],
+    "weight_log": 0.174,
+    "weight_sqrt": 0.137,
+    "unique": false
+  },
+  {
+    "name": "א דוואר",
+    "raw": "א-דוואר",
+    "n_places": 1,
+    "example_place": "שעב",
+    "places": [
+      "שעב"
     ],
     "weight_log": 1.0,
     "weight_sqrt": 1.0,
     "unique": true
   },
   {
-    "name": "ציפר",
-    "raw": "ציפר",
+    "name": "אלקאדסייה",
+    "raw": "אלקאדסייה",
+    "n_places": 3,
+    "example_place": "אום אל-פחם",
+    "places": [
+      "אום אל-פחם",
+      "בועיינה-נוג'ידאת",
+      "מג'ד אל-כרום"
+    ],
+    "weight_log": 0.5,
+    "weight_sqrt": 0.577,
+    "unique": false
+  },
+  {
+    "name": "אל סוויח",
+    "raw": "אל-סוויח",
+    "n_places": 1,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "ית׳רב",
+    "raw": "ית'רב",
+    "n_places": 1,
+    "example_place": "באקה אל-גרביה",
+    "places": [
+      "באקה אל-גרביה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "אל איספהאני",
+    "raw": "אל-איספהאני",
+    "n_places": 2,
+    "example_place": "מזרעה",
+    "places": [
+      "מזרעה",
+      "ריינה"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "נפתלי צבי יהודה ברלין",
+    "raw": "הנצי\"ב",
+    "n_places": 7,
+    "example_place": "בית אל",
+    "places": [
+      "בית אל",
+      "בני ברק",
+      "חדרה",
+      "חיפה",
+      "לוד",
+      "פתח תקווה",
+      "תל אביב - יפו"
+    ],
+    "weight_log": 0.333,
+    "weight_sqrt": 0.378,
+    "unique": false
+  },
+  {
+    "name": "בית ראשון במולדת",
+    "raw": "בית ראשון במולדת",
+    "n_places": 52,
+    "example_place": "אורים",
+    "places": [
+      "אורים",
+      "אחוזת ברק",
+      "בית זרע",
+      "בית קשת",
+      "בלפוריה",
+      "גדות",
+      "גונן",
+      "גיניגר",
+      "גשר",
+      "דפנה",
+      "חולתה",
+      "חוקוק"
+    ],
+    "weight_log": 0.175,
+    "weight_sqrt": 0.139,
+    "unique": false
+  },
+  {
+    "name": "הרב שניאור ז גורליק",
+    "raw": "הרב שניאור ז גורליק",
+    "n_places": 1,
+    "example_place": "כפר חב\"ד",
+    "places": [
+      "כפר חב\"ד"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "הפרדס",
+    "raw": "הפרדס",
+    "n_places": 59,
+    "example_place": "אביחיל",
+    "places": [
+      "אביחיל",
+      "אבן יהודה",
+      "אור יהודה",
+      "אזור",
+      "אירוס",
+      "אשקלון",
+      "באר יעקב",
+      "בית שערים",
+      "בנימינה-גבעת עדה",
+      "בצרה",
+      "גבע כרמל",
+      "גדרה"
+    ],
+    "weight_log": 0.169,
+    "weight_sqrt": 0.13,
+    "unique": false
+  },
+  {
+    "name": "זרובבל",
+    "raw": "זרובבל",
+    "n_places": 13,
+    "example_place": "אפרת",
+    "places": [
+      "אפרת",
+      "אשקלון",
+      "באר שבע",
+      "בני ברק",
+      "בת ים",
+      "חולון",
+      "חיפה",
+      "ירושלים",
+      "מעש",
+      "נס ציונה",
+      "ראשון לציון",
+      "רמת השרון"
+    ],
+    "weight_log": 0.263,
+    "weight_sqrt": 0.277,
+    "unique": false
+  },
+  {
+    "name": "אלעראקיב",
+    "raw": "אלעראקיב",
+    "n_places": 2,
+    "example_place": "מג'ד אל-כרום",
+    "places": [
+      "מג'ד אל-כרום",
+      "שפרעם"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "שערי תקווה",
+    "raw": "שערי תקווה",
+    "n_places": 1,
+    "example_place": "שער שומרון",
+    "places": [
+      "שער שומרון"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "מולית",
+    "raw": "סמ מולית",
+    "n_places": 1,
+    "example_place": "אילת",
+    "places": [
+      "אילת"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "נתיבות שלום",
+    "raw": "נתיבות שלום",
+    "n_places": 4,
+    "example_place": "ביתר עילית",
+    "places": [
+      "ביתר עילית",
+      "חצור הגלילית",
+      "מודיעין עילית",
+      "עמנואל"
+    ],
+    "weight_log": 0.431,
+    "weight_sqrt": 0.5,
+    "unique": false
+  },
+  {
+    "name": "החרוב",
+    "raw": "החרוב",
+    "n_places": 113,
+    "example_place": "אבו גוש",
+    "places": [
+      "אבו גוש",
+      "אביאל",
+      "אבן יהודה",
+      "אדורה",
+      "אדמית",
+      "אודים",
+      "אופקים",
+      "אור עקיבא",
+      "אורות",
+      "אורנית",
+      "אחיהוד",
+      "אלוני אבא"
+    ],
+    "weight_log": 0.146,
+    "weight_sqrt": 0.094,
+    "unique": false
+  },
+  {
+    "name": "עירם צילה",
+    "raw": "עירם צילה",
     "n_places": 1,
     "example_place": "חיפה",
     "places": [
@@ -2731,12 +1180,1282 @@
     "unique": true
   },
   {
-    "name": "השקמה",
-    "raw": "השקמה",
-    "n_places": 51,
+    "name": "חברת המלח",
+    "raw": "שכ חברת המלח",
+    "n_places": 1,
+    "example_place": "עתלית",
+    "places": [
+      "עתלית"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "ארזי הלבנון",
+    "raw": "ארזי הלבנון",
+    "n_places": 3,
+    "example_place": "חדרה",
+    "places": [
+      "חדרה",
+      "נוף הגליל",
+      "קשת"
+    ],
+    "weight_log": 0.5,
+    "weight_sqrt": 0.577,
+    "unique": false
+  },
+  {
+    "name": "נב כ שלם",
+    "raw": "רח נב כ שלם",
+    "n_places": 1,
+    "example_place": "תל אביב - יפו",
+    "places": [
+      "תל אביב - יפו"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "כלפון הרב",
+    "raw": "כלפון הרב",
+    "n_places": 1,
+    "example_place": "חיפה",
+    "places": [
+      "חיפה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "ברוש",
+    "raw": "ברוש",
+    "n_places": 53,
+    "example_place": "אבשלום",
+    "places": [
+      "אבשלום",
+      "אופקים",
+      "אור יהודה",
+      "אלישמע",
+      "אניעם",
+      "אפרת",
+      "בחן",
+      "בית אל",
+      "בית שאן",
+      "גאליה",
+      "גדרה",
+      "גורן"
+    ],
+    "weight_log": 0.174,
+    "weight_sqrt": 0.137,
+    "unique": false
+  },
+  {
+    "name": "בוסתן",
+    "raw": "בוסתן",
+    "n_places": 6,
+    "example_place": "זכרון יעקב",
+    "places": [
+      "זכרון יעקב",
+      "כרכום",
+      "נורית",
+      "פרדס חנה-כרכור",
+      "קרית שמונה",
+      "רחובות"
+    ],
+    "weight_log": 0.356,
+    "weight_sqrt": 0.408,
+    "unique": false
+  },
+  {
+    "name": "לנ״י",
+    "raw": "לנ\"י",
+    "n_places": 1,
+    "example_place": "חיפה",
+    "places": [
+      "חיפה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "דולב",
+    "raw": "דולב",
+    "n_places": 77,
+    "example_place": "אבו גוש",
+    "places": [
+      "אבו גוש",
+      "אבן יהודה",
+      "אבני איתן",
+      "אודם",
+      "אופקים",
+      "אור יהודה",
+      "אורה",
+      "אילת",
+      "אניעם",
+      "אשקלון",
+      "באר שבע",
+      "בחן"
+    ],
+    "weight_log": 0.159,
+    "weight_sqrt": 0.114,
+    "unique": false
+  },
+  {
+    "name": "א סחלב",
+    "raw": "א-סחלב",
+    "n_places": 1,
+    "example_place": "יאנוח-ג'ת",
+    "places": [
+      "יאנוח-ג'ת"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "רוזנפלד שלום",
+    "raw": "שלום רוזנפלד",
+    "n_places": 2,
+    "example_place": "הרצליה",
+    "places": [
+      "הרצליה",
+      "תל אביב - יפו"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "החורש",
+    "raw": "החורש",
+    "n_places": 55,
+    "example_place": "אבטליון",
+    "places": [
+      "אבטליון",
+      "אופקים",
+      "אורנית",
+      "אלון הגליל",
+      "אלון שבות",
+      "אלוני אבא",
+      "באר שבע",
+      "בית חירות",
+      "בית לחם הגלילית",
+      "בית שאן",
+      "בנימינה-גבעת עדה",
+      "היוגב"
+    ],
+    "weight_log": 0.172,
+    "weight_sqrt": 0.135,
+    "unique": false
+  },
+  {
+    "name": "אוהל דוד",
+    "raw": "אוהל דוד",
+    "n_places": 1,
+    "example_place": "כוכב יעקב",
+    "places": [
+      "כוכב יעקב"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "נחל שורק",
+    "raw": "נחל שורק",
+    "n_places": 14,
+    "example_place": "אירוס",
+    "places": [
+      "אירוס",
+      "אשדוד",
+      "בית שמש",
+      "בני ברק",
+      "גדרה",
+      "חדרה",
+      "טל שחר",
+      "יקנעם עילית",
+      "כפר יונה",
+      "מודיעין-מכבים-רעות",
+      "קרית שמונה",
+      "ראשון לציון"
+    ],
+    "weight_log": 0.256,
+    "weight_sqrt": 0.267,
+    "unique": false
+  },
+  {
+    "name": "חרצית",
+    "raw": "חרצית",
+    "n_places": 52,
     "example_place": "אבן יהודה",
     "places": [
       "אבן יהודה",
+      "אופקים",
+      "אלפי מנשה",
+      "אשקלון",
+      "באר שבע",
+      "בית אריה",
+      "בית עובד",
+      "בני ציון",
+      "בת חפר",
+      "גבעת זאב",
+      "גדרה",
+      "גן נר"
+    ],
+    "weight_log": 0.175,
+    "weight_sqrt": 0.139,
+    "unique": false
+  },
+  {
+    "name": "זית",
+    "raw": "זית",
+    "n_places": 63,
+    "example_place": "אבשלום",
+    "places": [
+      "אבשלום",
+      "אור יהודה",
+      "אורה",
+      "אחווה",
+      "אחוזת ברק",
+      "אילת",
+      "אלי-עד",
+      "אלישמע",
+      "אניעם",
+      "באר גנים",
+      "בחן",
+      "בית אל"
+    ],
+    "weight_log": 0.167,
+    "weight_sqrt": 0.126,
+    "unique": false
+  },
+  {
+    "name": "מלכת שבא",
+    "raw": "מלכת שבא",
+    "n_places": 3,
+    "example_place": "אילת",
+    "places": [
+      "אילת",
+      "אשדוד",
+      "נתניה"
+    ],
+    "weight_log": 0.5,
+    "weight_sqrt": 0.577,
+    "unique": false
+  },
+  {
+    "name": "האבנים",
+    "raw": "דרך האבנים",
+    "n_places": 2,
+    "example_place": "באר אורה",
+    "places": [
+      "באר אורה",
+      "נתיב הל\"ה"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "אלישע",
+    "raw": "אלישע",
+    "n_places": 15,
+    "example_place": "אופקים",
+    "places": [
+      "אופקים",
+      "אשקלון",
+      "באר שבע",
+      "בני ברק",
+      "חולון",
+      "חיפה",
+      "יסודות",
+      "ירושלים",
+      "כפר סבא",
+      "נתניה",
+      "עמנואל",
+      "פרדס חנה-כרכור"
+    ],
+    "weight_log": 0.25,
+    "weight_sqrt": 0.258,
+    "unique": false
+  },
+  {
+    "name": "נחל קדרון",
+    "raw": "נחל קדרון",
+    "n_places": 9,
+    "example_place": "באר שבע",
+    "places": [
+      "באר שבע",
+      "בית שמש",
+      "גדרה",
+      "טל שחר",
+      "נוקדים",
+      "עלמון",
+      "קרית אתא",
+      "קרית גת",
+      "רמת השרון"
+    ],
+    "weight_log": 0.301,
+    "weight_sqrt": 0.333,
+    "unique": false
+  },
+  {
+    "name": "אלון",
+    "raw": "אלון",
+    "n_places": 85,
+    "example_place": "אבשלום",
+    "places": [
+      "אבשלום",
+      "אודם",
+      "אחוזת ברק",
+      "אילת",
+      "אלישמע",
+      "אניעם",
+      "אפרת",
+      "בחן",
+      "בית אל",
+      "בית דגן",
+      "בית שאן",
+      "בני דרור"
+    ],
+    "weight_log": 0.156,
+    "weight_sqrt": 0.108,
+    "unique": false
+  },
+  {
+    "name": "גבעת שרת",
+    "raw": "גבעת שרת",
+    "n_places": 2,
+    "example_place": "בית שמש",
+    "places": [
+      "בית שמש",
+      "נהריה"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "אלמשמש",
+    "raw": "אלמשמש",
+    "n_places": 4,
+    "example_place": "בית ג'ן",
+    "places": [
+      "בית ג'ן",
+      "דאלית אל-כרמל",
+      "כפר קרע",
+      "מג'ד אל-כרום"
+    ],
+    "weight_log": 0.431,
+    "weight_sqrt": 0.5,
+    "unique": false
+  },
+  {
+    "name": "טובים",
+    "raw": "טובים",
+    "n_places": 2,
+    "example_place": "חיפה",
+    "places": [
+      "חיפה",
+      "רמת גן"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "אל בטריס",
+    "raw": "שכ אל בטריס",
+    "n_places": 1,
+    "example_place": "נצרת",
+    "places": [
+      "נצרת"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "מחוזא",
+    "raw": "מחוזא",
+    "n_places": 1,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "הערבה",
+    "raw": "הערבה",
+    "n_places": 89,
+    "example_place": "אבן יהודה",
+    "places": [
+      "אבן יהודה",
+      "אור עקיבא",
+      "אורנית",
+      "אילת",
+      "אליפלט",
+      "אריאל",
+      "באר יעקב",
+      "באר שבע",
+      "בית דגן",
+      "בית זית",
+      "בית נקופה",
+      "בית שמש"
+    ],
+    "weight_log": 0.154,
+    "weight_sqrt": 0.106,
+    "unique": false
+  },
+  {
+    "name": "דוד הכורך",
+    "raw": "דוד הכורך",
+    "n_places": 1,
+    "example_place": "פתח תקווה",
+    "places": [
+      "פתח תקווה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "שערי אפרים",
+    "raw": "ש שערי אפרים",
+    "n_places": 1,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "יראון",
+    "raw": "יראון",
+    "n_places": 3,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים",
+      "קורנית",
+      "קצרין"
+    ],
+    "weight_log": 0.5,
+    "weight_sqrt": 0.577,
+    "unique": false
+  },
+  {
+    "name": "התאנה",
+    "raw": "התאנה",
+    "n_places": 182,
+    "example_place": "אביאל",
+    "places": [
+      "אביאל",
+      "אבן יהודה",
+      "אבן מנחם",
+      "אבן שמואל",
+      "אדמית",
+      "אופקים",
+      "אור יהודה",
+      "אור עקיבא",
+      "אורנית",
+      "אחוזת ברק",
+      "אחיהוד",
+      "אחיסמך"
+    ],
+    "weight_log": 0.133,
+    "weight_sqrt": 0.074,
+    "unique": false
+  },
+  {
+    "name": "אל מועתסם",
+    "raw": "אל מועתסם",
+    "n_places": 2,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים",
+      "ערערה-בנגב"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "עובאדה בן אלסאמט",
+    "raw": "עובאדה בן אלסאמט",
+    "n_places": 1,
+    "example_place": "באקה אל-גרביה",
+    "places": [
+      "באקה אל-גרביה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "תל חיים",
+    "raw": "תל חיים",
+    "n_places": 2,
+    "example_place": "בית אל",
+    "places": [
+      "בית אל",
+      "תל אביב - יפו"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "הברוש",
+    "raw": "הברוש",
+    "n_places": 110,
+    "example_place": "אבו גוש",
+    "places": [
+      "אבו גוש",
+      "אבן יהודה",
+      "אדורה",
+      "אדמית",
+      "אודים",
+      "אור עקיבא",
+      "אורנית",
+      "אזור",
+      "אילניה",
+      "אילת",
+      "אליפלט",
+      "אשקלון"
+    ],
+    "weight_log": 0.147,
+    "weight_sqrt": 0.095,
+    "unique": false
+  },
+  {
+    "name": "אזור תעשיה מזרחי",
+    "raw": "אזור תעשיה מזרחי",
+    "n_places": 1,
+    "example_place": "בית שאן",
+    "places": [
+      "בית שאן"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "ששון אליהו",
+    "raw": "ששון אליהו",
+    "n_places": 1,
+    "example_place": "באר שבע",
+    "places": [
+      "באר שבע"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "נווה מנחם",
+    "raw": "נווה מנחם",
+    "n_places": 4,
+    "example_place": "באר שבע",
+    "places": [
+      "באר שבע",
+      "גבעת זאב",
+      "נהריה",
+      "קרני שומרון"
+    ],
+    "weight_log": 0.431,
+    "weight_sqrt": 0.5,
+    "unique": false
+  },
+  {
+    "name": "יום אלארד׳",
+    "raw": "יום אלארד'",
+    "n_places": 1,
+    "example_place": "שפרעם",
+    "places": [
+      "שפרעם"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "כליל",
+    "raw": "כליל",
+    "n_places": 2,
+    "example_place": "לוטם",
+    "places": [
+      "לוטם",
+      "רחובות"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "אלזערור",
+    "raw": "אלזערור",
+    "n_places": 8,
+    "example_place": "בית ג'ן",
+    "places": [
+      "בית ג'ן",
+      "דאלית אל-כרמל",
+      "דייר אל-אסד",
+      "חורפיש",
+      "יאנוח-ג'ת",
+      "מג'ד אל-כרום",
+      "עראבה",
+      "פקיעין (בוקייעה)"
+    ],
+    "weight_log": 0.315,
+    "weight_sqrt": 0.354,
+    "unique": false
+  },
+  {
+    "name": "אלמיראמיה",
+    "raw": "אלמיראמיה",
+    "n_places": 1,
+    "example_place": "יאנוח-ג'ת",
+    "places": [
+      "יאנוח-ג'ת"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "האשל",
+    "raw": "האשל",
+    "n_places": 60,
+    "example_place": "אדורה",
+    "places": [
+      "אדורה",
+      "אורנית",
+      "אילת",
+      "אליאב",
+      "אשדוד",
+      "אשלים",
+      "אשקלון",
+      "באר אורה",
+      "באר יעקב",
+      "בית אריה",
+      "בית שמש",
+      "ביתן אהרן"
+    ],
+    "weight_log": 0.169,
+    "weight_sqrt": 0.129,
+    "unique": false
+  },
+  {
+    "name": "סילברשטיין צבי",
+    "raw": "סילברשטיין צבי",
+    "n_places": 1,
+    "example_place": "נתניה",
+    "places": [
+      "נתניה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "ככראברהם הלפרין",
+    "raw": "ככראברהם הלפרין",
+    "n_places": 1,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "הנץ",
+    "raw": "הנץ",
+    "n_places": 3,
+    "example_place": "אילת",
+    "places": [
+      "אילת",
+      "עומר",
+      "קיסריה"
+    ],
+    "weight_log": 0.5,
+    "weight_sqrt": 0.577,
+    "unique": false
+  },
+  {
+    "name": "טביוב",
+    "raw": "טביוב",
+    "n_places": 2,
+    "example_place": "באר שבע",
+    "places": [
+      "באר שבע",
+      "תל אביב - יפו"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "עמיקם",
+    "raw": "עמיקם",
+    "n_places": 3,
+    "example_place": "פתח תקווה",
+    "places": [
+      "פתח תקווה",
+      "רמת גן",
+      "תל אביב - יפו"
+    ],
+    "weight_log": 0.5,
+    "weight_sqrt": 0.577,
+    "unique": false
+  },
+  {
+    "name": "אללביב",
+    "raw": "אללביב",
+    "n_places": 1,
+    "example_place": "דאלית אל-כרמל",
+    "places": [
+      "דאלית אל-כרמל"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "פרופ׳ משה אדד",
+    "raw": "פרופ' משה אדד",
+    "n_places": 1,
+    "example_place": "חדרה",
+    "places": [
+      "חדרה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "מבצע ארנון",
+    "raw": "כיכר מבצע ארנון",
+    "n_places": 2,
+    "example_place": "אשקלון",
+    "places": [
+      "אשקלון",
+      "עפולה"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "באבא אלעזר",
+    "raw": "באבא אלעזר",
+    "n_places": 1,
+    "example_place": "ביתר עילית",
+    "places": [
+      "ביתר עילית"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "א שוהדא",
+    "raw": "א-שוהדא",
+    "n_places": 2,
+    "example_place": "טירה",
+    "places": [
+      "טירה",
+      "כפר קאסם"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "הרי יהודה",
+    "raw": "הרי יהודה",
+    "n_places": 9,
+    "example_place": "אור עקיבא",
+    "places": [
+      "אור עקיבא",
+      "ביתר עילית",
+      "גני תקווה",
+      "נווה דניאל",
+      "נוף הגליל",
+      "צור הדסה",
+      "קרית שמונה",
+      "רחובות",
+      "רמלה"
+    ],
+    "weight_log": 0.301,
+    "weight_sqrt": 0.333,
+    "unique": false
+  },
+  {
+    "name": "משה ויהודית רוזנר",
+    "raw": "משה ויהודית רוזנר",
+    "n_places": 1,
+    "example_place": "גדרה",
+    "places": [
+      "גדרה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "אלחכורה אלג׳רבייה",
+    "raw": "אלחכורה אלג'רבייה",
+    "n_places": 1,
+    "example_place": "עילוט",
+    "places": [
+      "עילוט"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "אל ימאמה",
+    "raw": "אל-ימאמה",
+    "n_places": 6,
+    "example_place": "טירה",
+    "places": [
+      "טירה",
+      "טמרה",
+      "יאנוח-ג'ת",
+      "משהד",
+      "ריינה",
+      "שפרעם"
+    ],
+    "weight_log": 0.356,
+    "weight_sqrt": 0.408,
+    "unique": false
+  },
+  {
+    "name": "באזוב דוד",
+    "raw": "באזוב דוד",
+    "n_places": 1,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "האגסים",
+    "raw": "האגסים",
+    "n_places": 1,
+    "example_place": "בנימינה-גבעת עדה",
+    "places": [
+      "בנימינה-גבעת עדה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "מג״ב",
+    "raw": "מג\"ב",
+    "n_places": 2,
+    "example_place": "חיננית",
+    "places": [
+      "חיננית",
+      "ראשון לציון"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "גני הרצליה",
+    "raw": "גני הרצליה",
+    "n_places": 1,
+    "example_place": "הרצליה",
+    "places": [
+      "הרצליה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "א רבאט",
+    "raw": "א-רבאט",
+    "n_places": 2,
+    "example_place": "ג'לג'וליה",
+    "places": [
+      "ג'לג'וליה",
+      "כפר קאסם"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "גן סולד",
+    "raw": "גן סולד",
+    "n_places": 1,
+    "example_place": "קרית ים",
+    "places": [
+      "קרית ים"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "לוסטרניק אביבה ומתת",
+    "raw": "לוסטרניק אביבה ומתת",
+    "n_places": 1,
+    "example_place": "רחובות",
+    "places": [
+      "רחובות"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "אבן אל היית׳ם",
+    "raw": "אבן אל-היית'ם",
+    "n_places": 2,
+    "example_place": "טירה",
+    "places": [
+      "טירה",
+      "טמרה"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "נטר",
+    "raw": "נטר",
+    "n_places": 4,
+    "example_place": "באר שבע",
+    "places": [
+      "באר שבע",
+      "ירושלים",
+      "מקווה ישראל",
+      "רמת גן"
+    ],
+    "weight_log": 0.431,
+    "weight_sqrt": 0.5,
+    "unique": false
+  },
+  {
+    "name": "כפר אליהו",
+    "raw": "כפר אליהו",
+    "n_places": 1,
+    "example_place": "גדרה",
+    "places": [
+      "גדרה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "נחל גלים",
+    "raw": "נחל גלים",
+    "n_places": 7,
+    "example_place": "אופקים",
+    "places": [
+      "אופקים",
+      "אירוס",
+      "טירת כרמל",
+      "כפר יונה",
+      "להבים",
+      "מודיעין-מכבים-רעות",
+      "עתלית"
+    ],
+    "weight_log": 0.333,
+    "weight_sqrt": 0.378,
+    "unique": false
+  },
+  {
+    "name": "חצב",
+    "raw": "חצב",
+    "n_places": 57,
+    "example_place": "אבן יהודה",
+    "places": [
+      "אבן יהודה",
+      "אומן",
+      "אופקים",
+      "אורה",
+      "אחוזת ברק",
+      "אילת",
+      "אשקלון",
+      "באר שבע",
+      "בית אריה",
+      "בית עובד",
+      "בית שאן",
+      "בני ציון"
+    ],
+    "weight_log": 0.171,
+    "weight_sqrt": 0.132,
+    "unique": false
+  },
+  {
+    "name": "תמר",
+    "raw": "תמר",
+    "n_places": 80,
+    "example_place": "אבן יהודה",
+    "places": [
+      "אבן יהודה",
+      "אבשלום",
+      "אחווה",
+      "אילת",
+      "אלישמע",
+      "אניעם",
+      "אפרת",
+      "אריאל",
+      "באר שבע",
+      "בחן",
+      "בית אל",
+      "בית חלקיה"
+    ],
+    "weight_log": 0.158,
+    "weight_sqrt": 0.112,
+    "unique": false
+  },
+  {
+    "name": "אל מישמיש",
+    "raw": "אל מישמיש",
+    "n_places": 2,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים",
+      "ערערה"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "נורית",
+    "raw": "נורית",
+    "n_places": 56,
+    "example_place": "אומן",
+    "places": [
+      "אומן",
+      "אורה",
+      "אילת",
+      "אריאל",
+      "אשקלון",
+      "באר שבע",
+      "בית עובד",
+      "בית שאן",
+      "בצרה",
+      "גבע בנימין",
+      "גדרה",
+      "גן חיים"
+    ],
+    "weight_log": 0.171,
+    "weight_sqrt": 0.134,
+    "unique": false
+  },
+  {
+    "name": "תלמי מנשה",
+    "raw": "שכ תלמי מנשה",
+    "n_places": 1,
+    "example_place": "באר יעקב",
+    "places": [
+      "באר יעקב"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "הארז",
+    "raw": "הארז",
+    "n_places": 64,
+    "example_place": "אור יהודה",
+    "places": [
+      "אור יהודה",
+      "אורנית",
+      "אחוזת ברק",
+      "אחיטוב",
+      "אלון שבות",
+      "אריאל",
+      "אשדוד",
+      "אשקלון",
+      "אשרת",
+      "באר יעקב",
+      "בורגתה",
+      "בית שמש"
+    ],
+    "weight_log": 0.166,
+    "weight_sqrt": 0.125,
+    "unique": false
+  },
+  {
+    "name": "קרית יצחק רבין",
+    "raw": "קרית יצחק רבין",
+    "n_places": 3,
+    "example_place": "חולון",
+    "places": [
+      "חולון",
+      "נוף הגליל",
+      "נתניה"
+    ],
+    "weight_log": 0.5,
+    "weight_sqrt": 0.577,
+    "unique": false
+  },
+  {
+    "name": "לשם",
+    "raw": "לשם",
+    "n_places": 54,
+    "example_place": "אבן ספיר",
+    "places": [
+      "אבן ספיר",
+      "אבני איתן",
+      "אבני חפץ",
+      "אור יהודה",
+      "אילת",
+      "אלפי מנשה",
+      "אריאל",
+      "אשדוד",
+      "אשקלון",
+      "באר גנים",
+      "באר יעקב",
+      "גבעת זאב"
+    ],
+    "weight_log": 0.173,
+    "weight_sqrt": 0.136,
+    "unique": false
+  },
+  {
+    "name": "אל איחסאן",
+    "raw": "אל-איחסאן",
+    "n_places": 1,
+    "example_place": "טירה",
+    "places": [
+      "טירה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "אזור תעשיה עטרות",
+    "raw": "אזור תעשיה עטרות",
+    "n_places": 1,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "שאנור",
+    "raw": "שאנור",
+    "n_places": 1,
+    "example_place": "מבוא חורון",
+    "places": [
+      "מבוא חורון"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "ערבה",
+    "raw": "ערבה",
+    "n_places": 52,
+    "example_place": "אבני איתן",
+    "places": [
+      "אבני איתן",
+      "אופקים",
+      "אור יהודה",
+      "אורה",
+      "אילת",
+      "אלפי מנשה",
+      "אניעם",
+      "אפרת",
+      "בחן",
+      "בית אל",
+      "בית אריה",
+      "בת חן"
+    ],
+    "weight_log": 0.175,
+    "weight_sqrt": 0.139,
+    "unique": false
+  },
+  {
+    "name": "גבורי ישראל",
+    "raw": "גבורי ישראל",
+    "n_places": 14,
+    "example_place": "אופקים",
+    "places": [
+      "אופקים",
+      "אלקנה",
+      "בני ברק",
+      "בני עי\"ש",
+      "יבנה",
+      "כפר יונה",
+      "כפר סבא",
+      "לוד",
+      "נתניה",
+      "קרית גת",
+      "ראש העין",
+      "ראשון לציון"
+    ],
+    "weight_log": 0.256,
+    "weight_sqrt": 0.267,
+    "unique": false
+  },
+  {
+    "name": "יוסי בר חלפתא",
+    "raw": "יוסי בר חלפתא",
+    "n_places": 1,
+    "example_place": "אשדוד",
+    "places": [
+      "אשדוד"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "גבעולים",
+    "raw": "גבעולים",
+    "n_places": 3,
+    "example_place": "כפר סבא",
+    "places": [
+      "כפר סבא",
+      "שוהם",
+      "תל אביב - יפו"
+    ],
+    "weight_log": 0.5,
+    "weight_sqrt": 0.577,
+    "unique": false
+  },
+  {
+    "name": "השקמה",
+    "raw": "השקמה",
+    "n_places": 55,
+    "example_place": "אבן יהודה",
+    "places": [
+      "אבן יהודה",
+      "אופקים",
       "אור יהודה",
       "אזור",
       "אפרת",
@@ -2746,11 +2465,335 @@
       "אשרת",
       "בית יצחק-שער חפר",
       "בני עי\"ש",
-      "בת ים",
-      "גינתון"
+      "בת ים"
+    ],
+    "weight_log": 0.172,
+    "weight_sqrt": 0.135,
+    "unique": false
+  },
+  {
+    "name": "מועין בסיסו",
+    "raw": "מועין בסיסו",
+    "n_places": 1,
+    "example_place": "שפרעם",
+    "places": [
+      "שפרעם"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "אודם",
+    "raw": "אודם",
+    "n_places": 65,
+    "example_place": "אבן ספיר",
+    "places": [
+      "אבן ספיר",
+      "אבני חפץ",
+      "אופקים",
+      "אור יהודה",
+      "אורנית",
+      "אילת",
+      "אלפי מנשה",
+      "אשדוד",
+      "אשקלון",
+      "באר יעקב",
+      "בית חנניה",
+      "בית יהושע"
+    ],
+    "weight_log": 0.165,
+    "weight_sqrt": 0.124,
+    "unique": false
+  },
+  {
+    "name": "דרור",
+    "raw": "דרור",
+    "n_places": 57,
+    "example_place": "אבירים",
+    "places": [
+      "אבירים",
+      "אבן יהודה",
+      "אופקים",
+      "אור יהודה",
+      "אילת",
+      "אלפי מנשה",
+      "אשדוד",
+      "באר שבע",
+      "בית אל",
+      "בת חפר",
+      "גבעת זאב",
+      "גדרה"
+    ],
+    "weight_log": 0.171,
+    "weight_sqrt": 0.132,
+    "unique": false
+  },
+  {
+    "name": "יפה נוף",
+    "raw": "יפה נוף",
+    "n_places": 51,
+    "example_place": "אבטליון",
+    "places": [
+      "אבטליון",
+      "אילת",
+      "אריאל",
+      "אשדוד",
+      "אשקלון",
+      "בית אל",
+      "בית שאן",
+      "בני דקלים",
+      "גבעתיים",
+      "גדרה",
+      "גני עם",
+      "גני תקווה"
     ],
     "weight_log": 0.175,
     "weight_sqrt": 0.14,
+    "unique": false
+  },
+  {
+    "name": "אורוגואי",
+    "raw": "אורוגואי",
+    "n_places": 2,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים",
+      "פתח תקווה"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "יפה רום",
+    "raw": "יפה רום",
+    "n_places": 1,
+    "example_place": "ירושלים",
+    "places": [
+      "ירושלים"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "עלי חידר זחאלקה",
+    "raw": "עלי חידר זחאלקה",
+    "n_places": 1,
+    "example_place": "כפר קרע",
+    "places": [
+      "כפר קרע"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "א ראוי",
+    "raw": "א-ראוי",
+    "n_places": 1,
+    "example_place": "ריינה",
+    "places": [
+      "ריינה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "עקיבא אריה",
+    "raw": "עקיבא אריה",
+    "n_places": 1,
+    "example_place": "תל אביב - יפו",
+    "places": [
+      "תל אביב - יפו"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "מחמד סעד",
+    "raw": "מחמד סעד",
+    "n_places": 1,
+    "example_place": "יאנוח-ג'ת",
+    "places": [
+      "יאנוח-ג'ת"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "נטף",
+    "raw": "נטף",
+    "n_places": 5,
+    "example_place": "אפרת",
+    "places": [
+      "אפרת",
+      "חשמונאים",
+      "ירושלים",
+      "עכו",
+      "רמת השרון"
+    ],
+    "weight_log": 0.387,
+    "weight_sqrt": 0.447,
+    "unique": false
+  },
+  {
+    "name": "רמב״ם",
+    "raw": "הרמב\"ם",
+    "n_places": 60,
+    "example_place": "אופקים",
+    "places": [
+      "אופקים",
+      "אור עקיבא",
+      "אזור",
+      "אליכין",
+      "אלעד",
+      "אשדוד",
+      "אשקלון",
+      "באר יעקב",
+      "באר שבע",
+      "בית שאן",
+      "בית שמש",
+      "בני ברק"
+    ],
+    "weight_log": 0.169,
+    "weight_sqrt": 0.129,
+    "unique": false
+  },
+  {
+    "name": "אל מפארק",
+    "raw": "אל-מפארק",
+    "n_places": 1,
+    "example_place": "עספיא",
+    "places": [
+      "עספיא"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "בית גוברין",
+    "raw": "בית גוברין",
+    "n_places": 2,
+    "example_place": "רמת השרון",
+    "places": [
+      "רמת השרון",
+      "תל אביב - יפו"
+    ],
+    "weight_log": 0.631,
+    "weight_sqrt": 0.707,
+    "unique": false
+  },
+  {
+    "name": "אריסטובולוס",
+    "raw": "אריסטובולוס",
+    "n_places": 1,
+    "example_place": "באר שבע",
+    "places": [
+      "באר שבע"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "מוצא הקטנה",
+    "raw": "מוצא הקטנה",
+    "n_places": 1,
+    "example_place": "מבשרת ציון",
+    "places": [
+      "מבשרת ציון"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "החיתים",
+    "raw": "החיתים",
+    "n_places": 1,
+    "example_place": "אילת",
+    "places": [
+      "אילת"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "עבדאל עזיז",
+    "raw": "עבדאל עזיז",
+    "n_places": 1,
+    "example_place": "אבו גוש",
+    "places": [
+      "אבו גוש"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "מכלוף יעקב",
+    "raw": "מכלוף יעקב",
+    "n_places": 1,
+    "example_place": "בית שאן",
+    "places": [
+      "בית שאן"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "מחמד עלי",
+    "raw": "מחמד עלי",
+    "n_places": 1,
+    "example_place": "דאלית אל-כרמל",
+    "places": [
+      "דאלית אל-כרמל"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "אזבסט אליעזר",
+    "raw": "אזבסט אליעזר",
+    "n_places": 1,
+    "example_place": "חדרה",
+    "places": [
+      "חדרה"
+    ],
+    "weight_log": 1.0,
+    "weight_sqrt": 1.0,
+    "unique": true
+  },
+  {
+    "name": "האלה",
+    "raw": "האלה",
+    "n_places": 124,
+    "example_place": "אבו גוש",
+    "places": [
+      "אבו גוש",
+      "אביאל",
+      "אבן יהודה",
+      "אדורה",
+      "אדמית",
+      "אופקים",
+      "אור יהודה",
+      "אור עקיבא",
+      "אורנית",
+      "אחיטוב",
+      "אילת",
+      "אלון שבות"
+    ],
+    "weight_log": 0.144,
+    "weight_sqrt": 0.09,
     "unique": false
   }
 ]
