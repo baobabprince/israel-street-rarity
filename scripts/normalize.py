@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 from collections import Counter
 from pathlib import Path
@@ -223,3 +224,101 @@ def classify_sector(
         return "יהודי", arab_pct
 
     return "אחר", None
+
+
+def itm_to_wgs84(coord_value: Any) -> tuple[float, float] | None:
+    """Convert CBS 12-digit Israel Transverse Mercator (EPSG:2039) coordinate to WGS84 (lat, lon).
+
+    CBS encodes ITM coordinates as a 12-digit integer: 6-digit Easting + 6-digit Northing (meters).
+    """
+    if coord_value is None:
+        return None
+    try:
+        if isinstance(coord_value, float) and math.isnan(coord_value):
+            return None
+        s = str(int(round(float(coord_value)))).strip()
+    except (TypeError, ValueError):
+        return None
+
+    if len(s) != 12 or not s.isdigit():
+        return None
+
+    east = float(s[:6])
+    north = float(s[6:])
+
+    # EPSG:2039 (Israel 1993 / Israeli TM Grid) on GRS80
+    a = 6378137.0
+    f = 1.0 / 298.257222101
+    e2 = 2.0 * f - f * f
+    e4 = e2 * e2
+    e6 = e4 * e2
+    ep2 = e2 / (1.0 - e2)
+
+    lat0 = math.radians(31.73439361111111)
+    lon0 = math.radians(35.20451694444444)
+    k0 = 1.0000067
+    fe = 219529.584
+    fn = 626907.390
+
+    c0 = 1.0 - e2 / 4.0 - 3.0 * e4 / 64.0 - 5.0 * e6 / 256.0
+    c2 = 3.0 * e2 / 8.0 + 3.0 * e4 / 32.0 + 45.0 * e6 / 1024.0
+    c4 = 15.0 * e4 / 256.0 + 45.0 * e6 / 1024.0
+    c6 = 35.0 * e6 / 3072.0
+
+    m0 = a * (c0 * lat0 - c2 * math.sin(2.0 * lat0) + c4 * math.sin(4.0 * lat0) - c6 * math.sin(6.0 * lat0))
+    m = m0 + (north - fn) / k0
+    mu = m / (a * c0)
+
+    e1 = (1.0 - math.sqrt(1.0 - e2)) / (1.0 + math.sqrt(1.0 - e2))
+    phi1 = (
+        mu
+        + (3.0 * e1 / 2.0 - 27.0 * (e1 ** 3) / 32.0) * math.sin(2.0 * mu)
+        + (21.0 * (e1 ** 2) / 16.0 - 55.0 * (e1 ** 4) / 32.0) * math.sin(4.0 * mu)
+        + (151.0 * (e1 ** 3) / 96.0) * math.sin(6.0 * mu)
+        + (1097.0 * (e1 ** 4) / 512.0) * math.sin(8.0 * mu)
+    )
+
+    sin_p1 = math.sin(phi1)
+    cos_p1 = math.cos(phi1)
+    tan_p1 = math.tan(phi1)
+    n1 = a / math.sqrt(1.0 - e2 * sin_p1 * sin_p1)
+    r1 = a * (1.0 - e2) / ((1.0 - e2 * sin_p1 * sin_p1) ** 1.5)
+    t1 = tan_p1 * tan_p1
+    c1 = ep2 * cos_p1 * cos_p1
+    d = (east - fe) / (n1 * k0)
+
+    lat_itm = phi1 - (n1 * tan_p1 / r1) * (
+        d * d / 2.0
+        - (5.0 + 3.0 * t1 + 10.0 * c1 - 4.0 * c1 * c1 - 9.0 * ep2) * (d ** 4) / 24.0
+        + (61.0 + 90.0 * t1 + 298.0 * c1 + 45.0 * t1 * t1 - 252.0 * ep2 - 3.0 * c1 * c1) * (d ** 6) / 720.0
+    )
+    lon_itm = lon0 + (
+        d
+        - (1.0 + 2.0 * t1 + c1) * (d ** 3) / 6.0
+        + (5.0 - 2.0 * c1 + 28.0 * t1 - 3.0 * c1 * c1 + 8.0 * ep2 + 24.0 * t1 * t1) * (d ** 5) / 120.0
+    ) / cos_p1
+
+    # 3-parameter geocentric shift Israel 1993 -> WGS84
+    sin_lat, cos_lat = math.sin(lat_itm), math.cos(lat_itm)
+    sin_lon, cos_lon = math.sin(lon_itm), math.cos(lon_itm)
+    v = a / math.sqrt(1.0 - e2 * sin_lat * sin_lat)
+    x = v * cos_lat * cos_lon - 24.0024
+    y = v * cos_lat * sin_lon - 17.1032
+    z = v * (1.0 - e2) * sin_lat - 17.8444
+
+    # WGS84 inverse ECEF -> geodetic
+    a_w = 6378137.0
+    f_w = 1.0 / 298.257223563
+    e2_w = 2.0 * f_w - f_w * f_w
+    p = math.hypot(x, y)
+    lon_w = math.atan2(y, x)
+    lat_w = math.atan2(z, p * (1.0 - e2_w))
+    for _ in range(5):
+        v_w = a_w / math.sqrt(1.0 - e2_w * math.sin(lat_w) ** 2)
+        lat_w = math.atan2(z + e2_w * v_w * math.sin(lat_w), p)
+
+    lat_deg = round(math.degrees(lat_w), 5)
+    lon_deg = round(math.degrees(lon_w), 5)
+    if not (29.0 <= lat_deg <= 33.6 and 34.0 <= lon_deg <= 36.0):
+        return None
+    return lat_deg, lon_deg

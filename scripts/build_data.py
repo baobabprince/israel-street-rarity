@@ -29,6 +29,7 @@ from normalize import (  # noqa: E402
     classify_sector,
     is_numeric,
     is_placeholder_street,
+    itm_to_wgs84,
     load_aliases,
     structural_clean,
 )
@@ -214,13 +215,13 @@ def main() -> None:
         if pd.isna(code):
             continue
         uniq_names = sorted(grp.loc[grp["n"] == 1, "norm"].tolist())
-        # Deterministic diverse sample of up to 6 unique streets
-        if len(uniq_names) > 6:
+        # Deterministic diverse sample of up to 8 unique streets
+        if len(uniq_names) > 8:
             rng = random.Random(int(code))
-            uniq_sample = sorted(rng.sample(uniq_names, 6))
+            uniq_sample = sorted(rng.sample(uniq_names, 8))
         else:
             uniq_sample = uniq_names
-        common_rows = grp[grp["n"] > 1].sort_values(["n", "norm"], ascending=[False, True]).head(6)
+        common_rows = grp[grp["n"] > 1].sort_values(["n", "norm"], ascending=[False, True]).head(8)
         common_sample = [{"name": str(r["norm"]), "n": int(r["n"])} for _, r in common_rows.iterrows()]
         city_samples[int(code)] = (uniq_sample, common_sample)
 
@@ -233,17 +234,19 @@ def main() -> None:
     israelis_col = pick_col(cbs, lambda c: "ישראלים" in c and "סך" in c)
     arab_pop_col = pick_col(cbs, lambda c: "ערבים" in c)
     rel_col = pick_col(cbs, lambda c: "דת" in c and "יישוב" in c, lambda c: "דת" in c)
+    coord_col = pick_col(cbs, lambda c: "קואורדינט" in c)
 
     cbs["pop"] = pd.to_numeric(cbs[pop_col], errors="coerce") if pop_col else np.nan
     cbs["israelis"] = pd.to_numeric(cbs[israelis_col], errors="coerce") if israelis_col else cbs["pop"]
     cbs["arab_pop"] = pd.to_numeric(cbs[arab_pop_col], errors="coerce") if arab_pop_col else np.nan
     cbs["religion"] = pd.to_numeric(cbs[rel_col], errors="coerce") if rel_col else np.nan
+    cbs["coords"] = cbs[coord_col] if coord_col else None
     cbs["year"] = pd.to_numeric(cbs.get("שנת ייסוד"), errors="coerce")
     cbs["district"] = cbs.get("שם מחוז")
     cbs["status"] = cbs.get("שם מעמד מונציפאלי")
 
     m = per.merge(
-        cbs[["סמל יישוב", "pop", "israelis", "arab_pop", "religion", "year", "district", "status"]],
+        cbs[["סמל יישוב", "pop", "israelis", "arab_pop", "religion", "coords", "year", "district", "status"]],
         left_on="סמל_ישוב",
         right_on="סמל יישוב",
         how="left",
@@ -259,6 +262,8 @@ def main() -> None:
     for _, r in places.iterrows():
         st = str(r["status"]).strip() if pd.notna(r["status"]) else None
         sector, arab_pct = classify_sector(r["religion"], r["arab_pop"], r["israelis"])
+        latlon = itm_to_wgs84(r["coords"])
+        lat, lon = latlon if latlon else (None, None)
         code_int = int(r["סמל_ישוב"])
         uniq_sample, common_sample = city_samples.get(code_int, ([], []))
 
@@ -291,6 +296,8 @@ def main() -> None:
             "rarity_sum_sqrt": sum_sqrt,
             "population": int(r["pop"]) if pd.notna(r["pop"]) else 0,
             "founded": int(r["year"]) if pd.notna(r["year"]) else None,
+            "lat": lat,
+            "lon": lon,
             "sector": sector,
             "arab_pct": arab_pct,
             "is_arab": sector == "ערבי",
