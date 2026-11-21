@@ -14,6 +14,7 @@ from normalize import (  # noqa: E402
     classify_sector,
     is_numeric,
     is_placeholder_street,
+    itm_to_wgs84,
     load_aliases,
     structural_clean,
     unify_punctuation,
@@ -147,3 +148,30 @@ def test_generated_data_integrity_and_sector_fixes():
         if name in by_name:
             assert by_name[name]["sector"] == "יהודי", f"{name} should be יהודי"
             assert by_name[name]["is_arab"] is False
+
+    # Verify WGS84 coordinates exist for every locality in Israel bounds
+    for d in data:
+        assert d["lat"] is not None and d["lon"] is not None, f"Missing coords for {d['name']}"
+        assert 29.4 <= d["lat"] <= 33.4, f"lat out of bounds for {d['name']}: {d['lat']}"
+        assert 34.2 <= d["lon"] <= 35.9, f"lon out of bounds for {d['name']}: {d['lon']}"
+
+
+def test_itm_to_wgs84_landmarks():
+    # Jerusalem (220976, 632344) -> ~31.78, 35.22
+    j_lat, j_lon = itm_to_wgs84(220976632344)
+    assert abs(j_lat - 31.783) < 0.01
+    assert abs(j_lon - 35.220) < 0.01
+
+    # Tel Aviv (180263, 664864) -> ~32.076, 34.789
+    t_lat, t_lon = itm_to_wgs84(180263664864)
+    assert abs(t_lat - 32.076) < 0.01
+    assert abs(t_lon - 34.789) < 0.01
+
+    # Eilat (194137, 385051) -> ~29.552, 34.946
+    e_lat, e_lon = itm_to_wgs84(194137385051)
+    assert abs(e_lat - 29.552) < 0.01
+    assert abs(e_lon - 34.946) < 0.01
+
+    # Invalid inputs
+    assert itm_to_wgs84(None) is None
+    assert itm_to_wgs84("12345") is None
