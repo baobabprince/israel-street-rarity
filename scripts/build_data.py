@@ -31,6 +31,7 @@ from normalize import (  # noqa: E402
     is_placeholder_street,
     itm_to_wgs84,
     load_aliases,
+    norm_idf_weight,
     structural_clean,
 )
 
@@ -136,6 +137,16 @@ def main() -> None:
     df_dedup["n"] = df_dedup["norm"].map(nloc)
     df_dedup["w_log"] = 1.0 / np.log2(1.0 + df_dedup["n"])
     df_dedup["w_sqrt"] = 1.0 / np.sqrt(df_dedup["n"].astype(float))
+    # Normalized IDF: log(N / n) / log(N) ∈ [0,1], where N = localities in the corpus.
+    # Unique name (n=1) -> 1.0; name present in every locality (n=N) -> 0.0.
+    corpus_localities = int(df_dedup["סמל_ישוב"].nunique())
+    if corpus_localities > 1:
+        log_corpus = np.log(corpus_localities)
+        df_dedup["w_idf"] = np.log(corpus_localities / df_dedup["n"].clip(lower=1).astype(float)) / log_corpus
+        df_dedup["w_idf"] = df_dedup["w_idf"].clip(lower=0.0, upper=1.0)
+    else:
+        df_dedup["w_idf"] = 1.0
+    print(f"Corpus localities (N for NORM IDF) = {corpus_localities}")
 
     pure_exclusive_names = int((nloc == 1).sum())
 
@@ -159,6 +170,7 @@ def main() -> None:
             "n_places": int(r["n"]),
             "weight_log": round(float(1.0 / np.log2(1 + int(r["n"]))), 3),
             "weight_sqrt": round(float(1.0 / np.sqrt(int(r["n"]))), 3),
+            "weight_norm_idf": round(float(norm_idf_weight(int(r["n"]), corpus_localities)), 3),
         }
         for _, r in top_shared_df.iterrows()
     ]
@@ -187,6 +199,7 @@ def main() -> None:
             "places": places_list[:12],
             "weight_log": round(float(1.0 / np.log2(1 + n)), 3),
             "weight_sqrt": round(float(1.0 / np.sqrt(n)), 3),
+            "weight_norm_idf": round(float(norm_idf_weight(n, corpus_localities)), 3),
             "unique": n == 1,
         })
     random.Random(42).shuffle(examples)
@@ -201,6 +214,8 @@ def main() -> None:
         rarity_mean_log=("w_log", "mean"),
         rarity_sum_sqrt=("w_sqrt", "sum"),
         rarity_mean_sqrt=("w_sqrt", "mean"),
+        rarity_sum_idf=("w_idf", "sum"),
+        rarity_mean_idf=("w_idf", "mean"),
     ).reset_index()
 
     per["exclusive_pct"] = (per["pure_exclusive"] / per["streets"] * 100.0).round(1)
@@ -208,6 +223,8 @@ def main() -> None:
     per["rarity_sum_log"] = per["rarity_sum_log"].round(1)
     per["rarity_mean_sqrt"] = (per["rarity_mean_sqrt"] * 100.0).round(1)
     per["rarity_sum_sqrt"] = per["rarity_sum_sqrt"].round(1)
+    per["rarity_mean_idf"] = (per["rarity_mean_idf"] * 100.0).round(1)
+    per["rarity_sum_idf"] = per["rarity_sum_idf"].round(1)
 
     # Sample unique & most-common streets per locality for the city detail inspector
     city_samples: dict[int, tuple[list[str], list[dict]]] = {}
@@ -273,13 +290,17 @@ def main() -> None:
         sum_sqrt = float(r["rarity_sum_sqrt"])
         mean_log = float(r["rarity_mean_log"])
         mean_sqrt = float(r["rarity_mean_sqrt"])
+        sum_idf = float(r["rarity_sum_idf"])
+        mean_idf = float(r["rarity_mean_idf"])
 
         # Mathematical invariants (guard against regressions)
         assert 0 <= excl_n <= streets_n, f"pure_exclusive > streets for {r['שם_ישוב']}"
         assert sum_log <= streets_n + 0.15, f"rarity_sum_log > streets for {r['שם_ישוב']}"
         assert sum_sqrt <= streets_n + 0.15, f"rarity_sum_sqrt > streets for {r['שם_ישוב']}"
+        assert sum_idf <= streets_n + 0.15, f"rarity_sum_idf > streets for {r['שם_ישוב']}"
         assert 0.0 <= mean_log <= 100.0, f"rarity_mean_log out of range for {r['שם_ישוב']}"
         assert 0.0 <= mean_sqrt <= 100.0, f"rarity_mean_sqrt out of range for {r['שם_ישוב']}"
+        assert 0.0 <= mean_idf <= 100.0, f"rarity_mean_idf out of range for {r['שם_ישוב']}"
 
         out.append({
             "code": code_int,
@@ -294,6 +315,8 @@ def main() -> None:
             "rarity_sum_log": sum_log,
             "rarity_mean_sqrt": mean_sqrt,
             "rarity_sum_sqrt": sum_sqrt,
+            "rarity_mean_norm_idf": mean_idf,
+            "rarity_sum_norm_idf": sum_idf,
             "population": int(r["pop"]) if pd.notna(r["pop"]) else 0,
             "founded": int(r["year"]) if pd.notna(r["year"]) else None,
             "lat": lat,
@@ -306,7 +329,7 @@ def main() -> None:
             "sample_common": common_sample,
         })
 
-    out.sort(key=lambda x: (-x["rarity_mean_log"], -x["streets"], x["name"]))
+    out.sort(key=lambda x: (-x["rarity_mean_sqrt"], -x["streets"], x["name"]))
     (OUT / "data.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     (OUT / "data.min.json").write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
@@ -328,6 +351,7 @@ def main() -> None:
         "places_dropped_lt_min_streets": int(places_dropped),
         "mazal_aliases_count": len(aliases),
         "reversed_pairs_merged": len(reversed_map),
+        "idf_corpus_localities": corpus_localities,
         "sector_source": "CBS official דת יישוב (1=יהודי, 2=ערבי כולל דרוזים וצ׳רקסים, 4=מעורב)",
         "normalize_mode": "structural + dedup per city + reversed person names + cleaned mazal_aliases (no auto definite-article strip)",
         "top_shared": top_shared,

@@ -226,6 +226,27 @@ def classify_sector(
     return "אחר", None
 
 
+def norm_idf_weight(n_places: Any, corpus_localities: int) -> float:
+    """Normalized IDF weight for a street name, in the closed interval [0, 1].
+
+    Formula: log(N / n) / log(N), where:
+      N = corpus_localities — number of distinct localities in the cleaned corpus
+      n = n_places — number of localities in which the name appears
+
+    A name unique to a single locality (n = 1) scores 1.0 (100%); a name present
+    in every locality (n = N) scores 0.0. Base of the logarithm is irrelevant.
+    """
+    try:
+        n = int(n_places)
+    except (TypeError, ValueError):
+        return 1.0
+    N = int(corpus_localities)
+    if N <= 1 or n <= 0:
+        return 1.0
+    n = min(max(n, 1), N)
+    return math.log(N / n) / math.log(N)
+
+
 def itm_to_wgs84(coord_value: Any) -> tuple[float, float] | None:
     """Convert CBS 12-digit Israel Transverse Mercator (EPSG:2039) coordinate to WGS84 (lat, lon).
 

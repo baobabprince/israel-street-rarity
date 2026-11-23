@@ -16,7 +16,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: main
+          # Scheduled runs and dispatches from main check out main;
+          # dispatches from a feature branch check out that branch.
+          ref: ${{ github.ref_name }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -41,5 +43,5 @@ jobs:
             echo "No data changes"
           else
             git commit -m "chore: update street rarity data $(date -u +%Y-%m-%d)"
-            git push origin main
+            git push origin "${{ github.ref_name }}"
           fi
