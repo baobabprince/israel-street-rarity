@@ -222,8 +222,9 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
     <div class="metric-ctrl">
       <span>נוסחה:</span>
       <div class="seg-btns" id="metric-toggle" role="group" aria-label="בחירת נוסחת משקל">
-        <button type="button" data-metric="log" class="active" title="1 / log₂(1 + n) — ענישה מתונה לשמות נפוצים">לוג</button>
-        <button type="button" data-metric="sqrt" title="1 / √n — ענישה חדה יותר לשמות נפוצים">שורש</button>
+        <button type="button" data-metric="log" title="1 / log₂(1 + n) — ענישה מתונה לשמות נפוצים">לוג</button>
+        <button type="button" data-metric="sqrt" class="active" title="1 / √n — ענישה חדה יותר לשמות נפוצים">שורש</button>
+        <button type="button" data-metric="idf" title="log(N / n) / log(N) — IDF מנורמל: שם ייחודי ליישוב אחד = 100%, שם בכל היישובים = 0%">NORM IDF</button>
       </div>
     </div>
   </div>
@@ -255,8 +256,9 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
       <div class="method-box">
         <h3>נוסחאות, מפה וסיווג מגזרי (למ״ס)</h3>
         <ul>
-          <li><strong>לוג (ברירת מחדל):</strong> <code dir="ltr">1 / log₂(1 + n)</code> — ענישה מתונה לשמות נפוצים.</li>
-          <li><strong>שורש:</strong> <code dir="ltr">1 / √n</code> — ענישה חדה יותר לשמות שחוזרים בעשרות יישובים.</li>
+          <li><strong>שורש (ברירת מחדל):</strong> <code dir="ltr">1 / √n</code> — ענישה חדה יותר לשמות שחוזרים בעשרות יישובים.</li>
+          <li><strong>לוג:</strong> <code dir="ltr">1 / log₂(1 + n)</code> — ענישה מתונה לשמות נפוצים.</li>
+          <li><strong>NORM IDF:</strong> <code dir="ltr">log(N / n) / log(N)</code> — IDF מנורמל לסקאלה 0–100, כאשר <code>N</code> הוא מספר היישובים במאגר. שם ייחודי ליישוב אחד מקבל 100% ושם שמופיע בכל היישובים מקבל 0%.</li>
           <li><strong>סיווג מגזרי רשמי (למ״ס):</strong> לפי שדה <code>דת יישוב</code> — <strong>יהודי</strong> (1), <strong>ערבי</strong> (2, כולל יישובים דרוזיים וצ׳רקסיים לפי הגדרת הלמ״ס), ו־<strong>מעורב</strong> (4 — 8 הערים המעורבות הרשמיות).</li>
           <li><strong>מיקומים במפה:</strong> מומרים ישירות מקואורדינטות רשת ישראל החדשה (ITM / EPSG:2039) של הלמ״ס ל־WGS84.</li>
         </ul>
@@ -379,7 +381,7 @@ function pickExamples(pool){
 }
 
 let DATA=[], EXAMPLES=[], PICKED=[], META={};
-let metric='log';
+let metric='sqrt';        // default formula: 1/√n ('log' | 'sqrt' | 'idf')
 let rankMode='top';       // 'top' | 'bottom' | 'sum'
 let scatterY='mean';      // 'mean' | 'exclusive'
 let mapColorMode='rarity';// 'rarity' | 'sector'
@@ -391,10 +393,11 @@ let mapObj=null, mapLayer=null;
 let charts={};
 let sortCol='rarity_mean_log', sortDir=-1;
 
-function meanKey(){return metric==='sqrt'?'rarity_mean_sqrt':'rarity_mean_log'}
-function sumKey(){return metric==='sqrt'?'rarity_sum_sqrt':'rarity_sum_log'}
-function meanOf(d){const v=d[meanKey()]; return v!=null?v:(d.rarity_mean_log||0)}
-function sumOf(d){const v=d[sumKey()]; return v!=null?v:(d.rarity_sum_log||0)}
+function meanKey(){return metric==='sqrt'?'rarity_mean_sqrt':metric==='idf'?'rarity_mean_norm_idf':'rarity_mean_log'}
+function sumKey(){return metric==='sqrt'?'rarity_sum_sqrt':metric==='idf'?'rarity_sum_norm_idf':'rarity_sum_log'}
+function metricLabel(){return metric==='sqrt'?'שורש':metric==='idf'?'NORM IDF':'לוג'}
+function meanOf(d){const v=d[meanKey()]; return v!=null?v:(metric==='idf'?(d.rarity_mean_sqrt??d.rarity_mean_log??0):(d.rarity_mean_log||0))}
+function sumOf(d){const v=d[sumKey()]; return v!=null?v:(metric==='idf'?(d.rarity_sum_sqrt??d.rarity_sum_log??0):(d.rarity_sum_log||0))}
 function exclPctOf(d){return d.exclusive_pct!=null?d.exclusive_pct:(d.streets?d.pure_exclusive/d.streets*100:0)}
 
 function cityRank(name){
@@ -428,7 +431,7 @@ function openCityModal(d){
   const {uniqChips, commonChips}=buildStreetBlocksHtml(d);
   document.getElementById('modal-body').innerHTML=`
     <div class="modal-stats">
-      <div class="modal-stat"><div class="v">${meanOf(d).toFixed(1)}%</div><div class="k">ממוצע נדירות (${metric==='sqrt'?'שורש':'לוג'})</div></div>
+      <div class="modal-stat"><div class="v">${meanOf(d).toFixed(1)}%</div><div class="k">ממוצע נדירות (${metricLabel()})</div></div>
       <div class="modal-stat"><div class="v">${sumOf(d).toFixed(1)}</div><div class="k">סכום נדירות</div></div>
       <div class="modal-stat"><div class="v">${fmt(d.streets)}</div><div class="k">רחובות מנורמלים</div></div>
       <div class="modal-stat"><div class="v">${fmt(d.pure_exclusive)} (${exclPctOf(d).toFixed(1)}%)</div><div class="k">ייחודיים לגמרי</div></div>
@@ -487,7 +490,7 @@ function renderMapInspector(visible){
       </div>
       ${!stillVisible?`<p class="muted" style="margin-top:.5rem;color:#fbbf24">היישוב מוסתר כרגע תחת הסינון הנוכחי במפה.</p>`:''}
       <div class="insp-stats">
-        <div class="insp-stat"><div class="v">${meanOf(d).toFixed(1)}%</div><div class="k">ממוצע נדירות (${metric==='sqrt'?'שורש':'לוג'})</div></div>
+        <div class="insp-stat"><div class="v">${meanOf(d).toFixed(1)}%</div><div class="k">ממוצע נדירות (${metricLabel()})</div></div>
         <div class="insp-stat"><div class="v">${fmt(d.pure_exclusive)} (${exclPctOf(d).toFixed(1)}%)</div><div class="k">רחובות ייחודיים לגמרי</div></div>
         <div class="insp-stat"><div class="v">${fmt(d.streets)}</div><div class="k">רחובות מנורמלים</div></div>
         <div class="insp-stat"><div class="v">${sumOf(d).toFixed(1)}</div><div class="k">סכום נדירות</div></div>
@@ -667,7 +670,7 @@ function renderExamples(){
     return;
   }
   el.innerHTML=PICKED.map(e=>{
-    const w=metric==='sqrt'?(e.weight_sqrt??e.weight):(e.weight_log??e.weight);
+    const w=metric==='sqrt'?(e.weight_sqrt??e.weight):metric==='idf'?(e.weight_norm_idf??e.weight_sqrt??e.weight):(e.weight_log??e.weight);
     const places=e.places&&e.places.length?e.places:(e.example_place?[e.example_place]:[]);
     const shown=places.slice(0,8);
     const totalPlaces=Math.max(e.n_places||0, places.length);
@@ -851,7 +854,7 @@ function rebuildCharts(){
           legend:{display:false},
           tooltip:{callbacks:{label:ctx=>{
             const s=shared[ctx.dataIndex];
-            const w=metric==='sqrt'?s.weight_sqrt:s.weight_log;
+            const w=metric==='sqrt'?s.weight_sqrt:metric==='idf'?(s.weight_norm_idf??s.weight_sqrt):s.weight_log;
             return ` מופיע ב־${fmt(s.n_places)} יישובים (משקל ${w})`;
           }}}
         },
@@ -965,7 +968,8 @@ async function main(){
       <div class="mini-card"><div class="v">${fmt(META.unique_after_normalize)}</div><div class="k">שמות מנורמלים ייחודיים</div></div>
       <div class="mini-card"><div class="v">${fmt(META.pure_exclusive_names)}</div><div class="k">שמות ליישוב אחד בלבד</div></div>
       <div class="mini-card"><div class="v">${fmt(META.rows_placeholder_9000)}</div><div class="k">רשומות קוד 9000 שהוסרו</div></div>
-      <div class="mini-card"><div class="v">${fmt((META.mazal_aliases_count||0)+(META.reversed_pairs_merged||0))}</div><div class="k">כינויים ושמות הפוכים מאוחדים</div></div>`;
+      <div class="mini-card"><div class="v">${fmt((META.mazal_aliases_count||0)+(META.reversed_pairs_merged||0))}</div><div class="k">כינויים ושמות הפוכים מאוחדים</div></div>
+      ${META.idf_corpus_localities?`<div class="mini-card"><div class="v">${fmt(META.idf_corpus_localities)}</div><div class="k">יישובים במאגר (N ל-NORM IDF)</div></div>`:''}`;
   }
 
   const districts=[...new Set(DATA.map(d=>d.district).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'he'));

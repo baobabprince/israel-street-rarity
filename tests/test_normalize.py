@@ -16,6 +16,7 @@ from normalize import (  # noqa: E402
     is_placeholder_street,
     itm_to_wgs84,
     load_aliases,
+    norm_idf_weight,
     structural_clean,
     unify_punctuation,
 )
@@ -85,6 +86,28 @@ def test_reversed_pair_canonicalization():
     assert "בית גן" not in rev and "גן בית" not in rev
 
 
+def test_norm_idf_weight():
+    N = 250
+    # Unique name (n=1) -> full weight; universal name (n=N) -> zero weight
+    assert abs(norm_idf_weight(1, N) - 1.0) < 1e-9
+    assert norm_idf_weight(N, N) == 0.0
+    # Monotone decreasing in n, always within [0, 1]
+    weights = [norm_idf_weight(n, N) for n in range(1, N + 1)]
+    assert all(w0 > w1 for w0, w1 in zip(weights, weights[1:]))
+    assert all(0.0 <= w <= 1.0 for w in weights)
+    # Formula check: log(N/n)/log(N) — independent of log base
+    import math
+    n = 10
+    expected = math.log(N / n) / math.log(N)
+    assert abs(norm_idf_weight(n, N) - expected) < 1e-12
+    assert abs(norm_idf_weight(n, N) - (math.log2(N / n) / math.log2(N))) < 1e-12
+    # Degenerate corpus / bad inputs never explode
+    assert norm_idf_weight(1, 1) == 1.0
+    assert norm_idf_weight(0, N) == 1.0
+    assert norm_idf_weight(None, N) == 1.0
+    assert norm_idf_weight(N + 5, N) == 0.0
+
+
 def test_classify_sector_cbs():
     assert classify_sector(1, 0, 50000) == ("יהודי", 0.0)
     assert classify_sector(2, 15259, 15263) == ("ערבי", 100.0)
@@ -129,6 +152,10 @@ def test_generated_data_integrity_and_sector_fixes():
         assert d["rarity_sum_sqrt"] <= d["streets"] + 0.15, f"sum_sqrt > streets in {d['name']}"
         assert 0.0 <= d["rarity_mean_log"] <= 100.0, d["name"]
         assert 0.0 <= d["rarity_mean_sqrt"] <= 100.0, d["name"]
+        if "rarity_mean_norm_idf" in d:
+            # NORM IDF fields present only after the first build with the metric
+            assert d["rarity_sum_norm_idf"] <= d["streets"] + 0.15, f"sum_idf > streets in {d['name']}"
+            assert 0.0 <= d["rarity_mean_norm_idf"] <= 100.0, d["name"]
         assert d["sector"] in {"יהודי", "ערבי", "מעורב"}, d["name"]
 
     # Verify previously misclassified Arab/Druze/Circassian places are now "ערבי"
