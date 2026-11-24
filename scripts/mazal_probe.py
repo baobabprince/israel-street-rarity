@@ -13,6 +13,7 @@ for label, params in [
     ("identity_he", {"query": "any,contains,מונטיפיורי", "material_type": "Identity"}),
     ("identity_en", {"query": "any,contains,Montefiore", "material_type": "Identity"}),
     ("identity_title", {"query": "title,contains,Montefiore", "material_type": "Identity"}),
+    ("identity_lower", {"query": "title,contains,Montefiore", "material_type": "identity"}),
     ("books", {"query": "title,exact,Jerusalem"}),
 ]:
     try:
@@ -28,7 +29,8 @@ for label, params in [
         try:
             errors = json.loads(response.headers["Errors"]).get("Errors", [])
             codes = [str(e.get("code", "?")) for e in errors if isinstance(e, dict)]
-            print(f"::notice::{label}: error codes {','.join(codes)}")
+            details = [str(e.get("description", ""))[:300].replace(key, "[REDACTED]") for e in errors if isinstance(e, dict)]
+            print(f"::notice::{label}: error codes {','.join(codes)}; details {'; '.join(details)}")
         except (ValueError, AttributeError):
             print(f"::notice::{label}: unparseable Errors header")
     if response.status_code != 200 or response.headers.get("Errors"):
