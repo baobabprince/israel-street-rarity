@@ -16,8 +16,6 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install requests
-      - name: Inspect public search interface
-        run: python scripts/mazal_site_probe.py
       - name: Inspect NLI Identity API
         env:
           MAZAL_API_KEY: ${{ secrets.MAZAL_API_KEY }}
