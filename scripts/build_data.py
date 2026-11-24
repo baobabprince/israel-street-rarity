@@ -107,15 +107,16 @@ def main() -> None:
     after_num["clean"] = after_num["שם_רחוב"].apply(structural_clean)
     df = after_num[after_num["clean"].str.len() > 0].copy()
 
-    # Pass 1: exact alias lookup
-    df["norm"] = df["clean"].map(lambda s: aliases.get(s, s))
+    # Resolve observed reversals before aliases, so an exact alias does not
+    # hide the original spelling from its reversed counterpart.
+    clean_reversed_map = build_reversed_pair_map(Counter(df["clean"]), aliases)
+    df["norm"] = df["clean"].map(lambda s: clean_reversed_map.get(s, s))
+    df["norm"] = df["norm"].map(lambda s: aliases.get(s, s))
 
-    # Pass 2: merge two-word reversed person names ("בגין מנחם" <-> "מנחם בגין")
+    # A second pass catches reversed forms exposed by alias normalization.
     reversed_map = build_reversed_pair_map(Counter(df["norm"]), aliases)
-    print(f"Detected {len(reversed_map)} reversed two-word person-name variants")
+    print(f"Detected {len(clean_reversed_map) + len(reversed_map)} reversed two-word person-name variants")
     df["norm"] = df["norm"].map(lambda s: reversed_map.get(s, s))
-
-    # Pass 3: second alias pass in case reversal unlocked an alias (e.g. "עגנון ש״י" -> "ש״י עגנון" -> "שמואל יוסף עגנון")
     df["norm"] = df["norm"].map(lambda s: aliases.get(s, s))
 
     rows_clean_before_dedup = len(df)
@@ -350,7 +351,7 @@ def main() -> None:
         "min_streets": MIN_STREETS,
         "places_dropped_lt_min_streets": int(places_dropped),
         "mazal_aliases_count": len(aliases),
-        "reversed_pairs_merged": len(reversed_map),
+        "reversed_pairs_merged": len(clean_reversed_map) + len(reversed_map),
         "idf_corpus_localities": corpus_localities,
         "sector_source": "CBS official דת יישוב (1=יהודי, 2=ערבי כולל דרוזים וצ׳רקסים, 4=מעורב)",
         "normalize_mode": "structural + dedup per city + reversed person names + cleaned mazal_aliases (no auto definite-article strip)",

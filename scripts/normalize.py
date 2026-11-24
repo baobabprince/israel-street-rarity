@@ -166,6 +166,10 @@ def build_reversed_pair_map(
         rev = f"{parts[1]} {parts[0]}"
         if rev not in counts:
             continue
+        # Explicitly resolved distinct identities must not be merged by the
+        # reversal heuristic, even if both canonical names happen to reverse.
+        if name in aliases and rev in aliases and aliases[name] != aliases[rev]:
+            continue
         key = (min(name, rev), max(name, rev))
         if key in seen:
             continue

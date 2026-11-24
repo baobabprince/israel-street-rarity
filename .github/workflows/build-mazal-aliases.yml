@@ -1,4 +1,4 @@
-name: Build Mazal aliases (NLI Identity API)
+name: Diagnose NLI Identity API
 
 on:
   workflow_dispatch:
