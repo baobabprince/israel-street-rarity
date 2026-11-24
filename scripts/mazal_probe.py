@@ -8,6 +8,19 @@ key = os.environ.get("MAZAL_API_KEY", "")
 if not key:
     print("::error::MAZAL_API_KEY is missing")
     raise SystemExit(1)
+try:
+    values = requests.get("https://api.nli.org.il/openlibrary/values/getMaterialTypes",
+                          params={"api_key": key}, timeout=(20, 60), allow_redirects=False)
+    if values.status_code == 200:
+        try:
+            value_json = values.json()
+            print(f"::notice::getMaterialTypes: HTTP 200; Identity mentioned: {'identity' in json.dumps(value_json).lower()}")
+        except ValueError:
+            print("::notice::getMaterialTypes: HTTP 200, not JSON")
+    else:
+        print(f"::notice::getMaterialTypes: HTTP {values.status_code}")
+except requests.RequestException:
+    print("::notice::getMaterialTypes: network error")
 results = []
 for label, params in [
     ("identity_he", {"query": "any,contains,מונטיפיורי", "material_type": "Identity"}),
