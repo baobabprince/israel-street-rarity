@@ -24,6 +24,13 @@ for label, params in [
         print(f"::error::{label}: network error (details withheld)")
         continue
     print(f"::notice::{label}: HTTP {response.status_code}; Errors header: {bool(response.headers.get('Errors'))}")
+    if response.headers.get("Errors"):
+        try:
+            errors = json.loads(response.headers["Errors"]).get("Errors", [])
+            codes = [str(e.get("code", "?")) for e in errors if isinstance(e, dict)]
+            print(f"::notice::{label}: error codes {','.join(codes)}")
+        except (ValueError, AttributeError):
+            print(f"::notice::{label}: unparseable Errors header")
     if response.status_code != 200 or response.headers.get("Errors"):
         continue
     try:
