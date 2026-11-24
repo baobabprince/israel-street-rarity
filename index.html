@@ -208,7 +208,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
   .nav-burger{display:inline-flex}
   .nav-links{display:none}
   .metric-ctrl{min-width:0;max-width:100%;justify-content:center;flex-wrap:nowrap}
-  section,.grid-2{scroll-margin-top:7.2rem}
+  section,.grid-2{scroll-margin-top:4.5rem}
+  section h2{font-size:1.05rem;margin-bottom:.55rem;padding-bottom:.4rem}
 
   /* Side navigation drawer (replaces the sticky link row) */
   .nav-backdrop{display:block;position:fixed;inset:0;background:rgba(4,8,15,.62);opacity:0;pointer-events:none;transition:opacity .25s;z-index:680}
@@ -251,7 +252,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
   .map-controls .seg-btns{width:100%}
   .map-controls .seg-btns button{flex:1;white-space:normal;padding:.55rem .6rem;min-height:42px}
   .presets button{padding:.5rem .7rem;font-size:.82rem;min-height:38px}
-  #map{height:clamp(340px,56vh,480px);border-radius:0;border-left:0;border-right:0;margin-inline:-.85rem;width:calc(100% + 1.7rem);scroll-margin-top:7.4rem}
+  #map{height:56vh;height:clamp(420px,calc(100svh - 3.5rem),840px);border-radius:0;border-left:0;border-right:0;margin-inline:-1.7125rem;width:calc(100% + 3.425rem);scroll-margin-top:4.6rem}
   .grad-bar{width:95px}
   .map-legend{font-size:.76rem;padding:.4rem .15rem .1rem}
   .leaflet-bar a{width:40px;height:40px;line-height:40px;font-size:19px}
@@ -297,7 +298,6 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
   .card .num{font-size:1.3rem}
   .card .label{font-size:.76rem}
   .ex-grid{grid-template-columns:1fr}
-  #map{height:clamp(300px,52vh,420px)}
   .chart-wrap.tall{height:420px}
   .seg-btns button{padding:.4rem .6rem;font-size:.79rem}
   .nav-links a{font-size:.84rem;padding:.45rem .65rem}
@@ -804,6 +804,8 @@ function focusCityOnMap(d, scrollToMap=true){
   }
   if(mapObj){
     mapObj.flyTo([d.lat,d.lon],Math.max(mapObj.getZoom(),11),{duration:0.65});
+    // After the flight settles, re-frame the marker above the bottom sheet
+    if(isMobile) setTimeout(()=>frameMarkerForSheet(d),780);
   }
 }
 
@@ -813,7 +815,7 @@ function frameMarkerForSheet(d){
   if(!window.matchMedia('(max-width:640px)').matches) return;
   const mapEl=document.getElementById('map');
   if(!mapEl) return;
-  const stickyTop=110, sheetTop=window.innerHeight*0.52;
+  const stickyTop=64, sheetTop=window.innerHeight*0.52;
   const doPan=()=>{
     if(!mapObj||!selectedMapCity||selectedMapCity.name!==d.name) return;
     const rect=mapEl.getBoundingClientRect();
@@ -1281,6 +1283,7 @@ async function main(){
     <p class="muted">השמות המשותפים למספר הגדול ביותר של יישובים (לאחר ניקוי ואיחוד שמות).</p>
     <div class="chart-wrap tall"><canvas id="cShared"></canvas></div>
   </section>`:''}`;
+  app.classList.remove('loading');
 
   // Wire up controls
   document.querySelectorAll('#metric-toggle button').forEach(btn=>{
