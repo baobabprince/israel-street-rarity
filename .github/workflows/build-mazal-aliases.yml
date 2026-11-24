@@ -23,5 +23,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: mazal-probe
-          path: mazal-probe.json
+          path: mazal-probe-*.json
           retention-days: 1

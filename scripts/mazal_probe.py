@@ -10,7 +10,9 @@ if not key:
     raise SystemExit(1)
 results = []
 for label, params in [
-    ("identity", {"query": "any,contains,מונטיפיורי", "material_type": "Identity"}),
+    ("identity_he", {"query": "any,contains,מונטיפיורי", "material_type": "Identity"}),
+    ("identity_en", {"query": "any,contains,Montefiore", "material_type": "Identity"}),
+    ("identity_title", {"query": "title,contains,Montefiore", "material_type": "Identity"}),
     ("books", {"query": "title,exact,Jerusalem"}),
 ]:
     try:
@@ -29,9 +31,9 @@ for label, params in [
     except ValueError:
         print(f"::error::{label}: non-JSON response")
         continue
-    if label == "identity":
+    if label.startswith("identity"):
         text = json.dumps(data, ensure_ascii=False, indent=2).replace(key, "[REDACTED]")
-        Path("mazal-probe.json").write_text(text + "\n", encoding="utf-8")
+        Path(f"mazal-probe-{label}.json").write_text(text + "\n", encoding="utf-8")
         results.append(label)
 if not results:
     print("::error::No usable Identity response")
