@@ -33,6 +33,10 @@ header p{color:var(--muted);max-width:680px;margin:0 auto;font-size:.98rem}
 .nav-links{display:flex;flex-wrap:wrap;gap:.25rem}
 .nav-links a{padding:.3rem .65rem;border-radius:8px;font-size:.86rem;color:var(--muted);text-decoration:none;transition:background .15s,color .15s}
 .nav-links a:hover{background:rgba(148,163,184,.12);color:var(--text)}
+.nav-burger{display:none;align-items:center;justify-content:center;width:42px;height:42px;flex:0 0 auto;border:0;border-radius:11px;background:transparent;color:var(--text);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.nav-burger:active{background:rgba(148,163,184,.16)}
+.nav-drawer,.nav-backdrop{display:none}
+body.nav-locked{overflow:hidden}
 .metric-ctrl{display:flex;align-items:center;gap:.45rem;font-size:.83rem;color:var(--muted)}
 
 /* Layout */
@@ -200,12 +204,24 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
   header p{font-size:.92rem}
   .header-meta{gap:.4rem}
   .pill{padding:.4rem .8rem}
-  .sticky-inner{flex-direction:column;align-items:stretch;gap:.45rem;padding:.5rem .75rem}
-  .nav-links{min-width:0;max-width:100%;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:.1rem}
-  .nav-links::-webkit-scrollbar{display:none}
-  .nav-links a{white-space:nowrap;padding:.5rem .75rem}
-  .metric-ctrl{min-width:0;max-width:100%;justify-content:center;flex-wrap:wrap}
+  .sticky-inner{gap:.5rem;padding:.4rem .75rem}
+  .nav-burger{display:inline-flex}
+  .nav-links{display:none}
+  .metric-ctrl{min-width:0;max-width:100%;justify-content:center;flex-wrap:nowrap}
   section,.grid-2{scroll-margin-top:7.2rem}
+
+  /* Side navigation drawer (replaces the sticky link row) */
+  .nav-backdrop{display:block;position:fixed;inset:0;background:rgba(4,8,15,.62);opacity:0;pointer-events:none;transition:opacity .25s;z-index:680}
+  .nav-backdrop.open{opacity:1;pointer-events:auto}
+  .nav-drawer{display:flex;flex-direction:column;position:fixed;top:0;bottom:0;right:0;width:min(84vw,320px);background:var(--surface);border-left:1px solid var(--border);box-shadow:-16px 0 40px rgba(0,0,0,.5);z-index:700;transform:translateX(105%);visibility:hidden;transition:transform .3s cubic-bezier(.32,.72,0,1),visibility 0s linear .3s;overscroll-behavior:contain}
+  .nav-drawer.open{transform:translateX(0);visibility:visible;transition:transform .3s cubic-bezier(.32,.72,0,1),visibility 0s}
+  .nav-drawer-head{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.85rem 1rem;border-bottom:1px solid var(--border);flex:0 0 auto}
+  .nav-drawer-head span{font-weight:600;font-size:.95rem;color:#cbd5e1}
+  .nav-drawer-close{width:40px;height:40px;border-radius:10px;border:0;background:rgba(148,163,184,.14);color:var(--text);font-size:1.15rem;line-height:1;cursor:pointer;font-family:inherit}
+  .nav-drawer-close:active{background:rgba(148,163,184,.28)}
+  .nav-drawer-links{display:flex;flex-direction:column;gap:.15rem;padding:.5rem;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1 1 auto}
+  .nav-drawer-links a{display:flex;align-items:center;min-height:46px;padding:.6rem .85rem;border-radius:10px;color:var(--text);text-decoration:none;font-size:1rem}
+  .nav-drawer-links a:active{background:rgba(59,130,246,.18)}
 
   /* Layout & cards */
   .container{padding:1rem .8rem 0}
@@ -302,6 +318,9 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
 
 <div class="sticky-bar">
   <div class="sticky-inner">
+    <button type="button" class="nav-burger" id="nav-menu-btn" aria-label="פתיחת תפריט ניווט" aria-expanded="false" aria-controls="nav-drawer">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 6.5h16M4 12h16M4 17.5h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    </button>
     <nav class="nav-links" aria-label="ניווט מהיר">
       <a href="#sec-map">מפה</a>
       <a href="#sec-rank">דירוג</a>
@@ -321,6 +340,23 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
     </div>
   </div>
 </div>
+
+<div class="nav-backdrop" id="nav-backdrop"></div>
+<aside class="nav-drawer" id="nav-drawer" aria-label="תפריט ניווט" aria-hidden="true">
+  <div class="nav-drawer-head">
+    <span>ניווט</span>
+    <button type="button" class="nav-drawer-close" id="nav-drawer-close" aria-label="סגירת תפריט">✕</button>
+  </div>
+  <nav class="nav-drawer-links">
+    <a href="#sec-map">מפה</a>
+    <a href="#sec-rank">דירוג</a>
+    <a href="#sec-sectors">מגזרים ופיזור</a>
+    <a href="#sec-table">טבלה</a>
+    <a href="#sec-shared">הנפוצים ביותר</a>
+    <a href="#sec-examples">דוגמאות</a>
+    <a href="#sec-method">מתודולוגיה</a>
+  </nav>
+</aside>
 
 <div class="container">
   <div id="app" class="loading">טוען נתונים…</div>
@@ -1345,8 +1381,28 @@ async function main(){
   };
   document.getElementById('modal-close').onclick=closeCityModal;
   document.getElementById('city-modal').onclick=e=>{if(e.target.id==='city-modal') closeCityModal()};
+
+  /* Mobile side navigation drawer */
+  const navBtn=document.getElementById('nav-menu-btn');
+  const navDrawer=document.getElementById('nav-drawer');
+  const navBackdrop=document.getElementById('nav-backdrop');
+  function setNavDrawer(open,refocus=true){
+    navDrawer.classList.toggle('open',open);
+    navBackdrop.classList.toggle('open',open);
+    navBtn.setAttribute('aria-expanded',String(open));
+    navDrawer.setAttribute('aria-hidden',String(!open));
+    document.body.classList.toggle('nav-locked',open);
+    if(open) document.getElementById('nav-drawer-close').focus();
+    else if(refocus) navBtn.focus();
+  }
+  navBtn.addEventListener('click',()=>setNavDrawer(!navDrawer.classList.contains('open')));
+  navBackdrop.addEventListener('click',()=>setNavDrawer(false));
+  document.getElementById('nav-drawer-close').addEventListener('click',()=>setNavDrawer(false));
+  navDrawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setNavDrawer(false,false)));
+
   document.addEventListener('keydown',e=>{
     if(e.key!=='Escape') return;
+    if(navDrawer.classList.contains('open')) setNavDrawer(false);
     closeCityModal();
     if(selectedMapCity){selectedMapCity=null; updateMap();}
   });
