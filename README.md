@@ -20,7 +20,7 @@ pytest
 ## מבנה הפרויקט
 - `scripts/normalize.py` — לוגיקת ניקוי מבני, איחוד שמות אישים הפוכים, וסיווג מגזרי לפי הלמ״ס
 - `scripts/build_data.py` — הורדת נתונים, נרמול, הסרת כפילויות וחישוב מדדי נדירות
-- `scripts/build_mazal_aliases.py` — בניית מפת כינויים מבוקרת מ-Wikidata (מזהי J9U / מז״ל) + עקיפות ידניות
+- `scripts/build_mazal_aliases.py` — בניית מפת כינויים מבוקרת ישירות מרשומות מז״ל (MARC21 XML ב־`iiif.nli.org.il/IIIFv21/marc/authority/{J9U}`) + Wikidata `P8189` + VIAF `J9U` + הרחבת נרדפות ב־NLI API (`NLI_API_KEY`) + עקיפות ידניות
 - `data/mazal_aliases.json` — מפת כינויים מבוקרת ומנורמלת
 - `tests/test_normalize.py` — בדיקות יחידה ובדיקות תקינות מתמטית לנתונים
 - `.github/workflows/update-data.yml` — Action שנתי (1 בינואר) + הפעלה ידנית

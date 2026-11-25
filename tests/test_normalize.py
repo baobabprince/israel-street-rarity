@@ -120,20 +120,56 @@ def test_classify_sector_cbs():
 
 def test_aliases_hygiene():
     aliases = load_aliases(ROOT / "data" / "mazal_aliases.json")
-    assert len(aliases) > 200
-    # Infamous false merges from old Wikidata pull must NEVER return
-    for bad in ("צבר", "הצבר", "ירמיהו", "יעל", "דניאל", "אהוד מנור", "המהנדס", "אשוח", "הגל", "המפל", "שני", "נועה", "נטע", "עוז", "אילן", "שמעון מזרחי", "אלי מויאל"):
+    assert len(aliases) > 2000
+    # Infamous false merges from old Wikidata pull & audited MAZAL 400 traps must NEVER return
+    for bad in (
+        "צבר", "הצבר", "ירמיהו", "יעל", "דניאל", "אהוד מנור", "המהנדס",
+        "אשוח", "הגל", "המפל", "שני", "נועה", "נטע", "עוז", "אילן",
+        "שמעון מזרחי", "אלי מויאל",
+        "נתניהו", "ישורון", "אלמגור", "תדמור", "יהל״ם", "צפירה",
+        "חיים כהן", "כהן חיים", "השופט חיים כהן", "בן אליעזר", "בן זאב", "בן אריה",
+        "עלית הנוער", "קרן קימת לישראל", "נחל איילון", "הרצוג",
+    ):
         assert bad not in aliases, f"Unsafe alias key {bad!r} should not be in mazal_aliases.json"
-    # Key corrections
+    # Key corrections & MAZAL MARC21 100/400 resolutions
     assert aliases.get("טרומפלדור") == "יוסף טרומפלדור"
     assert aliases.get("פינסקר") == "יהודה לייב פינסקר"
     assert aliases.get("ויצמן") == "חיים ויצמן"
     assert aliases.get("עזר וייצמן") == "עזר ויצמן"
+    assert aliases.get("טשרניחובסקי") == "שאול טשרניחובסקי"
+    assert aliases.get("חזון איש") == "אברהם ישעיהו קרליץ"
+    assert aliases.get("חפץ חיים") == "ישראל מאיר הכהן"
+    assert aliases.get("בית יוסף") == "יוסף קארו"
+    assert aliases.get("הרא״ה") == "אברהם יצחק הכהן קוק"
+    assert aliases.get("ג׳בראן ח׳ליל ג׳בראן") == "ג׳ובראן ח׳ליל ג׳ובראן"
+    assert aliases.get("איבן ח׳לדון") == "אבן ח׳לדון"
+    assert aliases.get("הרב הרצוג") == "יצחק אייזיק הלוי הרצוג"
+    assert aliases.get("הנשיא הרצוג") == "חיים הרצוג"
     # No NLI catalog commas/years or un-unified punctuation
     for k, v in aliases.items():
         assert "," not in v, f"Catalog-style comma in alias value: {v!r}"
         assert k == unify_punctuation(k)
         assert v == unify_punctuation(v)
+
+
+def test_mazal_marc_heading_parser():
+    from build_mazal_aliases import marc_heading_to_variants
+
+    fulls, surnames = marc_heading_to_variants("קארו, יוסף בן אפרים,")
+    assert "יוסף קארו" in fulls
+    assert "קארו יוסף" in fulls
+    assert "יוסף בן אפרים קארו" in fulls
+    # Short 4-char surnames are intentionally excluded from bare-surname candidates
+    assert "קארו" not in surnames
+
+    fulls_t, surnames_t = marc_heading_to_variants("טשרניחובסקי, שאול,")
+    assert "שאול טשרניחובסקי" in fulls_t
+    assert "טשרניחובסקי שאול" in fulls_t
+    assert "טשרניחובסקי" in surnames_t
+
+    fulls2, surnames2 = marc_heading_to_variants("בית יוסף (קארו)")
+    assert "בית יוסף" in fulls2
+    assert surnames2 == set()
 
 
 def test_generated_data_integrity_and_sector_fixes():

@@ -1,14 +1,14 @@
 {
-  "updated_at": "2026-11-23",
+  "updated_at": "2026-11-25",
   "rows_raw": 63662,
   "unique_raw": 31743,
   "rows_placeholder_9000": 1316,
   "rows_after_numeric_filter": 59320,
   "unique_after_numeric_filter": 29112,
-  "rows_after_normalize": 57728,
-  "rows_intra_city_dups_removed": 1506,
-  "unique_after_normalize": 23507,
-  "pure_exclusive_names": 17347,
+  "rows_after_normalize": 57720,
+  "rows_intra_city_dups_removed": 1514,
+  "unique_after_normalize": 23152,
+  "pure_exclusive_names": 17010,
   "places_in_ranking": 193,
   "sector_counts": {
     "ערבי": 71,
@@ -17,8 +17,8 @@
   },
   "min_streets": 5,
   "places_dropped_lt_min_streets": 3,
-  "mazal_aliases_count": 733,
-  "reversed_pairs_merged": 235,
+  "mazal_aliases_count": 3341,
+  "reversed_pairs_merged": 47,
   "idf_corpus_localities": 817,
   "sector_source": "CBS official דת יישוב (1=יהודי, 2=ערבי כולל דרוזים וצ׳רקסים, 4=מעורב)",
   "normalize_mode": "structural + dedup per city + reversed person names + cleaned mazal_aliases (no auto definite-article strip)",
@@ -122,14 +122,14 @@
       "weight_norm_idf": 0.331
     },
     {
-      "name": "הדס",
+      "name": "אלון",
       "n_places": 85,
       "weight_log": 0.156,
       "weight_sqrt": 0.108,
       "weight_norm_idf": 0.337
     },
     {
-      "name": "אלון",
+      "name": "הדס",
       "n_places": 85,
       "weight_log": 0.156,
       "weight_sqrt": 0.108,
@@ -157,14 +157,14 @@
       "weight_norm_idf": 0.347
     },
     {
-      "name": "השיטה",
+      "name": "דולב",
       "n_places": 77,
       "weight_log": 0.159,
       "weight_sqrt": 0.114,
       "weight_norm_idf": 0.352
     },
     {
-      "name": "דולב",
+      "name": "השיטה",
       "n_places": 77,
       "weight_log": 0.159,
       "weight_sqrt": 0.114,
