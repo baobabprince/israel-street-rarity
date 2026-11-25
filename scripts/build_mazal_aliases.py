@@ -288,7 +288,93 @@ CURATED_OVERRIDES: dict[str, str] = {
     "ישראל אלתר": "ישראל אלתר",
     "שאגת אריה": "אריה לייב שלוסברג",
     "אריה לייב שלוסברג": "אריה לייב שלוסברג",
+    # Verified MAZAL non-human proper-noun entities (military, Zionist orgs, wars, historical events)
+    "צה״ל": "צבא הגנה לישראל",
+    "צהל": "צבא הגנה לישראל",
+    "צבא הגנה לישראל": "צבא הגנה לישראל",
+    "צבא ההגנה לישראל": "צבא הגנה לישראל",
+    "אצ״ל": "ארגון צבאי לאומי",
+    "האצ״ל": "ארגון צבאי לאומי",
+    "ארגון צבאי לאומי": "ארגון צבאי לאומי",
+    "הארגון הצבאי הלאומי": "ארגון צבאי לאומי",
+    "לח״י": "לוחמי חירות ישראל",
+    "הלח״י": "לוחמי חירות ישראל",
+    "לוחמי חרות ישראל": "לוחמי חירות ישראל",
+    "לוחמי חירות ישראל": "לוחמי חירות ישראל",
+    "פלמ״ח": "פלמ״ח",
+    "הפלמ״ח": "פלמ״ח",
+    "הפלמח": "פלמ״ח",
+    "פלוגות המחץ": "פלמ״ח",
+    "קק״ל": "קרן קיימת לישראל",
+    "קרן קימת": "קרן קיימת לישראל",
+    "קרן קיימת": "קרן קיימת לישראל",
+    "קרן קימת לישראל": "קרן קיימת לישראל",
+    "קרן קיימת לישראל": "קרן קיימת לישראל",
+    "הקרן הקיימת": "קרן קיימת לישראל",
+    "הקרן הקיימת לישראל": "קרן קיימת לישראל",
+    "מבצע קדש": "מלחמת סיני",
+    "מלחמת סיני": "מלחמת סיני",
+    "מבצע יונתן": "מבצע אנטבה",
+    "מבצע יהונתן": "מבצע אנטבה",
+    "מבצע אנטבה": "מבצע אנטבה",
+    "מלחמת השחרור": "מלחמת העצמאות",
+    "מלחמת הקוממיות": "מלחמת העצמאות",
+    "מלחמת העצמאות": "מלחמת העצמאות",
+    "יציאת אירופה": "אקסודוס",
+    "אקסודוס": "אקסודוס",
+    "חיבת ציון": "חובבי ציון",
+    "חובבי ציון": "חובבי ציון",
+    "הגדוד העברי": "הגדודים העבריים",
+    "הגדודים העבריים": "הגדודים העבריים",
+    "מורדי הגיטאות": "מורדי הגטאות",
+    "מורדי הגטאות": "מורדי הגטאות",
+    "חג האילנות": "ט״ו בשבט",
+    "ט״ו בשבט": "ט״ו בשבט",
+    "י״א חללי מינכן": "י״א חללי מינכן",
+    "י״א הספורטאים": "י״א חללי מינכן",
+    "טבח הספורטאים באולימפיאדת מינכן": "י״א חללי מינכן",
+    "הר כרמל": "הכרמל",
+    "הר הכרמל": "הכרמל",
+    "הכרמל": "הכרמל",
+    "ילדי טהרן": "ילדי טהראן",
+    "ילדי טהראן": "ילדי טהראן",
 }
+
+# Pure ktiv-male-chaser (יי/י, וו/ו) homograph pairs that have DIFFERENT meanings in Hebrew
+_KTIV_HOMOGRAPHS: frozenset[str] = frozenset({
+    "השיירה", "השירה",
+    "שיטים", "שייטים",
+    "השניים", "השנים",
+    "החייל", "החיל",
+    "קוורץ", "קורץ",
+    "לוין", "לווין",
+    "ביירות", "בירות",
+    "כוכב", "כווכב",
+})
+
+_SAFE_NODOT_ACRONYMS: frozenset[str] = frozenset({
+    "הפלמח", "פלמח", "נילי", "בילו", "קקל", "הקקל", "אצל", "האצל", "צהל",
+    "ויצו", "נעמת", "מפם", "פיקא", "קליה", "ייטב", "דובב",
+})
+
+_NONHUMAN_BLOCKED_VARIANTS: frozenset[str] = frozenset({
+    "מע״ר", "ר״ם", "א״ב", "אפקים", "גרניום", "מודיעין", "בירות",
+    "להקת חלב ודבש", "עם כלביא", "בית הבחירה", "יפה נוף", "העמק",
+    "אייר", "איה", "האור", "עציון", "עכא", "כוכב הים", "עירייה",
+    "ניצה", "שחם", "תאשור", "לבנדר", "הלבנה", "סהר", "נרד",
+    "גבעת רמב״ם", "עין חי", "בית חזון", "קריה נאמנה", "נח״ל נמרוד",
+    "הנחל", "האגם", "האילן", "החיל",
+})
+
+_GEO_PREFIXES: frozenset[str] = frozenset({
+    "קרית", "קריית", "רמת", "נווה", "נוה", "גבעת", "תל", "כפר",
+    "עין", "באר", "נחל", "עמק", "הר", "מבצע", "חטיבת",
+})
+
+_INST_PREFIXES: frozenset[str] = frozenset({
+    "מכון", "ישיבת", "ישיבות", "מועצה", "בית", "קניון", "תיכון",
+    "המכללה", "חסידות", "שכונת",
+})
 
 # Reject NLI catalog-style labels like "להט, ציון בן רצון, 1947-"
 _CATALOG_LABEL_RE = re.compile(r",|\d{4}")
@@ -501,8 +587,199 @@ def resolve_wikidata_batch(names: list[str]) -> dict[str, list[dict[str, Any]]] 
     }
 
 
+def marc_nonhuman_to_variants(tag: str, subfields: list[tuple[str, str]]) -> set[str]:
+    """Extract clean Hebrew street-name variants from MARC21 110/111/130/150/151/410/411/430/450/451."""
+    variants: set[str] = set()
+    by_code: dict[str, list[str]] = defaultdict(list)
+    for code, val in subfields:
+        if val and val.strip():
+            by_code[code].append(val.strip())
+
+    # If a 150/151/450/451 has subject subdivisions ($x/$y/$z), NEVER emit bare $a (e.g. "ישראל")!
+    # Instead emit the chronological/topical subdivision if it stands alone (e.g. "מלחמת העצמאות, 1948-1949").
+    if tag in ("150", "151", "450", "451") and (by_code.get("x") or by_code.get("y") or by_code.get("z")):
+        for sub in by_code.get("y", []):
+            s = re.sub(r",?\s*\d{3,4}(?:-\d{0,4})?\.?$", "", sub).strip().rstrip(",;:. ")
+            s = _PAREN_RE.sub("", s).strip()
+            u = unify_punctuation(s)
+            if len(u) >= 3 and len(u.split()) >= 2 and not _CATALOG_LABEL_RE.search(u):
+                variants.add(u)
+        return variants
+
+    # For corporate bodies (110/410) with subordinate units ($b), e.g. "ישראל. $b צה"ל. $b חטיבת גולני"
+    if tag in ("110", "410") and by_code.get("b"):
+        leaf = by_code["b"][-1]
+        s = _PAREN_RE.sub("", leaf).strip().rstrip(",;:. ")
+        s = re.sub(r",?\s*\d{3,4}(?:-\d{0,4})?\.?$", "", s).strip()
+        u = unify_punctuation(s)
+        # Skip generic sub-departments like "הלשכה הראשית", "צבא", "מחלקה", "ועד"
+        if u and len(u) >= 3 and not _CATALOG_LABEL_RE.search(u):
+            if "״" in u or len(u.split()) >= 2:
+                variants.add(u)
+        return variants
+
+    # Standard $a heading
+    for raw_a in by_code.get("a", []):
+        s = _PAREN_RE.sub("", raw_a).strip().rstrip(",;:. ")
+        s = re.sub(r",?\s*\d{3,4}(?:-\d{0,4})?\.?$", "", s).strip().rstrip(", ")
+        if not s or "," in s:
+            continue
+        u = unify_punctuation(s)
+        if len(u) >= 3 and not _CATALOG_LABEL_RE.search(u):
+            variants.add(u)
+    return variants
+
+
+def resolve_wikidata_nonhuman_batch(names: list[str]) -> dict[str, list[dict[str, Any]]] | None:
+    """Resolve Hebrew names to non-human Wikidata entities with NLI J9U ID (P8189) + sitelinks."""
+    if not names:
+        return {}
+    values = " ".join(f'"{escape_literal(n)}"@he' for n in names)
+    q = f"""
+    SELECT ?q ?qid ?j9u ?pref ?sitelinks WHERE {{
+      VALUES ?q {{ {values} }}
+      {{ ?item rdfs:label ?q }} UNION {{ ?item skos:altLabel ?q }}
+      ?item wdt:P8189 ?j9u.
+      FILTER NOT EXISTS {{ ?item wdt:P31 wd:Q5 }}
+      ?item rdfs:label ?pref. FILTER(LANG(?pref) = "he")
+      OPTIONAL {{ ?item wikibase:sitelinks ?sitelinks. }}
+      BIND(STRAFTER(STR(?item), "entity/") AS ?qid)
+    }}
+    """
+    rows = sparql_query(q)
+    if rows is None:
+        return None
+    by_q: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
+    for b in rows:
+        qv_raw = b["q"]["value"]
+        qv = unify_punctuation(qv_raw)
+        qid = b.get("qid", {}).get("value", "")
+        j9u = b.get("j9u", {}).get("value", "")
+        pref = unify_punctuation(b["pref"]["value"])
+        sl = int(b.get("sitelinks", {}).get("value", "0") or "0")
+        if qv and qid and j9u and pref:
+            for key in {qv_raw, qv}:
+                prev = by_q[key].get(qid)
+                if not prev or (j9u.startswith("987007") and not prev["j9u"].startswith("987007")):
+                    by_q[key][qid] = {"qid": qid, "j9u": j9u, "pref": pref, "sitelinks": sl}
+
+    return {
+        k: sorted(v.values(), key=lambda x: -x["sitelinks"])
+        for k, v in by_q.items()
+    }
+
+
+def _edit_distance(a: str, b: str) -> int:
+    if len(a) < len(b):
+        a, b = b, a
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        curr = [i]
+        for j, cb in enumerate(b, 1):
+            curr.append(min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + (ca != cb)))
+        prev = curr
+    return prev[-1]
+
+
+def clean_nonhuman_label(label: str) -> str:
+    """Clean Wikidata/MAZAL non-human display label (strip parentheticals and decorative quotes)."""
+    s = _PAREN_RE.sub("", label).strip()
+    if s.count("׳") == 2:
+        s = s.replace("׳", "").strip()
+    return unify_punctuation(s)
+
+
+def _is_plural_or_taxon_pair(v: str, p: str) -> bool:
+    """Return True if two single-word Hebrew nouns differ only by singular/plural or biological family suffix."""
+    if len(v.split()) == 1 and len(p.split()) == 1:
+        for a, b in ((v, p), (p, v)):
+            if a + "ים" == b or a + "ות" == b or a + "יים" == b or a + "אים" == b:
+                return True
+            if a.endswith("ה") and (a[:-1] + "ות" == b or a[:-1] + "יות" == b or a[:-1] + "ים" == b):
+                return True
+            if a.endswith("ית") and a[:-2] + "יות" == b:
+                return True
+            if a.endswith("י") and (a + "ים" == b or a + "ות" == b):
+                return True
+            if (b.endswith("יים") or b.endswith("אים")) and not (a.endswith("יים") or a.endswith("אים")):
+                return True
+    return False
+
+
+def _norm_content_tokens(s: str) -> set[str]:
+    out: set[str] = set()
+    for t in spelling_skeleton(s).split():
+        if t.startswith("ה") and len(t) >= 4:
+            t = t[1:]
+        if len(t) >= 2:
+            out.add(t)
+    return out
+
+
+def is_safe_nonhuman_alias(variant: str, preferred: str, source: str = "") -> bool:
+    """High-precision validator for non-human MAZAL entity mappings (orgs, units, events, places)."""
+    v = unify_punctuation(variant)
+    p = clean_nonhuman_label(preferred)
+    if not v or not p or v in BLOCKED_KEYS or p in BLOCKED_KEYS or v in _NONHUMAN_BLOCKED_VARIANTS:
+        return False
+    if _CATALOG_LABEL_RE.search(p) or re.search(r"[A-Za-z]", p):
+        return False
+    if v == p:
+        return True
+    # Never strip definite article ה on bare single-word non-acronym common nouns (e.g. הזית <-> זית)
+    if len(v.split()) == 1 and len(p.split()) == 1 and "״" not in v and "״" not in p:
+        if v == "ה" + p or p == "ה" + v:
+            return False
+    if _is_plural_or_taxon_pair(v, p):
+        return False
+
+    # Gershayim-less official acronyms: only allow explicitly safe non-common-word acronyms
+    if source == "mazal_nonhuman_acronym":
+        return v in _SAFE_NODOT_ACRONYMS
+
+    sv, sp = spelling_skeleton(v), spelling_skeleton(p)
+
+    # Type 1: Official acronym (with ״) <-> full entity name or spelling variant
+    if "״" in v:
+        return len(v) >= 3
+    if "״" in p:
+        # When ״ is only in preferred (not variant), require skeleton/token relation so unrelated places never merge
+        if sv == sp or sv == sp.lstrip("ה") or ("ה" + sv == sp):
+            return True
+        if v in _SAFE_NODOT_ACRONYMS:
+            return True
+        vt, pt = _norm_content_tokens(v), _norm_content_tokens(p)
+        return bool(vt and pt and (len(vt & pt) / max(len(vt), len(pt)) >= 0.5))
+
+    # Type 2a: Exact spelling skeleton match (ktiv male/chaser, double yod/vav, geresh)
+    if sv == sp:
+        return True
+
+    # Type 2b: Single-word orthographic / transliteration variant (edit distance <= 1, len >= 5, same initial)
+    if len(v.split()) == 1 and len(p.split()) == 1:
+        return len(v) >= 5 and len(p) >= 5 and v[0] == p[0] and _edit_distance(sv, sp) <= 1
+
+    # Type 2c: Multi-word overlap >= 65% with institutional & geographic prefix guards
+    if len(v.split()) == 1 and len(p.split()) >= 2:
+        return False
+    vt, pt = _norm_content_tokens(v), _norm_content_tokens(p)
+    if not vt or not pt:
+        return False
+    if len(vt & pt) / max(len(vt), len(pt)) < 0.65:
+        return False
+    vp0, pp0 = v.split()[0], p.split()[0]
+    if pp0 in _INST_PREFIXES and vp0 not in _INST_PREFIXES:
+        return False
+    if vp0 in _GEO_PREFIXES and pp0 in _GEO_PREFIXES and spelling_skeleton(vp0) == spelling_skeleton(pp0):
+        vr = _norm_content_tokens(" ".join(v.split()[1:]))
+        pr = _norm_content_tokens(" ".join(p.split()[1:]))
+        if not (vr & pr):
+            return False
+    return True
+
+
 def fetch_mazal_marc(j9u: str) -> dict[str, Any] | None:
-    """Fetch and parse a live MARC21 Authority XML record from NLI MAZAL.
+    """Fetch and parse a live MARC21 Authority XML record from NLI MAZAL (both 100/400 humans & 110/111/130/150/151 non-humans).
 
     Returns {'not_found': True} on HTTP 404, parsed dict on 200, or None on transient failure.
     """
@@ -511,7 +788,7 @@ def fetch_mazal_marc(j9u: str) -> dict[str, Any] | None:
         try:
             r = requests.get(url, headers=UA_HTTP, timeout=20)
             if r.status_code == 404:
-                return {"j9u": j9u, "not_found": True, "h100": [], "h400": [], "h700": []}
+                return {"j9u": j9u, "not_found": True, "h100": [], "h400": [], "h700": [], "other_variants": []}
             if r.status_code in (429, 502, 503, 504):
                 time.sleep(1.5 * (attempt + 1))
                 continue
@@ -520,12 +797,15 @@ def fetch_mazal_marc(j9u: str) -> dict[str, Any] | None:
             h100: list[dict[str, str]] = []
             h400: list[dict[str, str]] = []
             h700: list[dict[str, str]] = []
+            other_1xx: list[str] = []
+            other_4xx: list[str] = []
             wikidata_id: str | None = None
             viaf_id: str | None = None
             death_date: str | None = None
             for df in root.findall(f".//{MARC_NS}datafield"):
                 tag = df.attrib.get("tag")
-                sfs = {sf.attrib.get("code"): (sf.text or "") for sf in df}
+                sf_list = [(sf.attrib.get("code") or "", sf.text or "") for sf in df]
+                sfs = dict(sf_list)
                 if tag == "024":
                     src = sfs.get("2", "").lower()
                     if src == "wikidata" and sfs.get("a"):
@@ -542,6 +822,10 @@ def fetch_mazal_marc(j9u: str) -> dict[str, Any] | None:
                         h400.append(entry)
                     else:
                         h700.append(entry)
+                elif tag in ("110", "111", "130", "150", "151") and sfs.get("9") == "heb":
+                    other_1xx.extend(sorted(marc_nonhuman_to_variants(tag, sf_list)))
+                elif tag in ("410", "411", "430", "450", "451") and sfs.get("9") == "heb":
+                    other_4xx.extend(sorted(marc_nonhuman_to_variants(tag, sf_list)))
             return {
                 "j9u": j9u,
                 "wikidata": wikidata_id,
@@ -550,6 +834,8 @@ def fetch_mazal_marc(j9u: str) -> dict[str, Any] | None:
                 "h100": h100,
                 "h400": h400,
                 "h700": h700,
+                "other_1xx": list(dict.fromkeys(other_1xx)),
+                "other_4xx": list(dict.fromkeys(other_4xx)),
             }
         except Exception:
             time.sleep(1.0 * (attempt + 1))
@@ -674,6 +960,7 @@ def main() -> None:
 
     cache = load_cache(args.cache)
     cache.setdefault("wikidata", {})
+    cache.setdefault("wikidata_nonhuman", {})
     cache.setdefault("marc", {})
     cache.setdefault("viaf", {})
     cache.setdefault("nli_api", {})
@@ -1114,6 +1401,232 @@ def main() -> None:
             "cities": city_counts.get(name, 0),
             "source": match_provenance.get(name, "unknown"),
         })
+
+    # Stage 6: Non-human MAZAL authorities (organizations, military units, places, wars, events, works)
+    nh_lookup_to_orig: dict[str, set[str]] = defaultdict(set)
+
+    def add_nh_lookup(lk: str, orig: str) -> None:
+        nh_lookup_to_orig[lk].add(orig)
+        aq = to_ascii_quotes(lk)
+        if aq != lk:
+            nh_lookup_to_orig[aq].add(orig)
+
+    for n in sorted(corpus_names):
+        if n in resolved or n in BLOCKED_KEYS:
+            continue
+        add_nh_lookup(n, n)
+        # Allow definite-article stripping for lookup on acronyms ("הפלמ״ח" -> "פלמ״ח") & multi-word orgs/events
+        if n.startswith("ה") and len(n) >= 4 and ("״" in n or len(n.split()) >= 2):
+            add_nh_lookup(n[1:], n)
+
+    nh_all_lookups = sorted(nh_lookup_to_orig.keys())
+    missing_nh = [k for k in nh_all_lookups if k not in cache["wikidata_nonhuman"]]
+    print(f"6. Non-human MAZAL (P8189) lookup: {len(nh_all_lookups)} keys ({len(missing_nh)} uncached)…", flush=True)
+    if missing_nh:
+        total_b = (len(missing_nh) + SPARQL_BATCH - 1) // SPARQL_BATCH
+        for i in range(0, len(missing_nh), SPARQL_BATCH):
+            batch = missing_nh[i : i + SPARQL_BATCH]
+            res = resolve_wikidata_nonhuman_batch(batch)
+            if res is not None:
+                for k in batch:
+                    cache["wikidata_nonhuman"][k] = res.get(k, [])
+            if (i // SPARQL_BATCH + 1) % 20 == 0 or i + SPARQL_BATCH >= len(missing_nh):
+                print(f"   Non-human SPARQL batch {i // SPARQL_BATCH + 1}/{total_b} done", flush=True)
+                save_cache(args.cache, cache)
+            time.sleep(SPARQL_SLEEP)
+        save_cache(args.cache, cache)
+
+    nh_entities: dict[str, dict[str, Any]] = {}
+    nh_corpus_to_j9u: dict[str, set[str]] = defaultdict(set)
+    nh_provenance: dict[str, str] = {}
+
+    for lk, orig_names in nh_lookup_to_orig.items():
+        cands = cache["wikidata_nonhuman"].get(lk, [])
+        if not cands:
+            continue
+        chosen = None
+        if len(cands) == 1:
+            chosen = cands[0]
+        else:
+            top, second = cands[0], cands[1]
+            if top["sitelinks"] >= 15 and top["sitelinks"] >= 4 * max(1, second["sitelinks"]):
+                chosen = top
+        if not chosen:
+            continue
+        j9u = chosen["j9u"]
+        ent = nh_entities.setdefault(j9u, {
+            "j9u": j9u,
+            "qid": chosen["qid"],
+            "wd_pref": chosen["pref"],
+            "sitelinks": chosen["sitelinks"],
+            "marc": None,
+        })
+        if chosen["sitelinks"] > ent["sitelinks"]:
+            ent["sitelinks"] = chosen["sitelinks"]
+            ent["wd_pref"] = chosen["pref"]
+        for orig in orig_names:
+            if orig in resolved or orig in BLOCKED_KEYS:
+                continue
+            if is_safe_nonhuman_alias(orig, chosen["pref"]):
+                nh_corpus_to_j9u[orig].add(j9u)
+                nh_provenance.setdefault(orig, "mazal_nonhuman_wd")
+
+    print(f"   Discovered {len(nh_entities)} non-human MAZAL J9U entities", flush=True)
+
+    # Fetch live MAZAL MARC21 (110/111/130/150/151 + 4xx) for non-human entities
+    nh_j9us = sorted(nh_entities.keys())
+    missing_nh_marc = [
+        j for j in nh_j9us
+        if cache["marc"].get(j) is None or "other_1xx" not in cache["marc"].get(j, {})
+    ]
+    print(f"   Fetching live MAZAL MARC21 for non-humans: {len(nh_j9us)} total ({len(missing_nh_marc)} uncached)…", flush=True)
+    if missing_nh_marc:
+        done_nh = 0
+        with ThreadPoolExecutor(max_workers=MARC_WORKERS) as ex:
+            futs = {ex.submit(fetch_mazal_marc, j): j for j in missing_nh_marc}
+            for fut in as_completed(futs):
+                j = futs[fut]
+                res = fut.result()
+                if res is not None:
+                    cache["marc"][j] = res
+                done_nh += 1
+                if done_nh % 100 == 0 or done_nh == len(missing_nh_marc):
+                    print(f"   Non-human MAZAL MARC fetched {done_nh}/{len(missing_nh_marc)}", flush=True)
+                    save_cache(args.cache, cache)
+        save_cache(args.cache, cache)
+
+    nh_variant_to_j9us: dict[str, set[str]] = defaultdict(set)
+    nh_acronym_skels: dict[str, set[str]] = defaultdict(set)
+    for j9u, ent in nh_entities.items():
+        marc = cache["marc"].get(j9u) or {}
+        ent["marc"] = marc
+        variants = set(marc.get("other_1xx", [])) | set(marc.get("other_4xx", []))
+        if ent["wd_pref"]:
+            variants.add(ent["wd_pref"])
+        for v in list(variants):
+            nh_variant_to_j9us[v].add(j9u)
+            if "״" in v:
+                # Allow definite-article + gershayim-less variants of official MAZAL acronyms (e.g. פלמ״ח -> הפלמ״ח, הפלמח, פלמח)
+                bare = v[1:] if v.startswith("ה") else v
+                for form in (bare, "ה" + bare):
+                    nh_variant_to_j9us[form].add(j9u)
+                    skel = form.replace("״", "").replace("׳", "")
+                    if len(skel) >= 4:
+                        nh_acronym_skels[skel].add(j9u)
+
+    def is_ambiguous_nonhuman(name: str) -> bool:
+        for f in {name, to_ascii_quotes(name)}:
+            cands = cache["wikidata_nonhuman"].get(f, [])
+            if len(cands) >= 2:
+                top, second = cands[0], cands[1]
+                if not (top["sitelinks"] >= 15 and top["sitelinks"] >= 4 * max(1, second["sitelinks"])):
+                    return True
+        return False
+
+    nh_marc_hits = 0
+    for variant, jset in nh_variant_to_j9us.items():
+        if len(jset) != 1:
+            continue
+        j9u = next(iter(jset))
+        pref = nh_entities[j9u]["wd_pref"]
+        if not pref or _CATALOG_LABEL_RE.search(pref):
+            continue
+        # Exact corpus match
+        if variant in corpus_names and variant not in resolved and variant not in BLOCKED_KEYS:
+            if not is_ambiguous_nonhuman(variant) and is_safe_nonhuman_alias(variant, pref):
+                if j9u not in nh_corpus_to_j9u[variant]:
+                    nh_corpus_to_j9u[variant].add(j9u)
+                    nh_provenance.setdefault(variant, "mazal_nonhuman_marc")
+                    nh_marc_hits += 1
+        # Multi-word spelling skeleton match (e.g. "קרן קימת לישראל" <-> "קרן קיימת לישראל", "עליית הנוער" <-> "עלית הנוער")
+        if len(variant.split()) >= 2:
+            skel = spelling_skeleton(variant)
+            if len(skel) >= 6:
+                for orig in corpus_by_skel.get(skel, ()):
+                    if (
+                        len(orig.split()) >= 2
+                        and orig not in resolved
+                        and orig not in BLOCKED_KEYS
+                        and not is_ambiguous_nonhuman(orig)
+                        and is_safe_nonhuman_alias(orig, pref)
+                        and j9u not in nh_corpus_to_j9u[orig]
+                    ):
+                        nh_corpus_to_j9u[orig].add(j9u)
+                        nh_provenance.setdefault(orig, "mazal_nonhuman_spelling")
+                        nh_marc_hits += 1
+
+    # Gershayim-less official MAZAL acronyms (e.g. "הפלמח" -> "פלמ״ח", "נילי" -> "ניל״י", "בילו" -> "ביל״ו")
+    for skel, jset in nh_acronym_skels.items():
+        if len(jset) != 1 or skel not in corpus_names or skel in resolved or skel in BLOCKED_KEYS:
+            continue
+        j9u = next(iter(jset))
+        pref = nh_entities[j9u]["wd_pref"]
+        if pref and not _CATALOG_LABEL_RE.search(pref) and not is_ambiguous_nonhuman(skel):
+            if j9u not in nh_corpus_to_j9u[skel]:
+                nh_corpus_to_j9u[skel].add(j9u)
+                nh_provenance.setdefault(skel, "mazal_nonhuman_acronym")
+                nh_marc_hits += 1
+
+    print(f"   Non-human MAZAL MARC21 intersection added {nh_marc_hits} corpus links", flush=True)
+
+    for name, jset in sorted(nh_corpus_to_j9u.items()):
+        if len(jset) != 1 or name in resolved:
+            continue
+        j9u = next(iter(jset))
+        pref = clean_nonhuman_label(nh_entities[j9u]["wd_pref"])
+        if not pref or _CATALOG_LABEL_RE.search(pref):
+            continue
+        src = nh_provenance.get(name, "mazal_nonhuman_wd")
+        if not is_safe_nonhuman_alias(name, pref, source=src):
+            continue
+        resolved[name] = pref
+        audit_rows.append({
+            "variant": name,
+            "preferred": pref,
+            "j9u": j9u,
+            "cities": city_counts.get(name, 0),
+            "source": src,
+        })
+
+    # Stage 7: Pure Hebrew ktiv-male-chaser (יי/י, וו/ו) unification for remaining corpus duplicates
+    ktiv_groups: dict[str, list[str]] = defaultdict(list)
+    for n in sorted(corpus_names):
+        if len(n) < 4 or "״" in n or n in _KTIV_HOMOGRAPHS:
+            continue
+        kkey = n.replace("יי", "י").replace("וו", "ו")
+        ktiv_groups[kkey].append(n)
+
+    ktiv_hits = 0
+    for kkey, members in sorted(ktiv_groups.items()):
+        if len(members) < 2:
+            continue
+        # Only consider groups where every member has len >= 4 and none is a known homograph
+        if any(m in _KTIV_HOMOGRAPHS for m in members):
+            continue
+        # If any member already resolved to a canonical entity, check if all resolved members agree
+        existing_targets = {resolved[m] for m in members if m in resolved}
+        if len(existing_targets) > 1:
+            continue
+        if len(existing_targets) == 1:
+            canon = next(iter(existing_targets))
+        else:
+            # Prefer the highest-frequency form in the Israeli street corpus
+            canon = max(members, key=lambda x: (city_counts.get(x, 0), len(x), x))
+        for m in members:
+            if m in resolved or m == canon:
+                continue
+            if m in BLOCKED_KEYS and m not in CURATED_OVERRIDES:
+                continue
+            resolved[m] = canon
+            audit_rows.append({
+                "variant": m,
+                "preferred": canon,
+                "j9u": "",
+                "cities": city_counts.get(m, 0),
+                "source": "ktiv_male_chaser",
+            })
+            ktiv_hits += 1
+    print(f"7. Pure Hebrew ktiv-male-chaser (יי/י, וו/ו) unification added {ktiv_hits} links", flush=True)
 
     # Apply curated overrides on top (highest authority)
     for k, v in CURATED_OVERRIDES.items():

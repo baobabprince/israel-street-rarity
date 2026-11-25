@@ -120,18 +120,23 @@ def test_classify_sector_cbs():
 
 def test_aliases_hygiene():
     aliases = load_aliases(ROOT / "data" / "mazal_aliases.json")
-    assert len(aliases) > 2000
-    # Infamous false merges from old Wikidata pull & audited MAZAL 400 traps must NEVER return
+    assert len(aliases) > 3500
+    # Infamous false merges from old Wikidata pull & audited MAZAL/ktiv traps must NEVER return
     for bad in (
         "צבר", "הצבר", "ירמיהו", "יעל", "דניאל", "אהוד מנור", "המהנדס",
         "אשוח", "הגל", "המפל", "שני", "נועה", "נטע", "עוז", "אילן",
         "שמעון מזרחי", "אלי מויאל",
         "נתניהו", "ישורון", "אלמגור", "תדמור", "יהל״ם", "צפירה",
         "חיים כהן", "כהן חיים", "השופט חיים כהן", "בן אליעזר", "בן זאב", "בן אריה",
-        "עלית הנוער", "קרן קימת לישראל", "נחל איילון", "הרצוג",
+        "הרצוג",
+        # Non-human & ktiv false-merge guards
+        "יפה נוף", "העמק", "הנחל", "האגם", "האילן", "החיל", "אייר", "איה",
+        "האור", "עציון", "עכא", "כוכב הים", "שחם", "תאשור", "לבנדר",
+        "השיירה", "השירה", "שיטים", "שייטים", "השניים", "השנים", "החייל",
+        "גבעת רמב״ם", "קרית חרושת", "קרית עמל", "רמת בית שמש",
     ):
         assert bad not in aliases, f"Unsafe alias key {bad!r} should not be in mazal_aliases.json"
-    # Key corrections & MAZAL MARC21 100/400 resolutions
+    # Key human MAZAL MARC21 100/400 resolutions
     assert aliases.get("טרומפלדור") == "יוסף טרומפלדור"
     assert aliases.get("פינסקר") == "יהודה לייב פינסקר"
     assert aliases.get("ויצמן") == "חיים ויצמן"
@@ -145,6 +150,21 @@ def test_aliases_hygiene():
     assert aliases.get("איבן ח׳לדון") == "אבן ח׳לדון"
     assert aliases.get("הרב הרצוג") == "יצחק אייזיק הלוי הרצוג"
     assert aliases.get("הנשיא הרצוג") == "חיים הרצוג"
+    # Key non-human MAZAL (110/150/151) & ktiv-male-chaser resolutions
+    assert aliases.get("צה״ל") == "צבא הגנה לישראל"
+    assert aliases.get("צבא ההגנה לישראל") == "צבא הגנה לישראל"
+    assert aliases.get("אצ״ל") == "ארגון צבאי לאומי"
+    assert aliases.get("האצ״ל") == "ארגון צבאי לאומי"
+    assert aliases.get("לח״י") == "לוחמי חירות ישראל"
+    assert aliases.get("הפלמ״ח") == "פלמ״ח"
+    assert aliases.get("הפלמח") == "פלמ״ח"
+    assert aliases.get("קק״ל") == "קרן קיימת לישראל"
+    assert aliases.get("קרן קימת לישראל") == "קרן קיימת לישראל"
+    assert aliases.get("מבצע קדש") == "מלחמת סיני"
+    assert aliases.get("מלחמת השחרור") == "מלחמת העצמאות"
+    assert aliases.get("עלית הנוער") == "עליית הנוער"
+    assert aliases.get("המיסדים") == "המייסדים"
+    assert aliases.get("הוורד") == "הורד"
     # No NLI catalog commas/years or un-unified punctuation
     for k, v in aliases.items():
         assert "," not in v, f"Catalog-style comma in alias value: {v!r}"
