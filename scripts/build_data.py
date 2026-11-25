@@ -31,6 +31,7 @@ from normalize import (  # noqa: E402
     is_placeholder_street,
     itm_to_wgs84,
     load_aliases,
+    make_street_cleaner,
     norm_idf_weight,
     structural_clean,
 )
@@ -183,7 +184,11 @@ def main() -> None:
     unique_after_numeric = int(after_num["שם_רחוב"].nunique())
 
     # 3. Structural clean + alias resolution + two-word reversed-name canonicalization
-    after_num["clean"] = after_num["שם_רחוב"].apply(structural_clean)
+    #    (the alias-aware cleaner rejoins "זאב (זבוטינסקי)" -> "זאב זבוטינסקי" instead of "זאב")
+    clean_street = make_street_cleaner(aliases)
+    after_num["clean"] = after_num["שם_רחוב"].apply(clean_street)
+    paren_names_joined = int((after_num["clean"] != after_num["שם_רחוב"].apply(structural_clean)).sum())
+    print(f"Rejoined {paren_names_joined} one-word names completed by a parenthetical")
     df = after_num[after_num["clean"].str.len() > 0].copy()
 
     # Pass 1: exact alias lookup
@@ -451,9 +456,10 @@ def main() -> None:
         "places_dropped_lt_min_streets": int(places_dropped),
         "mazal_aliases_count": len(aliases),
         "reversed_pairs_merged": len(reversed_map),
+        "paren_names_joined": paren_names_joined,
         "idf_corpus_localities": corpus_localities,
         "sector_source": "CBS official דת יישוב (1=יהודי, 2=ערבי כולל דרוזים וצ׳רקסים, 4=מעורב)",
-        "normalize_mode": "structural + dedup per city + reversed person names + cleaned mazal_aliases (no auto definite-article strip)",
+        "normalize_mode": "structural + parenthetical name rejoin + dedup per city + reversed person names + cleaned mazal_aliases (no auto definite-article strip)",
         "top_shared": top_shared,
     }
     (OUT / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")

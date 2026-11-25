@@ -15,7 +15,10 @@ from normalize import (  # noqa: E402
     is_numeric,
     is_placeholder_street,
     itm_to_wgs84,
+    build_given_names,
+    join_parenthetical_name,
     load_aliases,
+    make_street_cleaner,
     norm_idf_weight,
     structural_clean,
     unify_punctuation,
@@ -322,3 +325,43 @@ def test_generated_street_index_integrity():
         ranked = {row[0] for row in idx["loc"] if row[6]}
         data = json.loads(data_path.read_text(encoding="utf-8"))
         assert ranked == {d["code"] for d in data}
+
+
+def test_parenthetical_one_word_name_rejoin():
+    given = frozenset({"זאב", "משה", "מיכאל"})
+    known = frozenset({"עזר ויצמן", "ויצמן חיים"})
+    # Bare given name completed by a parenthetical surname
+    assert structural_clean("זאב (זבוטינסקי)", given, known) == "זאב זבוטינסקי"
+    assert structural_clean("שד משה (שלוש)", given, known) == "משה שלוש"
+    # Parenthetical is the given name -> natural "First Last" order
+    assert structural_clean("סיטרמן (מיכאל)", given, known) == "מיכאל סיטרמן"
+    # Known alias heading/variant wins even without a recognised given name
+    assert structural_clean("עזר(ויצמן)", given, known) == "עזר ויצמן"
+    assert structural_clean("ויצמן (חיים)", given, known) == "ויצמן חיים"
+    # Qualifiers, glosses, multi-word parts and letters keep being stripped
+    assert structural_clean("שכ יפו (דרום)", given, known) == "יפו"
+    assert structural_clean("ג'ת (בגליל)", given, known) == "ג׳ת"
+    assert structural_clean("צבעוני (טוליפ)", given, known) == "צבעוני"
+    assert structural_clean("שכ בנה ביתך (צפון)", given, known) == "בנה ביתך"
+    assert structural_clean("זאבי רחבעם (גנדי)", given, known) == "זאבי רחבעם"
+    assert structural_clean("דוד (העיר העתיקה)", given, known) == "דוד"
+    assert structural_clean("שכ דקר (יפו א')", given, known) == "דקר"
+    assert join_parenthetical_name("משה", "א׳", given, known) is None
+    # Without the alias-derived sets the legacy behaviour is unchanged
+    assert structural_clean("זאב (זבוטינסקי)") == "זאב"
+
+
+def test_alias_aware_cleaner_with_real_aliases():
+    aliases = load_aliases(ROOT / "data" / "mazal_aliases.json")
+    given = build_given_names(aliases)
+    for name in ("משה", "יוסף", "זאב", "מרדכי", "אהרון", "מיכאל"):
+        assert name in given, name
+    for not_name in ("בית", "נווה", "קריית", "צבעוני", "יפו", "דרום", "רבי"):
+        assert not_name not in given, not_name
+    clean = make_street_cleaner(aliases)
+    resolve = lambda raw: aliases.get(clean(raw), clean(raw))  # noqa: E731
+    assert resolve("זאב (זבוטינסקי)") == "זאב ז׳בוטינסקי"
+    assert resolve("שד רחבעם (זאבי)") == "רחבעם זאבי"
+    assert resolve("ויצמן (חיים)") == "חיים ויצמן"
+    assert clean("צבעוני (טוליפ)") == "צבעוני"
+    assert clean("שכ יפו (מרכז)") == "יפו"

@@ -7,7 +7,7 @@ import math
 import re
 from collections import Counter
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 # Hebrew niqqud / cantillation marks (intentionally excluding U+05BE maqaf ־)
 _NIQQUD_RE = re.compile(r"[\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7]")
@@ -47,6 +47,19 @@ _NON_PERSON_CONSTRUCT_WORDS: frozenset[str] = frozenset({
 _TITLE_PREFIX_WORDS: frozenset[str] = frozenset({"הרב", "רבי", "רב", "רבן", "רבנו", "הנשיא", "הברון"})
 _TITLE_SUFFIX_WORDS: frozenset[str] = frozenset({"המלך", "המלכה", "הנביא", "הנביאה", "המשוררת", "הכהן", "הגדול", "גאון"})
 
+# Words that make a trailing parenthetical a locational/descriptive qualifier, never part of a
+# person's name — "יפו (דרום)", "ג׳ת (בגליל)", "גאולי תימן (שיכון)" keep being stripped.
+_PAREN_QUALIFIER_WORDS: frozenset[str] = frozenset({
+    "צפון", "דרום", "מזרח", "מערב", "מרכז", "צפוני", "דרומי", "מזרחי", "מערבי", "מרכזי",
+    "צפונית", "דרומית", "מזרחית", "מערבית",
+    "ישן", "ישנה", "הישן", "הישנה", "חדש", "חדשה", "החדש", "החדשה", "עתיק", "העתיקה", "העתיק",
+    "עליון", "עליונה", "תחתון", "תחתונה", "שיכון", "שכונה", "שכ", "בגליל", "בנגב", "המושבה", "הכפר",
+})
+# One-word trailing parenthetical: "זאב (זבוטינסקי)", "עזר(ויצמן)", "יפו (דרום)"
+_TRAILING_PAREN_ONE_WORD_RE = re.compile(r"^(?P<out>[^\s()]+)\s*\((?P<in>[^\s()]+)\)$")
+# Hebrew given names are detected as the first word of >= this many multi-word alias headings
+GIVEN_NAME_MIN_HEADINGS = 3
+
 # Population Authority sentinel street code for "no street name / locality itself"
 PLACEHOLDER_STREET_CODE = 9000
 
@@ -81,8 +94,76 @@ def is_numeric(name: Any) -> bool:
     return bool(_NUMERIC_STREET_RE.match(s))
 
 
-def structural_clean(name: Any) -> str:
-    """Safe structural cleanup — no automatic definite-article (ה) stripping."""
+def build_given_names(aliases: dict[str, str], min_headings: int = GIVEN_NAME_MIN_HEADINGS) -> frozenset[str]:
+    """Hebrew given names, derived from the controlled alias map (no hardcoded name list).
+
+    A word counts as a given name when it is the first word of at least ``min_headings``
+    distinct multi-word preferred headings (e.g. "משה", "זאב", "אהרון"), excluding
+    geographic/construct words ("בית", "נווה", "קריית"…) and parenthetical qualifiers.
+    """
+    first = Counter(v.split()[0] for v in set(aliases.values()) if len(v.split()) >= 2)
+    return frozenset(
+        w for w, c in first.items()
+        if c >= min_headings
+        and len(w) >= 2
+        and w not in _NON_PERSON_CONSTRUCT_WORDS
+        and w not in _PAREN_QUALIFIER_WORDS
+        and w not in _TITLE_PREFIX_WORDS
+    )
+
+
+def join_parenthetical_name(
+    outside: str,
+    inside: str,
+    given_names: frozenset[str] | set[str] = frozenset(),
+    known_names: frozenset[str] | set[str] = frozenset(),
+) -> str | None:
+    """Rejoin a bare one-word person name whose other half was put in parentheses.
+
+    ``"זאב (זבוטינסקי)"`` must become ``"זאב זבוטינסקי"`` (→ alias "זאב ז׳בוטינסקי"), not ``"זאב"``,
+    which would wrongly count it as yet another generic "זאב" street. Returns the joined
+    two-word name, or ``None`` when the parenthetical should keep being stripped
+    (qualifiers like "(דרום)", glosses like "צבעוני (טוליפ)").
+
+    Joins only when both parts are single words and either
+      * the joined (or reversed) form is a known alias heading/variant, or
+      * one of the words is a Hebrew given name (see :func:`build_given_names`).
+    When only the parenthetical is a given name ("סיטרמן (מיכאל)") the result is put in
+    natural "First Last" order ("מיכאל סיטרמן").
+    """
+    a, b = outside.strip(), inside.strip()
+    if not a or not b or len(a.split()) != 1 or len(b.split()) != 1 or a == b:
+        return None
+    if a in _PAREN_QUALIFIER_WORDS or b in _PAREN_QUALIFIER_WORDS:
+        return None
+    if a in _NON_PERSON_CONSTRUCT_WORDS or b in _NON_PERSON_CONSTRUCT_WORDS:
+        return None
+    # Single letters / numbers ("(א׳)", "(2)") are sub-area qualifiers
+    if len(b.replace("׳", "")) < 2 or any(ch.isdigit() for ch in a + b):
+        return None
+    joined, reversed_ = f"{a} {b}", f"{b} {a}"
+    if joined in known_names:
+        return joined
+    if reversed_ in known_names:
+        return reversed_
+    if a in given_names:
+        return joined
+    if b in given_names:
+        return reversed_
+    return None
+
+
+def structural_clean(
+    name: Any,
+    given_names: frozenset[str] | set[str] | None = None,
+    known_names: frozenset[str] | set[str] | None = None,
+) -> str:
+    """Safe structural cleanup — no automatic definite-article (ה) stripping.
+
+    A trailing parenthetical is stripped ("יפו (דרום)" → "יפו"), except when ``given_names`` /
+    ``known_names`` are supplied and it completes a bare one-word person name
+    ("זאב (זבוטינסקי)" → "זאב זבוטינסקי"); see :func:`join_parenthetical_name`.
+    """
     if not isinstance(name, str):
         return ""
     s = unify_punctuation(name)
@@ -98,7 +179,12 @@ def structural_clean(name: Any) -> str:
             break
 
     s = re.sub(r"\s+", " ", s).strip()
-    s = re.sub(r"\s*\(.*\)\s*$", "", s).strip()
+    joined = None
+    if given_names is not None or known_names is not None:
+        m = _TRAILING_PAREN_ONE_WORD_RE.match(s)
+        if m:
+            joined = join_parenthetical_name(m["out"], m["in"], given_names or frozenset(), known_names or frozenset())
+    s = joined if joined else re.sub(r"\s*\(.*\)\s*$", "", s).strip()
     s = re.sub(r"\s+סמט(?:ה|ת)?\s*\d+\s*$", "", s).strip()
     s = re.sub(r"\s+סמ[׳.]?\s*\d+\s*$", "", s).strip()
     s = re.sub(r"\s+סמ\d+\s*$", "", s).strip()
@@ -126,6 +212,17 @@ def load_aliases(path: Path) -> dict[str, str]:
         if ck and cv:
             out[ck] = cv
     return out
+
+
+def make_street_cleaner(aliases: dict[str, str]) -> Callable[[Any], str]:
+    """structural_clean() bound to the alias-derived given names / known headings."""
+    given = build_given_names(aliases)
+    known = frozenset(aliases) | frozenset(aliases.values())
+
+    def clean(name: Any) -> str:
+        return structural_clean(name, given_names=given, known_names=known)
+
+    return clean
 
 
 def _choose_canonical_pair(a: str, ca: int, b: str, cb: int, aliases: dict[str, str]) -> str:
