@@ -440,6 +440,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
         <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/data.json" target="_blank" rel="noopener">data.json</a> ·
         <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/examples.json" target="_blank" rel="noopener">examples.json</a> ·
         <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/meta.json" target="_blank" rel="noopener">meta.json</a> ·
+        <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/streets.json" target="_blank" rel="noopener">streets.json</a> ·
         <a href="https://github.com/baobabprince/israel-street-rarity/blob/main/scripts/normalize.py" target="_blank" rel="noopener">scripts/normalize.py</a>
       </p>
     </details>
@@ -1106,7 +1107,7 @@ function renderStreetResult(){
     <div class="modal-stats">
       <div class="modal-stat"><div class="v">${fmt(s.n)}</div><div class="k">יישובים מתוך ${fmt(STREETS.N)}</div></div>
       <div class="modal-stat"><div class="v">${(w*100).toFixed(1)}%</div><div class="k">משקל נדירות (${metricLabel()})</div></div>
-      <div class="modal-stat"><div class="v">${(100-pctMore).toFixed(1)}%</div><div class="k">מהרחובות בארץ נפוצים לפחות כמוהו</div></div>
+      <div class="modal-stat" title="אחוז הרחובות בישראל (רחוב × יישוב) ששמם מופיע ביותר יישובים"><div class="v">${pctMore.toFixed(1)}%</div><div class="k">מהרחובות בארץ נדירים פחות ממנו</div></div>
       <div class="modal-stat"><div class="v">${s.n===1?'—':'#'+fmt(s.rank)}</div><div class="k">${s.n===1?'שם ייחודי':'דירוג שכיחות מתוך '+fmt(STREETS.st.length)}</div></div>
     </div>
     ${altSpellings.length?`<div class="st-sub"><strong style="color:#cbd5e1">כתיב ברשומות המקור:</strong> ${s[1].map(x=>`<span class="place-chip more">${esc(x)}</span>`).join('')}</div>`:''}

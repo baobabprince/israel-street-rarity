@@ -7,7 +7,7 @@ https://baobabprince.github.io/israel-street-rarity/
 
 ## הרצת עדכון נתונים
 1. לכו ל-**Actions** → **Update street rarity data** → **Run workflow**
-2. הסקריפט מוריד את רשימת הרחובות (רשות האוכלוסין) ונתוני הלמ״ס מ-data.gov.il, מנקה ומנרמל, מחשב מדדי נדירות וכותב `data.json`, `data.min.json`, `examples.json` ו־`meta.json`.
+2. הסקריפט מוריד את רשימת הרחובות (רשות האוכלוסין) ונתוני הלמ״ס מ-data.gov.il, מנקה ומנרמל, מחשב מדדי נדירות וכותב `data.json`, `data.min.json`, `examples.json`, `meta.json` ו־`streets.json`.
 3. אחרי שה-Action מסתיים — רעננו את האתר.
 
 ## הרצה מקומית ובדיקות
@@ -24,7 +24,9 @@ pytest
 - `data/mazal_aliases.json` — מפת כינויים מבוקרת ומנורמלת
 - `tests/test_normalize.py` — בדיקות יחידה ובדיקות תקינות מתמטית לנתונים
 - `.github/workflows/update-data.yml` — Action שנתי (1 בינואר) + הפעלה ידנית
-- `index.html` — דשבורד ומפה אינטראקטיבית (Chart.js + Leaflet)
+- `index.html` — דשבורד ומפה אינטראקטיבית (Chart.js + Leaflet), כולל **חיפוש רחוב**: כמה השם נדיר, באילו יישובים הוא מופיע (עם מפה), וכתיב חלופי ברשומות המקור. קישור ישיר: `#street=<שם>`
+- `streets.json` — אינדקס החיפוש המלא: כל שם מנורמל בכל 800+ היישובים במאגר (כולל יישובים קטנים שאינם בדירוג), עם קואורדינטות וכתיב מקורי.
+  מבנה: `loc` = `[code, name, lat, lon, kind, district, ranked]`; `st` = `[norm, [raw_variants], occ]`, כאשר כל פריט ב־`occ` הוא אינדקס ב־`loc`, או `[loc_idx, variant_idx]` כשהכתיב ביישוב אינו `raw_variants[0]`.
 
 ## מתודולוגיה
 - **סינון רעש**: הסרת רשומות `סמל_רחוב = 9000` (שורת ברירת מחדל המכילה את שם היישוב עצמו) והסרת רחובות מספריים בלבד.
