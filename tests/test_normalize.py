@@ -258,3 +258,67 @@ def test_itm_to_wgs84_landmarks():
     # Invalid inputs
     assert itm_to_wgs84(None) is None
     assert itm_to_wgs84("12345") is None
+
+
+def test_build_street_index_structure():
+    import pandas as pd
+    from build_data import build_street_index
+
+    df = pd.DataFrame([
+        # code, locality, raw street, norm
+        {"סמל_ישוב": 1, "שם_ישוב": "בית", "שם_רחוב": "שד הרצל", "norm": "בנימין זאב הרצל"},
+        {"סמל_ישוב": 1, "שם_ישוב": "בית", "שם_רחוב": "הרצל", "norm": "בנימין זאב הרצל"},  # intra-city dup
+        {"סמל_ישוב": 2, "שם_ישוב": "אלף", "שם_רחוב": "הרצל", "norm": "בנימין זאב הרצל"},
+        {"סמל_ישוב": 3, "שם_ישוב": "גימל", "שם_רחוב": "הרצל", "norm": "בנימין זאב הרצל"},
+        {"סמל_ישוב": 3, "שם_ישוב": "גימל", "שם_רחוב": "קהילת  פראג", "norm": "קהילת פראג"},
+    ])
+    loc_meta = {1: {"lat": 32.0, "lon": 34.8, "kind": "עיר", "district": "מרכז"}}
+    idx = build_street_index(df, loc_meta, {1}, 3, "2026-01-01")
+
+    assert idx["N"] == 3
+    names = [row[1] for row in idx["loc"]]
+    assert names == sorted(names)  # localities sorted by name
+    loc_by_code = {row[0]: row for row in idx["loc"]}
+    assert loc_by_code[1][2:] == [32.0, 34.8, "עיר", "מרכז", 1]
+    assert loc_by_code[2][2:] == [None, None, "יישוב", None, 0]
+
+    herzl, prague = idx["st"]  # sorted by n desc
+    assert herzl[0] == "בנימין זאב הרצל"
+    assert herzl[1] == ["הרצל", "שד הרצל"]  # most frequent spelling first
+    assert len(herzl[2]) == 3  # counted once per locality
+    li_beit = names.index("בית")
+    assert [li_beit, 1] in herzl[2]  # first raw spelling in "בית" was variant #1
+    assert prague == ["קהילת פראג", ["קהילת פראג"], [names.index("גימל")]]
+
+
+def test_generated_street_index_integrity():
+    path = ROOT / "streets.json"
+    if not path.exists():
+        return
+    idx = json.loads(path.read_text(encoding="utf-8"))
+    n_loc = len(idx["loc"])
+    assert idx["N"] == n_loc
+    assert len(idx["st"]) > 10000
+    seen = set()
+    prev_n = None
+    for norm, variants, occ in idx["st"]:
+        assert norm not in seen
+        seen.add(norm)
+        assert variants and occ
+        lis = [o if isinstance(o, int) else o[0] for o in occ]
+        assert len(lis) == len(set(lis)), norm
+        assert all(0 <= li < n_loc for li in lis)
+        assert all(isinstance(o, int) or 0 < o[1] < len(variants) for o in occ)
+        assert prev_n is None or len(occ) <= prev_n
+        prev_n = len(occ)
+    data_path = ROOT / "data.json"
+    meta_path = ROOT / "meta.json"
+    if meta_path.exists():
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        if meta.get("updated_at") == idx.get("updated_at"):
+            assert len(idx["st"]) == meta["unique_after_normalize"]
+            assert sum(len(s[2]) for s in idx["st"]) == meta["rows_after_normalize"]
+    if data_path.exists():
+        ranked = {row[0] for row in idx["loc"] if row[6]}
+        data = json.loads(data_path.read_text(encoding="utf-8"))
+        assert ranked == {d["code"] for d in data}

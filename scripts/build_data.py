@@ -81,6 +81,85 @@ def pick_col(df: pd.DataFrame, *predicates) -> str | None:
     return None
 
 
+def build_street_index(
+    df: pd.DataFrame,
+    loc_meta: dict[int, dict],
+    ranked_codes: set[int],
+    corpus_localities: int,
+    updated_at: str,
+) -> dict:
+    """Build the compact full-text street search index written to ``streets.json``.
+
+    ``df`` must contain one row per *cleaned* raw street record (before the per-city dedup)
+    with columns ``סמל_ישוב``, ``שם_ישוב``, ``שם_רחוב`` (original name) and ``norm``.
+
+    Output schema (kept compact because the browser downloads it once):
+      {
+        "version": 1, "updated_at": str, "N": corpus_localities,
+        "loc_fields": [...],                      # column names of each ``loc`` row
+        "loc": [[code, name, lat, lon, kind, district, ranked], ...],
+        "st":  [[norm, [raw_variant, ...], occ], ...]
+      }
+    ``occ`` lists the localities of a name: each item is a ``loc`` index, or ``[loc_idx, variant_idx]``
+    when the raw spelling used in that locality is not ``variants[0]``.
+    ``st`` is sorted by number of localities (desc) and then by name.
+    """
+    sub = df.dropna(subset=["סמל_ישוב"]).copy()
+    sub["סמל_ישוב"] = sub["סמל_ישוב"].astype(int)
+    sub["raw"] = sub["שם_רחוב"].astype(str).str.split().str.join(" ")
+
+    loc_names = sub.groupby("סמל_ישוב")["שם_ישוב"].first().astype(str).str.strip().to_dict()
+    codes = sorted(loc_names, key=lambda c: (loc_names[c], c))
+    loc_idx = {c: i for i, c in enumerate(codes)}
+    loc_rows = []
+    for c in codes:
+        meta = loc_meta.get(c, {})
+        loc_rows.append([
+            c,
+            loc_names[c],
+            meta.get("lat"),
+            meta.get("lon"),
+            meta.get("kind") or "יישוב",
+            meta.get("district"),
+            1 if c in ranked_codes else 0,
+        ])
+
+    # Raw spelling variants per normalized name, most frequent first
+    variant_counts = sub.groupby(["norm", "raw"]).size().reset_index(name="cnt")
+    variant_counts = variant_counts.sort_values(["norm", "cnt", "raw"], ascending=[True, False, True])
+    variants_by_norm: dict[str, list[str]] = {}
+    for norm, raw in zip(variant_counts["norm"], variant_counts["raw"]):
+        variants_by_norm.setdefault(str(norm), []).append(str(raw))
+
+    # First raw spelling per (locality, norm) — matches drop_duplicates(keep="first")
+    first_raw = sub.drop_duplicates(subset=["סמל_ישוב", "norm"], keep="first")
+    occ_by_norm: dict[str, list] = {}
+    for code, norm, raw in zip(first_raw["סמל_ישוב"], first_raw["norm"], first_raw["raw"]):
+        norm = str(norm)
+        variants = variants_by_norm[norm]
+        vi = variants.index(str(raw))
+        li = loc_idx[int(code)]
+        occ_by_norm.setdefault(norm, []).append(li if vi == 0 else [li, vi])
+
+    def _li(item) -> int:
+        return item if isinstance(item, int) else item[0]
+
+    streets = []
+    for norm, occ in occ_by_norm.items():
+        occ.sort(key=_li)
+        streets.append([norm, variants_by_norm[norm], occ])
+    streets.sort(key=lambda s: (-len(s[2]), s[0]))
+
+    return {
+        "version": 1,
+        "updated_at": updated_at,
+        "N": int(corpus_localities),
+        "loc_fields": ["code", "name", "lat", "lon", "kind", "district", "ranked"],
+        "loc": loc_rows,
+        "st": streets,
+    }
+
+
 def main() -> None:
     aliases = load_aliases(ALIASES_PATH)
     print(f"Loaded {len(aliases)} Mazal-style aliases")
@@ -333,9 +412,30 @@ def main() -> None:
     (OUT / "data.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     (OUT / "data.min.json").write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
+    updated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    # 8. Full street search index (every normalized name in every locality, incl. small ones)
+    loc_meta: dict[int, dict] = {}
+    for _, r in cbs.dropna(subset=["סמל יישוב"]).iterrows():
+        latlon = itm_to_wgs84(r["coords"])
+        st = str(r["status"]).strip() if pd.notna(r["status"]) else None
+        loc_meta[int(r["סמל יישוב"])] = {
+            "lat": latlon[0] if latlon else None,
+            "lon": latlon[1] if latlon else None,
+            "kind": kind_from_status(st),
+            "district": str(r["district"]).strip() if pd.notna(r["district"]) else None,
+        }
+    street_index = build_street_index(
+        df, loc_meta, {x["code"] for x in out}, corpus_localities, updated_at
+    )
+    (OUT / "streets.json").write_text(
+        json.dumps(street_index, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
+    )
+    print(f"Wrote street search index: {len(street_index['st'])} names, {len(street_index['loc'])} localities")
+
     sector_counts = dict(Counter(x["sector"] for x in out))
     meta = {
-        "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "updated_at": updated_at,
         "rows_raw": rows_raw,
         "unique_raw": unique_raw,
         "rows_placeholder_9000": rows_placeholder_9000,
