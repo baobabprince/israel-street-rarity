@@ -772,6 +772,8 @@ function initMap(){
   });
 }
 
+function cityRadius(d){return Math.max(5,Math.min(16,3.2+Math.log2(Math.max(1,d.streets||1))*1.15))}
+
 function updateMap(){
   if(!mapObj||!mapLayer) return;
   mapLayer.clearLayers();
@@ -798,7 +800,7 @@ function updateMap(){
   for(const d of ordered){
     const isSel=selectedMapCity&&selectedMapCity.name===d.name;
     const fill=mapColorMode==='rarity'?rarityColor(meanOf(d)):(SECTOR_COLORS[sectorOf(d)]||SECTOR_COLORS['אחר']);
-    const r=Math.max(5,Math.min(16,3.2+Math.log2(Math.max(1,d.streets||1))*1.15));
+    const r=cityRadius(d);
     const marker=L.circleMarker([d.lat,d.lon],{
       radius:isSel?r+2.5:r,
       fillColor:fill,
@@ -1143,14 +1145,27 @@ function drawStreetLayer(){
   const s=STREETS.st[streetSel];
   const locs=streetLocs(s);
   streetMarkers={};
+  // Same map, filtered: towns from the rarity map that lack this street stay as faint context dots
+  const hasCode=new Set(locs.map(l=>l.code));
+  const cityByCode=new Map(DATA.map(d=>[d.code,d]));
+  for(const d of DATA){
+    if(d.lat==null||d.lon==null||hasCode.has(d.code)) continue;
+    L.circleMarker([d.lat,d.lon],{
+      radius:cityRadius(d)*0.7,fillColor:'#64748b',color:'#64748b',weight:.6,opacity:.35,fillOpacity:.14,bubblingMouseEvents:false
+    }).bindTooltip(`<strong>${esc(d.name)}</strong><br><span style="color:#8fa1bc">אין רחוב בשם הזה</span>`,{direction:'top',className:'map-tip'})
+      .addTo(mapLayer);
+  }
   [...locs].sort((a,b)=>a.ranked-b.ranked).forEach(l=>{
     if(l.lat==null||l.lon==null) return;
     const on=l.li===streetFocusLi;
+    const city=cityByCode.get(l.code);
+    const base=city?cityRadius(city):5;   // ranked towns keep their rarity-map size
     const m=L.circleMarker([l.lat,l.lon],{
-      radius:(l.ranked?7.5:5.5)+(on?2:0),
-      fillColor:l.ranked?'#3b82f6':'#94a3b8',
+      radius:base+(on?2.5:0),
+      fillColor:city?'#3b82f6':'#7dd3fc',
       color:on?'#ffffff':'#0b111b',weight:on?3:1.2,opacity:1,fillOpacity:.92,bubblingMouseEvents:false
     });
+    m._baseR=base;
     m.bindTooltip(`<strong>${esc(l.name)}</strong><br>${esc(l.raw)}${l.district?` · ${esc(l.district)}`:''}`,{direction:'top',offset:[0,-6],className:'map-tip'});
     m.on('click',()=>highlightStreetLoc(l.li,true));
     m.addTo(mapLayer);
@@ -1165,8 +1180,9 @@ function drawStreetLayer(){
   const leg=document.getElementById('map-legend');
   const noCoords=locs.filter(l=>l.lat==null||l.lon==null).length;
   if(leg) leg.innerHTML=`
-    <span><span class="legend-dot" style="background:#3b82f6"></span>עיר / מועצה מקומית (בדירוג)
-    &nbsp; <span class="legend-dot" style="background:#94a3b8"></span>יישוב אחר</span>
+    <span><span class="legend-dot" style="background:#3b82f6"></span>עיר / מועצה עם הרחוב
+    &nbsp; <span class="legend-dot" style="background:#7dd3fc"></span>יישוב קטן עם הרחוב
+    &nbsp; <span class="legend-dot" style="background:#64748b;opacity:.45"></span>בלי הרחוב</span>
     ${noCoords?`<span>${fmt(noCoords)} יישובים ללא קואורדינטות לא מוצגים</span>`:'<span>לחצו על נקודה או על יישוב ברשימה</span>'}`;
   renderStreetInspector(locs);
 }
@@ -1233,6 +1249,7 @@ function highlightStreetLoc(li,scrollList){
   Object.entries(streetMarkers).forEach(([k,m])=>{
     const on=Number(k)===li;
     m.setStyle({color:on?'#ffffff':'#0b111b',weight:on?3:1.2});
+    if(m._baseR) m.setRadius(m._baseR+(on?2.5:0));
     if(on) m.bringToFront();
   });
   document.querySelectorAll('#map-inspector .st-loc').forEach(b=>{
