@@ -5,10 +5,10 @@
   "rows_placeholder_9000": 1316,
   "rows_after_numeric_filter": 59320,
   "unique_after_numeric_filter": 29112,
-  "rows_after_normalize": 57685,
-  "rows_intra_city_dups_removed": 1549,
-  "unique_after_normalize": 22815,
-  "pure_exclusive_names": 16714,
+  "rows_after_normalize": 57686,
+  "rows_intra_city_dups_removed": 1548,
+  "unique_after_normalize": 22820,
+  "pure_exclusive_names": 16718,
   "places_in_ranking": 193,
   "sector_counts": {
     "ערבי": 71,
@@ -19,9 +19,10 @@
   "places_dropped_lt_min_streets": 3,
   "mazal_aliases_count": 4191,
   "reversed_pairs_merged": 47,
+  "paren_names_joined": 15,
   "idf_corpus_localities": 817,
   "sector_source": "CBS official דת יישוב (1=יהודי, 2=ערבי כולל דרוזים וצ׳רקסים, 4=מעורב)",
-  "normalize_mode": "structural + dedup per city + reversed person names + cleaned mazal_aliases (no auto definite-article strip)",
+  "normalize_mode": "structural + parenthetical name rejoin + dedup per city + reversed person names + cleaned mazal_aliases (no auto definite-article strip)",
   "top_shared": [
     {
       "name": "הזית",
@@ -157,14 +158,14 @@
       "weight_norm_idf": 0.347
     },
     {
-      "name": "השיטה",
+      "name": "דולב",
       "n_places": 77,
       "weight_log": 0.159,
       "weight_sqrt": 0.114,
       "weight_norm_idf": 0.352
     },
     {
-      "name": "דולב",
+      "name": "השיטה",
       "n_places": 77,
       "weight_log": 0.159,
       "weight_sqrt": 0.114,

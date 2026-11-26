@@ -55,6 +55,8 @@ from normalize import (  # noqa: E402
     _NO_REVERSE_PAIRS,
     is_numeric,
     is_placeholder_street,
+    load_aliases,
+    make_street_cleaner,
     structural_clean,
     unify_punctuation,
 )
@@ -969,7 +971,9 @@ def main() -> None:
     raw = pd.DataFrame(fetch_all_streets(STREETS_ID))
     raw = raw[~raw["סמל_רחוב"].apply(is_placeholder_street)]
     raw_valid = raw[~raw["שם_רחוב"].apply(is_numeric)].copy()
-    raw_valid["clean"] = raw_valid["שם_רחוב"].map(structural_clean)
+    # Same alias-aware cleaner as build_data.py, seeded from the current alias map, so names like
+    # "אהרון (רוזנפלד)" are looked up as "אהרון רוזנפלד" rather than the bare "אהרון".
+    raw_valid["clean"] = raw_valid["שם_רחוב"].map(make_street_cleaner(load_aliases(OUT / "data" / "mazal_aliases.json")))
     raw_valid = raw_valid[raw_valid["clean"].str.len() >= 2]
 
     # Count distinct localities per cleaned street name

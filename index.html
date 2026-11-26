@@ -175,20 +175,26 @@ tbody tr:hover{background:rgba(59,130,246,.1)}
 .street-link:hover{filter:brightness(1.25);box-shadow:0 0 0 1px currentColor}
 .ex-card .en.street-link{display:block;background:none;color:var(--text);padding:0;text-align:right}
 .ex-card .en.street-link:hover{box-shadow:none;color:#93c5fd;text-decoration:underline}
-#street-result{margin-top:1rem}
+#sec-map .map-search{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .9rem;margin-bottom:.75rem}
+#sec-map .map-search .st-search{flex:1 1 380px;max-width:none}
+#sec-map .map-search .st-hints{margin-top:0}
+.opt-kind{display:inline-block;font-size:.68rem;font-weight:600;color:#cbd5e1;background:rgba(148,163,184,.16);border-radius:5px;padding:.05rem .35rem;margin-inline-end:.45rem;vertical-align:1px}
+.opt-kind.street{color:#93c5fd;background:rgba(59,130,246,.18)}
+.street-banner{display:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem .8rem;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.4);border-radius:12px;padding:.6rem .95rem;margin-bottom:.85rem;font-size:.9rem;color:#cbd5e1}
+.street-banner strong{color:var(--text);font-size:1rem}
+#sec-map.street-mode .street-banner{display:flex}
+#sec-map.street-mode .map-controls{display:none}
 .st-head{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .7rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
 .st-head h3{margin:0;font-size:1.35rem;color:var(--text)}
 .st-verdict{margin:.75rem 0 .2rem;padding:.7rem .9rem;border-radius:10px;background:var(--surface2);border-right:3px solid var(--vc,#3b82f6);font-size:.93rem;color:#cbd5e1}
 .st-verdict strong{color:var(--vc,#93c5fd)}
-.st-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,1fr);gap:.95rem;margin-top:.85rem;align-items:stretch}
-#street-map{height:440px;width:100%;border-radius:12px;border:1px solid var(--border);background:#0c1421;z-index:1}
-.st-list{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:.8rem .85rem;height:440px;overflow:auto}
-.st-list h4{font-size:.86rem;color:#cbd5e1;margin-bottom:.45rem}
+.st-list{margin-top:.2rem}
 .st-loc{display:flex;align-items:center;justify-content:space-between;gap:.45rem;width:100%;padding:.42rem .6rem;margin-bottom:.32rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:.85rem;text-align:right;cursor:pointer;transition:border-color .12s,background .12s}
 .st-loc:hover,.st-loc.active{border-color:rgba(59,130,246,.6);background:rgba(59,130,246,.1)}
 .st-loc .raw{color:var(--muted);font-size:.76rem}
 .st-loc .more-btn{color:#93c5fd;font-size:.76rem;white-space:nowrap}
 .st-sub{display:flex;flex-wrap:wrap;gap:.3rem;align-items:center;margin-top:.55rem;font-size:.82rem;color:var(--muted)}
+.st-sub strong{color:#cbd5e1}
 
 /* Methodology / Collapsible Details */
 .method-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:.5rem}
@@ -226,9 +232,8 @@ details[open] summary::after{transform:rotate(180deg)}
 footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
 
 @media(max-width:920px){
-  .grid-2,.map-layout,.st-layout{grid-template-columns:1fr}
-  #street-map{height:380px}
-  .st-list{height:auto;max-height:380px}
+  .grid-2,.map-layout{grid-template-columns:1fr}
+  #sec-map.street-mode .st-list{max-height:420px;overflow:auto}
   #map{height:430px}
   .inspector{height:auto;max-height:460px}
 }
@@ -359,8 +364,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 6.5h16M4 12h16M4 17.5h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
     </button>
     <nav class="nav-links" aria-label="ניווט מהיר">
-      <a href="#sec-street">חיפוש רחוב</a>
-      <a href="#sec-map">מפה</a>
+      <a href="#sec-map">מפה וחיפוש</a>
       <a href="#sec-rank">דירוג</a>
       <a href="#sec-sectors">מגזרים ופיזור</a>
       <a href="#sec-table">טבלה</a>
@@ -386,8 +390,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
     <button type="button" class="nav-drawer-close" id="nav-drawer-close" aria-label="סגירת תפריט">✕</button>
   </div>
   <nav class="nav-drawer-links">
-    <a href="#sec-street">חיפוש רחוב</a>
-    <a href="#sec-map">מפה</a>
+    <a href="#sec-map">מפה וחיפוש</a>
     <a href="#sec-rank">דירוג</a>
     <a href="#sec-sectors">מגזרים ופיזור</a>
     <a href="#sec-table">טבלה</a>
@@ -416,7 +419,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
         <h3>איך מחשבים נדירות?</h3>
         <ol>
           <li>מורידים את רשימת הרחובות מ־<code>data.gov.il</code> ומסירים רשומות פיקטיביות (<code>סמל_רחוב = 9000</code>, שם היישוב עצמו) ורחובות מספריים.</li>
-          <li>מנקים קידומות דרך/שכונה (רחוב, שדרה, סמטה, משעול, מבוא, שכ…), מאחדים שמות אישים הפוכים (<code>בגין מנחם</code> ↔ <code>מנחם בגין</code>) ומפעילים מפת כינויים מבוקרת (ללא הסרת ה׳ הידיעה).</li>
+          <li>מנקים קידומות דרך/שכונה (רחוב, שדרה, סמטה, משעול, מבוא, שכ…) ותוספות בסוגריים (<code>יפו (דרום)</code> → <code>יפו</code>) — אבל שם פרטי שהמשפחה שלו בסוגריים מחובר מחדש (<code>זאב (זבוטינסקי)</code> → <code>זאב ז׳בוטינסקי</code>, ולא עוד רחוב ״זאב״). מאחדים שמות אישים הפוכים (<code>בגין מנחם</code> ↔ <code>מנחם בגין</code>) ומפעילים מפת כינויים מבוקרת (ללא הסרת ה׳ הידיעה).</li>
           <li>מסירים כפילויות בתוך אותו יישוב, סופרים בכמה יישובים בארץ מופיע כל שם (<code>n</code>), ומחשבים ממוצע וסכום משקלים ליישובים עם 5 רחובות ומעלה.</li>
         </ol>
       </div>
@@ -764,13 +767,19 @@ function initMap(){
   mapLayer=L.layerGroup().addTo(mapObj);
   // Tap on map background dismisses the selected city / bottom sheet
   mapObj.on('click',()=>{
+    if(streetSel!=null){if(streetFocusLi!=null) highlightStreetLoc(null,false); return}
     if(selectedMapCity){selectedMapCity=null; updateMap();}
   });
 }
 
+function cityRadius(d){return Math.max(5,Math.min(16,3.2+Math.log2(Math.max(1,d.streets||1))*1.15))}
+
 function updateMap(){
   if(!mapObj||!mapLayer) return;
   mapLayer.clearLayers();
+  const streetMode=streetSel!=null&&!!STREETS;
+  document.getElementById('sec-map')?.classList.toggle('street-mode',streetMode);
+  if(streetMode){drawStreetLayer(); return}
   const visible=filteredMapCities();
 
   const cntEl=document.getElementById('map-count');
@@ -791,7 +800,7 @@ function updateMap(){
   for(const d of ordered){
     const isSel=selectedMapCity&&selectedMapCity.name===d.name;
     const fill=mapColorMode==='rarity'?rarityColor(meanOf(d)):(SECTOR_COLORS[sectorOf(d)]||SECTOR_COLORS['אחר']);
-    const r=Math.max(5,Math.min(16,3.2+Math.log2(Math.max(1,d.streets||1))*1.15));
+    const r=cityRadius(d);
     const marker=L.circleMarker([d.lat,d.lon],{
       radius:isSel?r+2.5:r,
       fillColor:fill,
@@ -824,6 +833,7 @@ function updateMap(){
 
 function focusCityOnMap(d, scrollToMap=true){
   if(!d||d.lat==null||d.lon==null) return;
+  clearStreet({redraw:false,resetView:false});
   if((d.streets||0)<mapMinStreets){
     mapMinStreets=5;
     const sl=document.getElementById('map-min-streets');
@@ -880,8 +890,9 @@ function frameMarkerForSheet(d){
 /* ==================== STREET SEARCH ==================== */
 // streets.json: {N, loc:[[code,name,lat,lon,kind,district,ranked],...], st:[[norm,[variants],occ],...]}
 let STREETS=null, STREETS_PROMISE=null, STREETS_ERR=false;
-let streetSel=null;            // index into STREETS.st of the displayed street
-let streetMap=null, streetLayer=null, streetMarkers={};
+let streetSel=null;            // index into STREETS.st -> the map is in "street mode"
+let streetFocusLi=null;        // highlighted locality (STREETS.loc index) in street mode
+let streetMarkers={};
 let stSuggestions=[], stActive=-1;
 
 const NIQQUD_RE=/[\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7]/g;
@@ -991,33 +1002,58 @@ function nBadge(n){
     :`<span class="badge ${n>40?'common':n>10?'council':'city'}">${fmt(n)} יישובים</span>`;
 }
 
+/* ---------- Unified search box (streets + towns) above the map ---------- */
+function citySearchKeyOf(d){return d._sk||(d._sk=searchKey(d.name))}
+function findCities(q,limit=3){
+  const key=searchKey(q);
+  if(!key) return [];
+  const out=[];
+  for(const d of DATA){
+    const k=citySearchKeyOf(d);
+    const sc=k===key?0:k.startsWith(key)?1:k.includes(' '+key)?2:k.includes(key)?3:9;
+    if(sc<9) out.push({type:'city',d,sc});
+  }
+  out.sort((a,b)=>a.sc-b.sc||(b.d.population||0)-(a.d.population||0));
+  return out.slice(0,limit);
+}
+
 function renderSuggestions(q){
   const box=document.getElementById('st-suggest');
   const combo=document.getElementById('st-combo');
   if(!box) return;
   if(!q.trim()){box.classList.remove('open'); combo.setAttribute('aria-expanded','false'); stSuggestions=[]; return}
-  if(!STREETS){
-    box.innerHTML=`<div class="st-empty">${STREETS_ERR?'קובץ החיפוש streets.json לא נמצא — הריצו את ה-Action לעדכון הנתונים.':'טוען את מאגר הרחובות…'}</div>`;
-    box.classList.add('open'); combo.setAttribute('aria-expanded','true');
-    return;
-  }
-  const {items,loose,total}=findStreets(q,12);
-  stSuggestions=items; stActive=items.length?0:-1;
-  if(!items.length){
-    box.innerHTML=`<div class="st-empty">לא נמצא רחוב בשם „${esc(q.trim())}״ באף יישוב בישראל.</div>`;
-  }else{
-    box.innerHTML=(loose?'<div class="st-empty">אין התאמה מדויקת — התאמות משוערות (כתיב מלא/חסר):</div>':'')
-      +items.map((it,k)=>{
-        const s=STREETS.st[it.i];
-        const viaKey=s.keys[it.via];
-        const showVia=!loose&&viaKey&&viaKey!==searchKey(s[0]);
-        return `<div class="st-opt${k===stActive?' active':''}" role="option" data-k="${k}" id="st-opt-${k}">
-          <span>${loose?esc(s[0]):hl(s[0],q)}${showVia?`<span class="via">(נכתב גם „${hl(viaKey,q)}״)</span>`:''}</span>
-          ${nBadge(s.n)}
-        </div>`;
-      }).join('')
-      +(total>items.length?`<div class="st-empty">ועוד ${fmt(total-items.length)} התאמות — המשיכו להקליד לצמצום</div>`:'');
-  }
+  const cities=findCities(q,3);
+  let streets={items:[],loose:false,total:0};
+  if(STREETS) streets=findStreets(q,10);
+  // An exact town-name match goes first; otherwise streets lead (the main use of the box)
+  const cityFirst=cities.length&&cities[0].sc===0;
+  const streetItems=streets.items.map(it=>({type:'street',...it}));
+  stSuggestions=cityFirst?[...cities,...streetItems]:[...streetItems,...cities];
+  stActive=stSuggestions.length?0:-1;
+
+  const row=(it,k)=>{
+    if(it.type==='city'){
+      const d=it.d;
+      return `<div class="st-opt${k===stActive?' active':''}" role="option" data-k="${k}">
+        <span><span class="opt-kind">יישוב</span>${hl(d.name,q)}</span>
+        <span class="muted" style="font-size:.78rem">${meanOf(d).toFixed(1)}% נדירות · ${fmt(d.streets)} רח׳</span>
+      </div>`;
+    }
+    const s=STREETS.st[it.i];
+    const viaKey=s.keys[it.via];
+    const showVia=!streets.loose&&viaKey&&viaKey!==searchKey(s[0]);
+    return `<div class="st-opt${k===stActive?' active':''}" role="option" data-k="${k}">
+      <span><span class="opt-kind street">רחוב</span>${streets.loose?esc(s[0]):hl(s[0],q)}${showVia?`<span class="via">(נכתב גם „${hl(viaKey,q)}״)</span>`:''}</span>
+      ${nBadge(s.n)}
+    </div>`;
+  };
+  let html='';
+  if(!STREETS) html+=`<div class="st-empty">${STREETS_ERR?'קובץ החיפוש streets.json לא נמצא — הריצו את ה-Action לעדכון הנתונים.':'טוען את מאגר הרחובות…'}</div>`;
+  else if(streets.loose&&streets.items.length) html+='<div class="st-empty">אין רחוב בהתאמה מדויקת — התאמות משוערות (כתיב מלא/חסר):</div>';
+  html+=stSuggestions.map(row).join('');
+  if(STREETS&&streets.total>streets.items.length) html+=`<div class="st-empty">ועוד ${fmt(streets.total-streets.items.length)} רחובות — המשיכו להקליד לצמצום</div>`;
+  if(STREETS&&!stSuggestions.length) html=`<div class="st-empty">לא נמצא רחוב או יישוב בשם „${esc(q.trim())}״.</div>`;
+  box.innerHTML=html;
   box.classList.add('open'); combo.setAttribute('aria-expanded','true');
 }
 
@@ -1034,34 +1070,64 @@ function setActiveSuggestion(k){
   opts[stActive].scrollIntoView({block:'nearest'});
 }
 
+function pickSuggestion(it){
+  if(!it) return;
+  if(it.type==='city'){
+    closeSuggestions();
+    document.getElementById('st-q').value='';
+    focusCityOnMap(it.d,false);   // also leaves street mode
+  }else selectStreet(it.i);
+}
+
+/* ---------- Street mode of the (single) map ---------- */
 async function selectStreetByName(name,{scroll=false}={}){
-  try{await loadStreetIndex()}catch(e){renderStreetResult(); return}
+  try{await loadStreetIndex()}catch(e){updateMap(); return}
   let i=STREETS.byNorm.get(name);
   if(i==null){const r=findStreets(name,1); if(r.items.length) i=r.items[0].i}
-  if(i==null){
-    document.getElementById('street-result').innerHTML=`<p class="muted">לא נמצא רחוב בשם „${esc(name)}״.</p>`;
-    return;
-  }
+  if(i==null) return;
   selectStreet(i,{scroll});
 }
 
 function selectStreet(i,{scroll=false}={}){
   streetSel=i;
+  streetFocusLi=null;
+  selectedMapCity=null;
   const s=STREETS.st[i];
   const inp=document.getElementById('st-q');
-  if(inp) inp.value=s[0];
+  if(inp){inp.value=s[0]; inp.blur()}
   closeSuggestions();
   history.replaceState(null,'','#street='+encodeURIComponent(s[0]));
-  renderStreetResult();
-  if(scroll) document.getElementById('sec-street')?.scrollIntoView({behavior:'smooth',block:'start'});
+  updateMap();
+  fitStreetBounds();
+  if(scroll){
+    const isMobile=window.matchMedia('(max-width:640px)').matches;
+    document.getElementById(isMobile?'map':'sec-map')?.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}
+
+function clearStreet({redraw=true,resetView=true}={}){
+  if(streetSel==null) return;
+  streetSel=null; streetFocusLi=null;
+  const inp=document.getElementById('st-q');
+  if(inp) inp.value='';
+  if(location.hash.startsWith('#street=')) history.replaceState(null,'',location.pathname+location.search);
+  if(resetView&&mapObj) mapObj.setView([31.65,34.95],8);
+  if(redraw) updateMap();
+}
+
+function fitStreetBounds(){
+  if(!mapObj||streetSel==null) return;
+  const pts=streetLocs(STREETS.st[streetSel]).filter(l=>l.lat!=null&&l.lon!=null).map(l=>[l.lat,l.lon]);
+  if(pts.length===1) mapObj.flyTo(pts[0],11,{duration:.6});
+  else if(pts.length) mapObj.flyToBounds(pts,{padding:[30,30],maxZoom:11,duration:.6});
 }
 
 function streetVerdict(s){
   const n=s.n, N=STREETS.N;
   const pctMore=STREETS.totalPairs?(s.pairsAbove/STREETS.totalPairs*100):0;
-  if(n===1) return {c:'#10b981',html:`<strong>ייחודי לגמרי</strong> — אין עוד יישוב בישראל עם רחוב בשם הזה. הוא אחד מ־${fmt(STREETS.uniqueNames)} שמות ייחודיים, ו־${pctMore.toFixed(1)}% מהרחובות בארץ נושאים שם נפוץ יותר.`};
-  if(n<=3) return {c:'#38bdf8',html:`<strong>נדיר מאוד</strong> — מופיע ב־${fmt(n)} יישובים בלבד מתוך ${fmt(N)}. ${pctMore.toFixed(1)}% מהרחובות בארץ נושאים שם נפוץ יותר.`};
-  if(n<=10) return {c:'#38bdf8',html:`<strong>נדיר</strong> — מופיע ב־${fmt(n)} יישובים מתוך ${fmt(N)}. ${pctMore.toFixed(1)}% מהרחובות בארץ נושאים שם נפוץ יותר.`};
+  if(n===1) return {c:'#10b981',html:`<strong>ייחודי לגמרי</strong> — אין עוד יישוב בישראל עם רחוב בשם הזה. אחד מ־${fmt(STREETS.uniqueNames)} שמות ייחודיים; ${pctMore.toFixed(1)}% מהרחובות בארץ נושאים שם נפוץ יותר.`};
+  if(n<=3) return {c:'#38bdf8',html:`<strong>נדיר מאוד</strong> — מופיע ב־${fmt(n)} יישובים בלבד מתוך ${fmt(N)}; ${pctMore.toFixed(1)}% מהרחובות בארץ נושאים שם נפוץ יותר.`};
+  if(n<=10) return {c:'#38bdf8',html:`<strong>נדיר</strong> — מופיע ב־${fmt(n)} יישובים מתוך ${fmt(N)}; ${pctMore.toFixed(1)}% מהרחובות בארץ נושאים שם נפוץ יותר.`};
   if(n<=40) return {c:'#f59e0b',html:`<strong>נפוץ למדי</strong> — מופיע ב־${fmt(n)} יישובים (${(n/N*100).toFixed(1)}% מהיישובים). מקום #${fmt(s.rank)} ברשימת השמות הנפוצים בישראל.`};
   return {c:'#ef4444',html:`<strong>נפוץ מאוד</strong> — מופיע ב־${fmt(n)} יישובים (${(n/N*100).toFixed(1)}% מהיישובים). מקום #${fmt(s.rank)} ברשימת השמות הנפוצים ביותר בישראל.`};
 }
@@ -1074,61 +1140,98 @@ function streetLocs(s){
   });
 }
 
-function renderStreetResult(){
-  const el=document.getElementById('street-result');
-  if(!el) return;
-  if(STREETS_ERR){
-    el.innerHTML='<p class="error">קובץ החיפוש streets.json עדיין לא נוצר — הריצו את ה-Action לעדכון הנתונים.</p>';
-    return;
+// Called from updateMap() while a street is selected: draws only the street's towns
+function drawStreetLayer(){
+  const s=STREETS.st[streetSel];
+  const locs=streetLocs(s);
+  streetMarkers={};
+  // Same map, filtered: towns from the rarity map that lack this street stay as faint context dots
+  const hasCode=new Set(locs.map(l=>l.code));
+  const cityByCode=new Map(DATA.map(d=>[d.code,d]));
+  for(const d of DATA){
+    if(d.lat==null||d.lon==null||hasCode.has(d.code)) continue;
+    L.circleMarker([d.lat,d.lon],{
+      radius:cityRadius(d)*0.7,fillColor:'#64748b',color:'#64748b',weight:.6,opacity:.35,fillOpacity:.14,bubblingMouseEvents:false
+    }).bindTooltip(`<strong>${esc(d.name)}</strong><br><span style="color:#8fa1bc">אין רחוב בשם הזה</span>`,{direction:'top',className:'map-tip'})
+      .addTo(mapLayer);
   }
-  if(streetSel==null||!STREETS){el.innerHTML=''; return}
+  [...locs].sort((a,b)=>a.ranked-b.ranked).forEach(l=>{
+    if(l.lat==null||l.lon==null) return;
+    const on=l.li===streetFocusLi;
+    const city=cityByCode.get(l.code);
+    const base=city?cityRadius(city):5;   // ranked towns keep their rarity-map size
+    const m=L.circleMarker([l.lat,l.lon],{
+      radius:base+(on?2.5:0),
+      fillColor:city?'#3b82f6':'#7dd3fc',
+      color:on?'#ffffff':'#0b111b',weight:on?3:1.2,opacity:1,fillOpacity:.92,bubblingMouseEvents:false
+    });
+    m._baseR=base;
+    m.bindTooltip(`<strong>${esc(l.name)}</strong><br>${esc(l.raw)}${l.district?` · ${esc(l.district)}`:''}`,{direction:'top',offset:[0,-6],className:'map-tip'});
+    m.on('click',()=>highlightStreetLoc(l.li,true));
+    m.addTo(mapLayer);
+    streetMarkers[l.li]=m;
+  });
+  if(streetFocusLi!=null&&streetMarkers[streetFocusLi]) streetMarkers[streetFocusLi].bringToFront();
+
+  const cntEl=document.getElementById('map-count');
+  if(cntEl) cntEl.textContent=s.n===1?'רחוב · יישוב אחד':`רחוב · ${fmt(s.n)} יישובים`;
+  const banner=document.getElementById('street-banner-text');
+  if(banner) banner.innerHTML=`מציג את הרחוב <strong>${esc(s[0])}</strong> · ${s.n===1?'ביישוב אחד בלבד':`ב־${fmt(s.n)} יישובים`}`;
+  const leg=document.getElementById('map-legend');
+  const noCoords=locs.filter(l=>l.lat==null||l.lon==null).length;
+  if(leg) leg.innerHTML=`
+    <span><span class="legend-dot" style="background:#3b82f6"></span>עיר / מועצה עם הרחוב
+    &nbsp; <span class="legend-dot" style="background:#7dd3fc"></span>יישוב קטן עם הרחוב
+    &nbsp; <span class="legend-dot" style="background:#64748b;opacity:.45"></span>בלי הרחוב</span>
+    ${noCoords?`<span>${fmt(noCoords)} יישובים ללא קואורדינטות לא מוצגים</span>`:'<span>לחצו על נקודה או על יישוב ברשימה</span>'}`;
+  renderStreetInspector(locs);
+}
+
+function renderStreetInspector(locs){
+  const el=document.getElementById('map-inspector');
+  if(!el) return;
+  el.classList.remove('sheet-open');
   const s=STREETS.st[streetSel];
   const v=streetVerdict(s);
-  const locs=streetLocs(s);
   const w=streetWeight(s.n);
   const pctMore=STREETS.totalPairs?(s.pairsAbove/STREETS.totalPairs*100):0;
+  const normKey=searchKey(s[0]);
   const districts={};
   locs.forEach(l=>{const d=l.district||'לא ידוע'; districts[d]=(districts[d]||0)+1});
   const distChips=Object.entries(districts).sort((a,b)=>b[1]-a[1])
     .map(([d,c])=>`<span class="place-chip more">${esc(d)} · ${fmt(c)}</span>`).join('');
-  const normKey=searchKey(s[0]);
-  const altSpellings=s[1].filter(x=>x!==s[0]);
   const ranked=locs.filter(l=>l.ranked).length;
-  const noCoords=locs.filter(l=>l.lat==null||l.lon==null).length;
   const sortedLocs=[...locs].sort((a,b)=>(b.ranked-a.ranked)||a.name.localeCompare(b.name,'he'));
-
   el.innerHTML=`
-    <div class="st-head">
-      <h3>${esc(s[0])}</h3>
-      ${nBadge(s.n)}
-      <span class="badge other">משקל נדירות ${(w*100).toFixed(1)}% (${metricLabel()})</span>
-    </div>
-    <div class="st-verdict" style="--vc:${v.c}">${v.html}</div>
-    <div class="modal-stats">
-      <div class="modal-stat"><div class="v">${fmt(s.n)}</div><div class="k">יישובים מתוך ${fmt(STREETS.N)}</div></div>
-      <div class="modal-stat"><div class="v">${(w*100).toFixed(1)}%</div><div class="k">משקל נדירות (${metricLabel()})</div></div>
-      <div class="modal-stat" title="אחוז הרחובות בישראל (רחוב × יישוב) ששמם מופיע ביותר יישובים"><div class="v">${pctMore.toFixed(1)}%</div><div class="k">מהרחובות בארץ נדירים פחות ממנו</div></div>
-      <div class="modal-stat"><div class="v">${s.n===1?'—':'#'+fmt(s.rank)}</div><div class="k">${s.n===1?'שם ייחודי':'דירוג שכיחות מתוך '+fmt(STREETS.st.length)}</div></div>
-    </div>
-    ${altSpellings.length?`<div class="st-sub"><strong style="color:#cbd5e1">כתיב ברשומות המקור:</strong> ${s[1].map(x=>`<span class="place-chip more">${esc(x)}</span>`).join('')}</div>`:''}
-    <div class="st-sub"><strong style="color:#cbd5e1">לפי מחוז:</strong> ${distChips}</div>
-    <div class="st-layout">
-      <div class="map-stage">
-        <div id="street-map"></div>
-        <div class="map-legend">
-          <span><span class="legend-dot" style="background:#3b82f6"></span>עיר / מועצה מקומית (בדירוג) &nbsp; <span class="legend-dot" style="background:#94a3b8"></span>יישוב אחר</span>
-          ${noCoords?`<span>${fmt(noCoords)} יישובים ללא קואורדינטות לא מוצגים</span>`:''}
+    <div class="insp-head">
+      <div>
+        <h3>${esc(s[0])}</h3>
+        <div style="margin-top:.3rem;display:flex;flex-wrap:wrap;gap:.3rem">
+          ${nBadge(s.n)}
+          <span class="badge other">משקל ${(w*100).toFixed(1)}% (${metricLabel()})</span>
         </div>
       </div>
+      <button type="button" class="btn subtle" id="insp-street-close" title="חזרה למפת הנדירות">✕</button>
+    </div>
+    <div class="st-verdict" style="--vc:${v.c}">${v.html}</div>
+    <div class="insp-stats">
+      <div class="insp-stat"><div class="v">${fmt(s.n)}</div><div class="k">יישובים מתוך ${fmt(STREETS.N)}</div></div>
+      <div class="insp-stat"><div class="v">${(w*100).toFixed(1)}%</div><div class="k">משקל נדירות (${metricLabel()})</div></div>
+      <div class="insp-stat" title="אחוז הרחובות בישראל (רחוב × יישוב) ששמם מופיע ביותר יישובים"><div class="v">${pctMore.toFixed(1)}%</div><div class="k">מהרחובות בארץ נדירים פחות</div></div>
+      <div class="insp-stat"><div class="v">${s.n===1?'—':'#'+fmt(s.rank)}</div><div class="k">${s.n===1?'שם ייחודי':'בשכיחות מתוך '+fmt(STREETS.st.length)}</div></div>
+    </div>
+    ${s[1].some(x=>x!==s[0])?`<div class="st-sub"><strong>כתיב במקור:</strong> ${s[1].map(x=>`<span class="place-chip more">${esc(x)}</span>`).join('')}</div>`:''}
+    <div class="st-sub"><strong>לפי מחוז:</strong> ${distChips}</div>
+    <div class="insp-block">
+      <h4>${s.n===1?'היישוב היחיד':'כל '+fmt(s.n)+' היישובים'}${ranked&&ranked<s.n?` <span class="muted">(${fmt(ranked)} בדירוג)</span>`:''}</h4>
       <div class="st-list">
-        <h4>${s.n===1?'היישוב היחיד':'כל '+fmt(s.n)+' היישובים'}${ranked&&ranked<s.n?` <span class="muted">(${fmt(ranked)} ערים ומועצות בדירוג)</span>`:''}</h4>
-        ${sortedLocs.map(l=>`<button type="button" class="st-loc" data-li="${l.li}">
+        ${sortedLocs.map(l=>`<button type="button" class="st-loc${l.li===streetFocusLi?' active':''}" data-li="${l.li}">
           <span><strong>${esc(l.name)}</strong>${searchKey(l.raw)!==normKey?` <span class="raw">„${esc(l.raw)}״</span>`:''}<br><span class="raw">${esc(l.kind||'')}${l.district?' · מחוז '+esc(l.district):''}</span></span>
           ${l.ranked?`<span class="more-btn" data-city="${l.code}">פרטי יישוב ›</span>`:''}
         </button>`).join('')}
       </div>
     </div>`;
-
+  document.getElementById('insp-street-close').onclick=()=>clearStreet();
   el.querySelectorAll('.st-loc').forEach(btn=>{
     btn.onclick=e=>{
       const cityBtn=e.target.closest('[data-city]');
@@ -1139,52 +1242,17 @@ function renderStreetResult(){
       focusStreetLoc(Number(btn.dataset.li));
     };
   });
-  drawStreetMap(locs);
-}
-
-function drawStreetMap(locs){
-  if(typeof L==='undefined') return;
-  const el=document.getElementById('street-map');
-  if(!el) return;
-  if(streetMap){streetMap.remove(); streetMap=null}
-  streetMap=L.map(el,{center:[31.65,34.95],zoom:7,minZoom:6,maxZoom:15});
-  L.layerGroup([
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles &copy; Esri',maxZoom:16}),
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{maxZoom:16})
-  ]).addTo(streetMap);
-  streetLayer=L.layerGroup().addTo(streetMap);
-  streetMarkers={};
-  const pts=[];
-  // non-ranked first so ranked cities are drawn on top
-  [...locs].sort((a,b)=>a.ranked-b.ranked).forEach(l=>{
-    if(l.lat==null||l.lon==null) return;
-    const m=L.circleMarker([l.lat,l.lon],{
-      radius:l.ranked?7:5.5,
-      fillColor:l.ranked?'#3b82f6':'#94a3b8',
-      color:'#0b111b',weight:1.2,opacity:1,fillOpacity:.9,bubblingMouseEvents:false
-    });
-    m.bindTooltip(`<strong>${esc(l.name)}</strong><br>${esc(l.raw)}${l.district?` · ${esc(l.district)}`:''}`,{direction:'top',offset:[0,-6],className:'map-tip'});
-    m.on('click',()=>highlightStreetLoc(l.li,true));
-    m.addTo(streetLayer);
-    streetMarkers[l.li]=m;
-    pts.push([l.lat,l.lon]);
-  });
-  setTimeout(()=>{
-    if(!streetMap) return;
-    streetMap.invalidateSize();
-    if(pts.length===1) streetMap.setView(pts[0],11);
-    else if(pts.length) streetMap.fitBounds(pts,{padding:[28,28],maxZoom:11});
-    else streetMap.setView([31.65,34.95],7);
-  },30);
 }
 
 function highlightStreetLoc(li,scrollList){
+  streetFocusLi=li;
   Object.entries(streetMarkers).forEach(([k,m])=>{
     const on=Number(k)===li;
     m.setStyle({color:on?'#ffffff':'#0b111b',weight:on?3:1.2});
+    if(m._baseR) m.setRadius(m._baseR+(on?2.5:0));
     if(on) m.bringToFront();
   });
-  document.querySelectorAll('#street-result .st-loc').forEach(b=>{
+  document.querySelectorAll('#map-inspector .st-loc').forEach(b=>{
     const on=Number(b.dataset.li)===li;
     b.classList.toggle('active',on);
     if(on&&scrollList) b.scrollIntoView({block:'nearest',behavior:'smooth'});
@@ -1194,10 +1262,10 @@ function highlightStreetLoc(li,scrollList){
 function focusStreetLoc(li){
   highlightStreetLoc(li,false);
   const m=streetMarkers[li];
-  if(m&&streetMap){
-    streetMap.flyTo(m.getLatLng(),Math.max(streetMap.getZoom(),11),{duration:.6});
+  if(m&&mapObj){
+    mapObj.flyTo(m.getLatLng(),Math.max(mapObj.getZoom(),11),{duration:.6});
     setTimeout(()=>m.openTooltip(),650);
-    if(window.matchMedia('(max-width:920px)').matches) document.getElementById('street-map')?.scrollIntoView({behavior:'smooth',block:'center'});
+    if(window.matchMedia('(max-width:920px)').matches) document.getElementById('map')?.scrollIntoView({behavior:'smooth',block:'start'});
   }
 }
 
@@ -1210,7 +1278,7 @@ function renderStreetHints(){
   const uniq=ex.filter(e=>e.unique), mid=ex.filter(e=>!e.unique&&e.n_places<=15);
   if(mid.length) pool.push(mid[Math.floor(Math.random()*mid.length)].name);
   if(uniq.length) pool.push(uniq[Math.floor(Math.random()*uniq.length)].name);
-  el.innerHTML=pool.length?'נסו: '+pool.map(n=>`<button type="button" class="place-chip street-link" data-street="${esc(n)}">${esc(n)}</button>`).join(''):'';
+  el.innerHTML=pool.length?'<span>נסו:</span>'+pool.map(n=>`<button type="button" class="place-chip street-link" data-street="${esc(n)}">${esc(n)}</button>`).join(''):'';
 }
 
 function initStreetSearch(){
@@ -1218,7 +1286,7 @@ function initStreetSearch(){
   if(!inp) return;
   renderStreetHints();
   const warm=()=>loadStreetIndex().then(()=>{if(inp.value&&document.activeElement===inp) renderSuggestions(inp.value)}).catch(()=>{if(document.activeElement===inp) renderSuggestions(inp.value)});
-  inp.addEventListener('focus',()=>{warm(); if(inp.value&&streetSel==null) renderSuggestions(inp.value)});
+  inp.addEventListener('focus',()=>{warm(); if(inp.value) {inp.select(); renderSuggestions(inp.value)}});
   inp.addEventListener('input',()=>{warm(); renderSuggestions(inp.value)});
   inp.addEventListener('keydown',e=>{
     const open=document.getElementById('st-suggest').classList.contains('open');
@@ -1226,23 +1294,25 @@ function initStreetSearch(){
     else if(e.key==='ArrowUp'){e.preventDefault(); if(open) setActiveSuggestion(stActive-1)}
     else if(e.key==='Enter'){
       e.preventDefault();
-      if(STREETS&&!stSuggestions.length&&inp.value.trim()) renderSuggestions(inp.value);
-      const it=stSuggestions[Math.max(0,stActive)];
-      if(it) selectStreet(it.i);
+      if(!stSuggestions.length&&inp.value.trim()) renderSuggestions(inp.value);
+      pickSuggestion(stSuggestions[Math.max(0,stActive)]);
     }
-    else if(e.key==='Escape'){closeSuggestions(); e.stopPropagation()}
+    else if(e.key==='Escape'){
+      e.stopPropagation();
+      if(open) closeSuggestions(); else if(streetSel!=null) clearStreet();
+    }
   });
   document.getElementById('st-suggest').addEventListener('mousedown',e=>{
     const opt=e.target.closest('.st-opt');
     if(!opt) return;
     e.preventDefault();
-    const it=stSuggestions[Number(opt.dataset.k)];
-    if(it) selectStreet(it.i);
+    pickSuggestion(stSuggestions[Number(opt.dataset.k)]);
   });
   document.addEventListener('click',e=>{
     if(!e.target.closest('#st-combo')) closeSuggestions();
   });
-  // Any element with data-street (city chips, examples, hints) opens the street search
+  document.getElementById('street-banner-close').onclick=()=>clearStreet();
+  // Any element with data-street (city chips, examples, hints, top-shared chart) opens street mode
   document.addEventListener('click',e=>{
     const t=e.target.closest('[data-street]');
     if(!t) return;
@@ -1253,10 +1323,8 @@ function initStreetSearch(){
   // Deep link: #street=<name>
   const h=location.hash;
   if(h.startsWith('#street=')){
-    const name=decodeURIComponent(h.slice(8));
-    selectStreetByName(name,{scroll:true});
+    selectStreetByName(decodeURIComponent(h.slice(8)),{scroll:true});
   }else{
-    // Prefetch in the background once the dashboard has rendered
     setTimeout(()=>loadStreetIndex().catch(()=>{}),1200);
   }
 }
@@ -1537,7 +1605,6 @@ function setMetric(m){
   updateMap();
   renderTable();
   renderExamples();
-  if(streetSel!=null) renderStreetResult();
 }
 
 async function main(){
@@ -1579,28 +1646,28 @@ async function main(){
   app.innerHTML=`
   <div class="cards" id="summary-cards"></div>
 
-  <section id="sec-street">
-    <h2><span>חיפוש רחוב — כמה הוא נדיר ואיפה עוד הוא נמצא?</span></h2>
-    <p class="muted">הקלידו שם רחוב (למשל <em>הרצל</em>, <em>ז׳בוטינסקי</em> או <em>קהילת פראג</em>). החיפוש רץ על כל ${META.idf_corpus_localities?fmt(META.idf_corpus_localities):''} היישובים במאגר — כולל קיבוצים, מושבים ויישובים קטנים — ומזהה גם כתיב חלופי (״שד׳ הרצל״, ״בגין מנחם״).</p>
-    <div class="st-search" role="combobox" aria-haspopup="listbox" aria-owns="st-suggest" aria-expanded="false" id="st-combo">
-      <span class="st-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="2" fill="none"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </span>
-      <input id="st-q" type="search" autocomplete="off" spellcheck="false" placeholder="חיפוש שם רחוב…" aria-autocomplete="list" aria-controls="st-suggest" aria-label="חיפוש שם רחוב">
-      <div class="st-suggest" id="st-suggest" role="listbox"></div>
-    </div>
-    <div class="st-hints" id="st-hints"></div>
-    <div id="street-result"></div>
-  </section>
-
   <section id="sec-map">
     <h2>
-      <span>מפה אינטראקטיבית של ישראל</span>
+      <span>מפה וחיפוש</span>
       <div style="display:flex;flex-wrap:wrap;gap:.45rem;align-items:center">
         <span class="pill" id="map-count"></span>
         <button type="button" class="btn subtle" id="map-reset">איפוס תצוגה</button>
       </div>
     </h2>
+    <div class="map-search">
+      <div class="st-search" role="combobox" aria-haspopup="listbox" aria-owns="st-suggest" aria-expanded="false" id="st-combo">
+        <span class="st-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="2" fill="none"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <input id="st-q" type="search" autocomplete="off" spellcheck="false" placeholder="חיפוש רחוב או יישוב — כמה הוא נדיר ואיפה עוד הוא נמצא?" aria-autocomplete="list" aria-controls="st-suggest" aria-label="חיפוש רחוב או יישוב">
+        <div class="st-suggest" id="st-suggest" role="listbox"></div>
+      </div>
+      <div class="st-hints" id="st-hints"></div>
+    </div>
+    <div class="street-banner" id="street-banner">
+      <span id="street-banner-text"></span>
+      <button type="button" class="btn subtle" id="street-banner-close">✕ חזרה למפת הנדירות</button>
+    </div>
     <div class="map-controls" id="map-controls">
       <button type="button" class="map-controls-head" id="map-filter-toggle" aria-expanded="false" aria-controls="map-controls-body">
         <span>סינון מפה</span>
@@ -1756,6 +1823,7 @@ async function main(){
     };
   });
   document.getElementById('map-reset').onclick=()=>{
+    clearStreet({redraw:false,resetView:false});
     mapMinStreets=5;
     mapSector='all';
     selectedMapCity=null;
@@ -1847,7 +1915,8 @@ async function main(){
   document.addEventListener('keydown',e=>{
     if(e.key!=='Escape') return;
     if(navDrawer.classList.contains('open')) setNavDrawer(false);
-    closeCityModal();
+    if(document.getElementById('city-modal').classList.contains('open')){closeCityModal(); return}
+    if(streetSel!=null){clearStreet(); return}
     if(selectedMapCity){selectedMapCity=null; updateMap();}
   });
 
