@@ -461,6 +461,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem}
         <div id="modal-badges" style="margin-top:.35rem;display:flex;flex-wrap:wrap;gap:.35rem"></div>
       </div>
       <div class="modal-actions">
+        <button type="button" class="btn subtle" id="modal-share" style="display:none" title="העתקת קישור ישיר לתוצאה זו">🔗 קישור ישיר</button>
         <button type="button" class="btn" id="modal-locate" style="display:none">הצג במפה</button>
         <button type="button" class="modal-close" id="modal-close" aria-label="סגור">✕</button>
       </div>
@@ -487,6 +488,16 @@ function esc(s){
   return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 function fmt(n){return n==null||isNaN(n)?'—':Number(n).toLocaleString('he-IL')}
+// Copy plain text to the clipboard with a legacy fallback (works on file:// and http)
+async function copyText(t){
+  try{ if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(t); return true} }catch(e){}
+  try{
+    const ta=document.createElement('textarea');
+    ta.value=t; ta.style.position='fixed'; ta.style.top='0'; ta.style.left='0'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    const ok=document.execCommand('copy'); document.body.removeChild(ta); return ok;
+  }catch(e){ return false }
+}
 function median(arr){
   if(!arr.length) return 0;
   const s=[...arr].sort((a,b)=>a-b);
@@ -588,6 +599,9 @@ function buildStreetBlocksHtml(d){
 
 function openCityModal(d){
   modalCity=d;
+  // Keep the address bar in sync so the settlement result is directly linkable (#city=<name>)
+  const cityHash='#city='+encodeURIComponent(d.name);
+  if(location.hash!==cityHash) history.replaceState(null,'',cityHash);
   const rank=cityRank(d.name);
   document.getElementById('modal-title').textContent=d.name;
   document.getElementById('modal-badges').innerHTML=`
@@ -599,6 +613,8 @@ function openCityModal(d){
 
   const locBtn=document.getElementById('modal-locate');
   if(locBtn) locBtn.style.display=(d.lat!=null&&d.lon!=null&&mapObj)?'inline-block':'none';
+  const shareBtn=document.getElementById('modal-share');
+  if(shareBtn) shareBtn.style.display='inline-block';
 
   const {uniqChips, commonChips}=buildStreetBlocksHtml(d);
   document.getElementById('modal-body').innerHTML=`
@@ -624,6 +640,34 @@ function openCityModal(d){
 
 function closeCityModal(){
   document.getElementById('city-modal').classList.remove('open');
+  if(location.hash.startsWith('#city=')) history.replaceState(null,'',location.pathname+location.search);
+}
+
+// Open a settlement result by name (used by deep links and the share button)
+function selectCityByName(name,{scroll=false}={}){
+  if(!name) return null;
+  const q=searchKey(name), lq=looseKey(name);
+  let d=DATA.find(x=>searchKey(x.name)===q)
+      || DATA.find(x=>looseKey(x.name)===lq)
+      || DATA.find(x=>x.name===name);
+  if(!d) return null;
+  openCityModal(d);
+  if(scroll){
+    document.getElementById('city-modal')?.scrollIntoView?.({behavior:'smooth',block:'center'});
+  }
+  return d;
+}
+
+// Apply a direct-result link (#street=<name> / #city=<name>) — used on load and on hashchange
+function applyDeepLink(){
+  const h=location.hash;
+  if(h.startsWith('#street=')){
+    if(document.getElementById('city-modal')?.classList.contains('open')) closeCityModal();
+    selectStreetByName(decodeURIComponent(h.slice(8)),{scroll:true});
+  }else if(h.startsWith('#city=')){
+    if(streetSel!=null) clearStreet({resetView:false});
+    selectCityByName(decodeURIComponent(h.slice(6)),{scroll:true});
+  }
 }
 
 /* ==================== INTERACTIVE MAP ==================== */
@@ -1321,11 +1365,10 @@ function initStreetSearch(){
     if(document.getElementById('city-modal').classList.contains('open')) closeCityModal();
     selectStreetByName(t.dataset.street,{scroll:true});
   });
-  // Deep link: #street=<name>
-  const h=location.hash;
-  if(h.startsWith('#street=')){
-    selectStreetByName(decodeURIComponent(h.slice(8)),{scroll:true});
-  }else{
+  // Deep links: #street=<name> (street result) and #city=<name> (settlement result)
+  applyDeepLink();
+  window.addEventListener('hashchange', applyDeepLink);
+  if(!location.hash.startsWith('#street=') && !location.hash.startsWith('#city=')){
     setTimeout(()=>loadStreetIndex().catch(()=>{}),1200);
   }
 }
@@ -1891,6 +1934,15 @@ async function main(){
     const c=modalCity;
     closeCityModal();
     if(c) focusCityOnMap(c, true);
+  };
+  const shareBtn=document.getElementById('modal-share');
+  if(shareBtn) shareBtn.onclick=async()=>{
+    const c=modalCity; if(!c) return;
+    const url=location.origin+location.pathname+'#city='+encodeURIComponent(c.name);
+    const ok=await copyText(url);
+    const prev=shareBtn.textContent;
+    shareBtn.textContent=ok?'הועתק! ✓':'העתקה נכשלה';
+    setTimeout(()=>{ shareBtn.textContent=prev; },1600);
   };
   document.getElementById('modal-close').onclick=closeCityModal;
   document.getElementById('city-modal').onclick=e=>{if(e.target.id==='city-modal') closeCityModal()};
